@@ -20,7 +20,7 @@ export default function Dashboard() {
           <div className="flex-1 flex flex-col">
             <header className="flex h-16 shrink-0 items-center gap-4 border-b border-gray-200 bg-white px-6">
               <div className="flex-1">
-                <h2 className="text-xl font-semibold text-gray-900">Dashboard Overview</h2>
+                <h2 className="text-xl font-semibold text-gray-900">Portal</h2>
               </div>
             </header>
             <div className="flex-1 overflow-auto">
