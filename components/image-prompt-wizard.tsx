@@ -105,7 +105,7 @@ export function ImagePromptWizard() {
                       <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Describe the main focus of your image (e.g., "a majestic lion", "modern architecture")</p>
+                      <p>Describe the main focus of your image (e.g., &quot;a majestic lion&quot;, &quot;modern architecture&quot;)</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -187,7 +187,7 @@ export function ImagePromptWizard() {
                 <SelectContent>
                   <SelectItem value="close-up">Close-up</SelectItem>
                   <SelectItem value="wide shot">Wide Shot</SelectItem>
-                  <SelectItem value="bird's eye view">Bird's Eye View</SelectItem>
+                  <SelectItem value="bird's eye view">Birds Eye View</SelectItem>
                   <SelectItem value="low angle">Low Angle</SelectItem>
                   <SelectItem value="rule of thirds">Rule of Thirds</SelectItem>
                 </SelectContent>
@@ -292,23 +292,21 @@ export function ImagePromptWizard() {
         {steps.map((step) => (
           <div
             key={step.id}
-            className={`p-4 rounded-lg border transition-all ${
-              currentStep === step.id
+            className={`p-4 rounded-lg border transition-all ${currentStep === step.id
                 ? "border-blue-300 bg-blue-50"
                 : currentStep > step.id
                   ? "border-green-300 bg-green-50"
                   : "border-gray-200 bg-white"
-            }`}
+              }`}
           >
             <div className="flex items-center gap-3 mb-2">
               <div
-                className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                  currentStep === step.id
+                className={`w-8 h-8 rounded-lg flex items-center justify-center ${currentStep === step.id
                     ? "bg-blue-500 text-white"
                     : currentStep > step.id
                       ? "bg-green-500 text-white"
                       : "bg-gray-200 text-gray-600"
-                }`}
+                  }`}
               >
                 <step.icon className="w-4 h-4" />
               </div>
