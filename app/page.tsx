@@ -12,10 +12,6 @@ export default function Dashboard() {
     setActiveSection(section)
   }
 
-  const handleHomeClick = () => {
-    setActiveSection("overview")
-  }
-
   return (
     <div className="min-h-screen bg-gray-50 flex">
       <AppSidebar activeSection={activeSection} setActiveSection={setActiveSection} />
