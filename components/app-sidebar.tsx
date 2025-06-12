@@ -68,7 +68,7 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
           </div>
           <div>
             <h1 className="text-lg font-semibold text-gray-900">BotanicCanvas</h1>
-            <p className="text-xs text-gray-500">AI Portal</p>
+            <p className="text-xs text-gray-500">Portal</p>
           </div>
         </div>
       </div>
@@ -84,8 +84,8 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
                   key={item.id}
                   onClick={item.action}
                   className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${activeSection === "overview"
-                      ? "bg-blue-50 text-blue-700 font-medium"
-                      : "hover:bg-gray-100 text-gray-700"
+                    ? "bg-blue-50 text-blue-700 font-medium"
+                    : "hover:bg-gray-100 text-gray-700"
                     }`}
                 >
                   <item.icon className="w-4 h-4" />
@@ -117,8 +117,8 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
                         key={subItem.id}
                         onClick={() => setActiveSection(subItem.id)}
                         className={`w-full text-left p-2 rounded-md transition-colors ${activeSection === subItem.id
-                            ? "bg-blue-50 text-blue-700 font-medium"
-                            : "hover:bg-gray-50 text-gray-600"
+                          ? "bg-blue-50 text-blue-700 font-medium"
+                          : "hover:bg-gray-50 text-gray-600"
                           }`}
                       >
                         {subItem.title}

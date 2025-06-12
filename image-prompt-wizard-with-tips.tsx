@@ -164,7 +164,7 @@ export function ImagePromptWizard() {
                     <TooltipContent className="max-w-sm">
                       <p>
                         Describe the main focus of your image. Being specific helps the AI understand exactly what you
-                        want. Consider naming people in your image to prevent AI-face issues where faces appear
+                        want. Consider naming people in your image to prevent "AI-face" issues where faces appear
                         deformed.
                       </p>
                     </TooltipContent>
@@ -189,9 +189,9 @@ export function ImagePromptWizard() {
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
-                        Add specific details about textures, objects, or elements. Using vivid adjectives like rough,
-                        silky, or glossy helps capture the essence of different surfaces. Including an action (e.g.,
-                        a person gazing at the sunset) adds dynamism.
+                        Add specific details about textures, objects, or elements. Using vivid adjectives like "rough,"
+                        "silky," or "glossy" helps capture the essence of different surfaces. Including an action (e.g.,
+                        "a person gazing at the sunset") adds dynamism.
                       </p>
                     </TooltipContent>
                   </Tooltip>
@@ -338,7 +338,7 @@ export function ImagePromptWizard() {
                     <TooltipContent className="max-w-sm">
                       <p>
                         Emojis and expressive elements can add personality and emphasis to your prompts. They make
-                        descriptions more engaging and help the AI understand the emotional tone you are aiming for.
+                        descriptions more engaging and help the AI understand the emotional tone you're aiming for.
                       </p>
                     </TooltipContent>
                   </Tooltip>
@@ -397,9 +397,9 @@ export function ImagePromptWizard() {
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
-                        The perspective of an image can transform its impact. Different angles like birds-eye view,
+                        The perspective of an image can transform its impact. Different angles like bird's-eye view,
                         frog perspective, or helicopter view create varied effects suited to different compositions. The
-                        right composition guides the viewers eye through the image.
+                        right composition guides the viewer's eye through the image.
                       </p>
                     </TooltipContent>
                   </Tooltip>
@@ -415,7 +415,7 @@ export function ImagePromptWizard() {
                 <SelectContent>
                   <SelectItem value="close-up">Close-up</SelectItem>
                   <SelectItem value="wide shot">Wide Shot</SelectItem>
-                  <SelectItem value="bird's eye view">Birds Eye View</SelectItem>
+                  <SelectItem value="bird's eye view">Bird's Eye View</SelectItem>
                   <SelectItem value="low angle">Low Angle</SelectItem>
                   <SelectItem value="rule of thirds">Rule of Thirds</SelectItem>
                 </SelectContent>
@@ -805,21 +805,23 @@ export function ImagePromptWizard() {
         {steps.map((step) => (
           <div
             key={step.id}
-            className={`p-4 rounded-lg border transition-all ${currentStep === step.id
-              ? "border-blue-300 bg-blue-50"
-              : currentStep > step.id
-                ? "border-green-300 bg-green-50"
-                : "border-gray-200 bg-white"
-              }`}
+            className={`p-4 rounded-lg border transition-all ${
+              currentStep === step.id
+                ? "border-blue-300 bg-blue-50"
+                : currentStep > step.id
+                  ? "border-green-300 bg-green-50"
+                  : "border-gray-200 bg-white"
+            }`}
           >
             <div className="flex items-center gap-3 mb-2">
               <div
-                className={`w-8 h-8 rounded-lg flex items-center justify-center ${currentStep === step.id
-                  ? "bg-blue-500 text-white"
-                  : currentStep > step.id
-                    ? "bg-green-500 text-white"
-                    : "bg-gray-200 text-gray-600"
-                  }`}
+                className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                  currentStep === step.id
+                    ? "bg-blue-500 text-white"
+                    : currentStep > step.id
+                      ? "bg-green-500 text-white"
+                      : "bg-gray-200 text-gray-600"
+                }`}
               >
                 <step.icon className="w-4 h-4" />
               </div>

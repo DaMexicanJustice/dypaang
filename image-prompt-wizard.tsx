@@ -31,7 +31,6 @@ import {
   Sliders,
   Hash,
   Scissors,
-  BookOpen,
 } from "lucide-react"
 
 function TipCard({ icon, title, tips }: { icon: React.ReactNode; title: string; tips: string[] }) {
@@ -141,18 +140,6 @@ export function ImagePromptWizard() {
       case 1:
         return (
           <div className="space-y-6">
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-100">
-              <div className="flex items-center mb-2">
-                <BookOpen className="w-5 h-5 text-blue-600 mr-2" />
-                <h3 className="font-medium text-blue-800">Prompt Engineering Guide: Subject & Concept</h3>
-              </div>
-              <p className="text-sm text-blue-700 mb-2">
-                The foundation of your image prompt starts with a clear subject. Specificity and natural language make
-                AI interactions more intuitive. Being precise while keeping prompts conversational ensures the AI
-                interprets your requests effectively.
-              </p>
-            </div>
-
             <div className="space-y-3">
               <Label htmlFor="subject" className="text-gray-700 font-medium flex items-center">
                 Main Subject
@@ -164,7 +151,7 @@ export function ImagePromptWizard() {
                     <TooltipContent className="max-w-sm">
                       <p>
                         Describe the main focus of your image. Being specific helps the AI understand exactly what you
-                        want. Consider naming people in your image to prevent AI-face issues where faces appear
+                        want. Consider naming people in your image to prevent "AI-face" issues where faces appear
                         deformed.
                       </p>
                     </TooltipContent>
@@ -189,9 +176,9 @@ export function ImagePromptWizard() {
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
-                        Add specific details about textures, objects, or elements. Using vivid adjectives like rough,
-                        silky, or glossy helps capture the essence of different surfaces. Including an action (e.g.,
-                        a person gazing at the sunset) adds dynamism.
+                        Add specific details about textures, objects, or elements. Using vivid adjectives like "rough,"
+                        "silky," or "glossy" helps capture the essence of different surfaces. Including an action (e.g.,
+                        "a person gazing at the sunset") adds dynamism.
                       </p>
                     </TooltipContent>
                   </Tooltip>
@@ -249,18 +236,6 @@ export function ImagePromptWizard() {
       case 2:
         return (
           <div className="space-y-6">
-            <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg border border-purple-100">
-              <div className="flex items-center mb-2">
-                <BookOpen className="w-5 h-5 text-purple-600 mr-2" />
-                <h3 className="font-medium text-purple-800">Prompt Engineering Guide: Style & Aesthetics</h3>
-              </div>
-              <p className="text-sm text-purple-700 mb-2">
-                Style fusion is a powerful technique that blends multiple artistic influences to create unique
-                compositions. The mood sets the emotional tone, while expressive elements like emojis add personality
-                and emphasis to your prompts.
-              </p>
-            </div>
-
             <div className="space-y-3">
               <Label className="text-gray-700 font-medium flex items-center">
                 Art Style
@@ -338,7 +313,7 @@ export function ImagePromptWizard() {
                     <TooltipContent className="max-w-sm">
                       <p>
                         Emojis and expressive elements can add personality and emphasis to your prompts. They make
-                        descriptions more engaging and help the AI understand the emotional tone you are aiming for.
+                        descriptions more engaging and help the AI understand the emotional tone you're aiming for.
                       </p>
                     </TooltipContent>
                   </Tooltip>
@@ -375,18 +350,6 @@ export function ImagePromptWizard() {
       case 3:
         return (
           <div className="space-y-6">
-            <div className="bg-gradient-to-r from-green-50 to-teal-50 p-4 rounded-lg border border-green-100">
-              <div className="flex items-center mb-2">
-                <BookOpen className="w-5 h-5 text-green-600 mr-2" />
-                <h3 className="font-medium text-green-800">Prompt Engineering Guide: Technical Details</h3>
-              </div>
-              <p className="text-sm text-green-700 mb-2">
-                Camera techniques and lighting dramatically affect your image. Different angles and lenses create varied
-                effects, while lighting sets the mood and creates depth. Technical parameters like seed values and
-                weight control ensure consistency and balance AI creativity.
-              </p>
-            </div>
-
             <div className="space-y-3">
               <Label className="text-gray-700 font-medium flex items-center">
                 Composition
@@ -397,9 +360,9 @@ export function ImagePromptWizard() {
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
-                        The perspective of an image can transform its impact. Different angles like birds-eye view,
+                        The perspective of an image can transform its impact. Different angles like bird's-eye view,
                         frog perspective, or helicopter view create varied effects suited to different compositions. The
-                        right composition guides the viewers eye through the image.
+                        right composition guides the viewer's eye through the image.
                       </p>
                     </TooltipContent>
                   </Tooltip>
@@ -415,7 +378,7 @@ export function ImagePromptWizard() {
                 <SelectContent>
                   <SelectItem value="close-up">Close-up</SelectItem>
                   <SelectItem value="wide shot">Wide Shot</SelectItem>
-                  <SelectItem value="bird's eye view">Birds Eye View</SelectItem>
+                  <SelectItem value="bird's eye view">Bird's Eye View</SelectItem>
                   <SelectItem value="low angle">Low Angle</SelectItem>
                   <SelectItem value="rule of thirds">Rule of Thirds</SelectItem>
                 </SelectContent>
@@ -584,18 +547,6 @@ export function ImagePromptWizard() {
         const generatedPrompt = generatePrompt()
         return (
           <div className="space-y-6">
-            <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-4 rounded-lg border border-amber-100">
-              <div className="flex items-center mb-2">
-                <BookOpen className="w-5 h-5 text-amber-600 mr-2" />
-                <h3 className="font-medium text-amber-800">Prompt Engineering Guide: Master Prompt</h3>
-              </div>
-              <p className="text-sm text-amber-700 mb-2">
-                A master prompt defines the overarching scene, characters, colors, and mood while integrating all key
-                principles. Using structured dividers (–) helps separate important elements within the prompt, improving
-                clarity and guiding AI interpretation effectively.
-              </p>
-            </div>
-
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <Label className="text-gray-700 font-medium">Generated Prompt</Label>
@@ -805,21 +756,23 @@ export function ImagePromptWizard() {
         {steps.map((step) => (
           <div
             key={step.id}
-            className={`p-4 rounded-lg border transition-all ${currentStep === step.id
-              ? "border-blue-300 bg-blue-50"
-              : currentStep > step.id
-                ? "border-green-300 bg-green-50"
-                : "border-gray-200 bg-white"
-              }`}
+            className={`p-4 rounded-lg border transition-all ${
+              currentStep === step.id
+                ? "border-blue-300 bg-blue-50"
+                : currentStep > step.id
+                  ? "border-green-300 bg-green-50"
+                  : "border-gray-200 bg-white"
+            }`}
           >
             <div className="flex items-center gap-3 mb-2">
               <div
-                className={`w-8 h-8 rounded-lg flex items-center justify-center ${currentStep === step.id
-                  ? "bg-blue-500 text-white"
-                  : currentStep > step.id
-                    ? "bg-green-500 text-white"
-                    : "bg-gray-200 text-gray-600"
-                  }`}
+                className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                  currentStep === step.id
+                    ? "bg-blue-500 text-white"
+                    : currentStep > step.id
+                      ? "bg-green-500 text-white"
+                      : "bg-gray-200 text-gray-600"
+                }`}
               >
                 <step.icon className="w-4 h-4" />
               </div>
