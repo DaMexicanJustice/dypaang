@@ -111,7 +111,7 @@ export function OverviewSection({ onNavigate }: OverviewSectionProps) {
           <CardContent className="p-6">
             <div className="flex items-center justify-center gap-2 mb-3">
               <Home className="w-5 h-5 text-blue-600" />
-              <h3 className="text-lg font-semibold text-gray-900">Welcome to BotanicCanvas</h3>
+              <h3 className="text-lg font-semibold text-gray-900">Welcome to your BotanicCanvas</h3>
             </div>
             <p className="text-gray-600">
               Your portal for creating perfect prompts. Navigate through our tools using the sidebar menu,
