@@ -59,12 +59,11 @@ export function OverviewSection({ onNavigate }: OverviewSectionProps) {
           </div>
         </div>
         <h1 className="text-4xl font-bold text-[#05092E]">
-          Craft Perfect Prompts for
+          Craft Optimal Prompts for
           <span className="block text-[#F32D4F]">Generative AI Models</span>
         </h1>
         <p className="text-lg text-[#05092E] max-w-2xl mx-auto">
-          Transform your ideas into precise, effective prompts that unlock the full potential of AI image and video
-          generation.
+          Transform your vision into vivid prompts—unlock AI-powered visuals that inspire, captivate, and <span className="font-bold">sell</span> the experience.
         </p>
       </div>
 

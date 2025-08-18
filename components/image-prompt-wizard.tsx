@@ -24,8 +24,6 @@ import {
   Palette,
   Camera,
   Lightbulb,
-  Minus,
-  Plus,
   Layers,
   Zap,
   Aperture,
@@ -33,12 +31,14 @@ import {
   Hash,
   Scissors,
   BookOpen,
+  MapPin,
 } from "lucide-react"
 
 const INITIAL_FORM_DATA = {
   subject: "",
   style: "",
   mood: "",
+  location: "",
   composition: "",
   lighting: "",
   details: "",
@@ -52,6 +52,7 @@ const INITIAL_FORM_DATA = {
 function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { icon: React.ReactNode; title: string; tips: string[]; helpImageSrc?: string; helpTitle?: string; helpText?: string }) {
   const [isHelpOpen, setIsHelpOpen] = useState(false)
   const canShowHelp = Boolean(helpImageSrc || helpText)
+  const displayHelpText = (helpText || "").replace(/\\n/g, "\n")
 
   return (
     <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-4">
@@ -62,7 +63,7 @@ function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { ico
         </h3>
         {canShowHelp && (
           <Button size="sm" variant="outline" className="h-7 px-2 text-xs" onClick={() => setIsHelpOpen(true)}>
-            More help
+            Example
           </Button>
         )}
       </div>
@@ -80,7 +81,7 @@ function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { ico
           <div className="absolute inset-0 bg-black/50" onClick={() => setIsHelpOpen(false)} />
           <div className="relative z-10 w-full max-w-lg mx-4 bg-white rounded-lg border shadow-lg">
             <div className="p-4 border-b flex items-center justify-between">
-              <div className="text-sm font-medium text-gray-900">{helpTitle || title}</div>
+              <div className="text-sm font-bold text-gray-900">{helpTitle || title}</div>
               <Button size="sm" variant="ghost" onClick={() => setIsHelpOpen(false)}>Close</Button>
             </div>
             <div className="p-4 space-y-3">
@@ -88,7 +89,7 @@ function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { ico
                 <Image src={helpImageSrc} alt={helpTitle || title} width={960} height={540} className="w-full h-auto rounded-md border" />
               )}
               {helpText && (
-                <p className="text-sm text-gray-700 leading-relaxed">{helpText}</p>
+                <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{displayHelpText}</p>
               )}
             </div>
           </div>
@@ -122,26 +123,26 @@ export function ImagePromptWizard() {
   const steps = [
     {
       id: 1,
-      title: "Subject & Concept",
-      description: "Define what you want to create",
+      title: "Subject & Details",
+      description: "Define the subject(s) of your image and supporting details.",
       icon: ImageIcon,
     },
     {
       id: 2,
-      title: "Style & Aesthetics",
-      description: "Choose visual style and mood",
+      title: "Mood & Environment",
+      description: "Choose a mood expression and the environment for the subject(s)",
       icon: Palette,
     },
     {
       id: 3,
-      title: "Technical Details",
+      title: "Composition of the image",
       description: "Set composition and lighting",
       icon: Camera,
     },
     {
       id: 4,
       title: "Review & Generate",
-      description: "Finalize your prompt",
+      description: "Prompt review",
       icon: Lightbulb,
     },
   ]
@@ -165,6 +166,7 @@ export function ImagePromptWizard() {
     if (formData.subject) parts.push(formData.subject)
     if (formData.style) parts.push(`– ${formData.style} style`)
     if (formData.mood) parts.push(`– ${formData.mood} mood`)
+    if (formData.location) parts.push(`– Location: ${formData.location}`)
     if (formData.composition) parts.push(`– ${formData.composition}`)
     if (formData.lighting) parts.push(`– ${formData.lighting} lighting`)
     if (formData.details) parts.push(`– ${formData.details}`)
@@ -191,12 +193,12 @@ export function ImagePromptWizard() {
             <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-100">
               <div className="flex items-center mb-2">
                 <BookOpen className="w-5 h-5 text-blue-600 mr-2" />
-                <h3 className="font-medium text-blue-800">Prompt Engineering Guide: Subject & Concept</h3>
+                <h3 className="font-medium text-blue-800">Prompt Engineering Guide: Subject & Details</h3>
               </div>
               <p className="text-sm text-blue-700 mb-2">
-                The foundation of your image prompt starts with a clear subject. Specificity and natural language make
-                AI interactions more intuitive. Being precise while keeping prompts conversational ensures the AI
-                interprets your requests effectively.
+                The foundation of your image prompt starts with a clear subject. A subject is either a person, several people or objects.
+                Once you understand your subject(s) - you will define additional details to describe them.
+                Be precise and succinct when describing the appearance of subjects and remember to describe both people (clothes, age) as well as objects (in hand, on table, around them etc.)
               </p>
             </div>
 
@@ -210,7 +212,7 @@ export function ImagePromptWizard() {
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
-                        Describe the main focus of your image. Being specific helps the AI understand exactly what you
+                        Describe the subject(s) that will be the main focus of your image. Being specific helps the AI understand exactly what you
                         want. Consider naming people in your image to prevent AI-face issues where faces appear
                         deformed.
                       </p>
@@ -220,7 +222,7 @@ export function ImagePromptWizard() {
               </Label>
               <Input
                 id="subject"
-                placeholder="e.g., a serene mountain landscape"
+                placeholder="e.g., James, Jacob and Emma in a hall venue celebrating. Sitting by their table."
                 value={formData.subject}
                 onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
               />
@@ -284,14 +286,21 @@ export function ImagePromptWizard() {
               title="Subject & Concept Tips"
               tips={[
                 "Be specific about your main subject to help the AI understand exactly what you want",
-                "Name people in your image (e.g., 'John Smith looking at mountains') to prevent 'AI-face' issues",
+                "Name people in your image (e.g., 'Jacob and Emma.') to prevent 'AI-face' issues",
                 "Use vivid adjectives for textures like 'rough', 'silky', or 'glossy'",
-                "Include an action (e.g., 'a person gazing at the sunset') to add dynamism",
-                "Use negative prompts to exclude unwanted elements and refine the AI's output",
+                "Include an action (e.g., 'Jacob giving a toast while smiling at Emma') to add dynamism",
+                "Consider a negative prompt if it is clear what you do not want.",
+                "Use () to emphasize or group ideas.",
               ]}
-              helpImageSrc="/neobotanik.png"
-              helpTitle="How to define a clear subject"
-              helpText="Start with one unmistakable main subject (person, object, or scene) and add 2–3 vivid qualifiers and a simple action. Example: ‘An explorer in a red jacket standing on a mossy cliff at sunrise’. Avoid stacking multiple subjects in one prompt; instead, generate separately or use scene composition terms to keep focus."
+              helpImageSrc="/example.png"
+              helpTitle="How to prompt to create a similar image as the example:"
+              helpText="First we define the subjects of the image. Instead of simply typing people, we assign our subjects a name.
+              For example, James, Emma, Léa, Jacob and William sitting by their table celebrating. There is champagne and champagne glasses on a table. \n\n
+              Next we define additional details: (table is wooden with a reflective surface) (subjects are toasting) 
+              (festive decorations hanging from the ceiling) (brick wall background) (the table is in a room with a window) 
+              (urban setting) (Subjects dressed in tailored suits, cocktail dresses) \n\n
+              Next we define what we don't want (the negative prompt): medieval or fantasy elements. Nature and rural elements. 
+              (blurry, distorted faces, extra limbs) (A lot of subjects) --Don't keep the image too crowded"
             />
           </div>
         )
@@ -302,18 +311,18 @@ export function ImagePromptWizard() {
             <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg border border-purple-100">
               <div className="flex items-center mb-2">
                 <BookOpen className="w-5 h-5 text-purple-600 mr-2" />
-                <h3 className="font-medium text-purple-800">Prompt Engineering Guide: Style & Aesthetics</h3>
+                <h3 className="font-medium text-purple-800">Prompt Engineering Guide: Mood & Environment</h3>
               </div>
               <p className="text-sm text-purple-700 mb-2">
-                Style fusion is a powerful technique that blends multiple artistic influences to create unique
-                compositions. The mood sets the emotional tone, while expressive elements like emojis add personality
-                and emphasis to your prompts.
+                Once the subjects and core details of an image are defined, adding location, venue type, mood, and expressive elements helps shape the narrative and emotional tone of the scene.
+                These contextual layers guide the AI to place the subjects in a setting that feels intentional and immersive—whether it iss a vibrant rooftop kick-off or a serene indoor depot.
+                Expressive cues like emojis or mood tags further refine the atmosphere, ensuring the final image reflects not just what’s in it, but how it should feel to the viewer.
               </p>
             </div>
 
             <div className="space-y-3">
               <Label className="text-gray-700 font-medium flex items-center">
-                Art Style
+                Venue Type
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -321,9 +330,7 @@ export function ImagePromptWizard() {
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
-                        Style fusion is a powerful technique. Blending multiple artistic styles can create unique and
-                        visually striking compositions. Consider combining different influences for a distinctive
-                        aesthetic that stands out.
+                        Guide the placement of the subjects by specifying a venue type. Are they outdoors? Are they indoors? What can the guests expect.
                       </p>
                     </TooltipContent>
                   </Tooltip>
@@ -331,15 +338,12 @@ export function ImagePromptWizard() {
               </Label>
               <Select value={formData.style} onValueChange={(value) => setFormData({ ...formData, style: value })}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Choose an art style" />
+                  <SelectValue placeholder="Choose an environment" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="photorealistic">Photorealistic</SelectItem>
-                  <SelectItem value="digital art">Digital Art</SelectItem>
-                  <SelectItem value="oil painting">Oil Painting</SelectItem>
-                  <SelectItem value="watercolor">Watercolor</SelectItem>
-                  <SelectItem value="minimalist">Minimalist</SelectItem>
-                  <SelectItem value="surreal">Surreal</SelectItem>
+                  <SelectItem value="outdoor">Outdoor</SelectItem>
+                  <SelectItem value="indoor">Indoor</SelectItem>
+                  <SelectItem value="openair">Hybrid / Open-air</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -356,7 +360,7 @@ export function ImagePromptWizard() {
                       <p>
                         The mood sets the emotional tone of your image. It works together with lighting to create the
                         overall atmosphere. Consider how different moods (serene, dramatic, mysterious) will affect how
-                        viewers perceive your image.
+                        clients perceive the experience.
                       </p>
                     </TooltipContent>
                   </Tooltip>
@@ -367,12 +371,52 @@ export function ImagePromptWizard() {
                   <SelectValue placeholder="Select mood" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="serene">Serene</SelectItem>
-                  <SelectItem value="dramatic">Dramatic</SelectItem>
-                  <SelectItem value="mysterious">Mysterious</SelectItem>
                   <SelectItem value="vibrant">Vibrant</SelectItem>
-                  <SelectItem value="melancholic">Melancholic</SelectItem>
-                  <SelectItem value="energetic">Energetic</SelectItem>
+                  <SelectItem value="welcoming">Welcoming</SelectItem>
+                  <SelectItem value="playful">Playful</SelectItem>
+                  <SelectItem value="casual">Casual</SelectItem>
+                  <SelectItem value="dynamic">Dynamic</SelectItem>
+                  <SelectItem value="intimate">Intimate</SelectItem>
+                  <SelectItem value="stylish">Stylish</SelectItem>
+                  <SelectItem value="modern">Modern</SelectItem>
+                  <SelectItem value="cozy">Cozy</SelectItem>
+                  <SelectItem value="sophisticated">Sophisticated</SelectItem>
+                  <SelectItem value="eclectic">Eclectic</SelectItem>
+                  <SelectItem value="relaxed">Relaxed</SelectItem>
+                  <SelectItem value="lush">Lush</SelectItem>
+                  <SelectItem value="serene">Serene</SelectItem>
+                  <SelectItem value="rustic">Rustic</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-3">
+              <Label className="text-gray-700 font-medium flex items-center">
+                Location
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-sm">
+                      <p>
+                        Specify where the scene takes place. Consider the locales emotion invoked. Perhaps a big part of the experience
+                        is the emotions invoked by being by the canal and fresh sea air.
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </Label>
+              <Select value={formData.location} onValueChange={(value) => setFormData({ ...formData, location: value })}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select location" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="tableside">Table side</SelectItem>
+                  <SelectItem value="by water">By water</SelectItem>
+                  <SelectItem value="on grassy field">On grassy field</SelectItem>
+                  <SelectItem value="in urban environment">In urban environment</SelectItem>
+                  <SelectItem value="industrial indoor">Industrial indoor</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -410,17 +454,18 @@ export function ImagePromptWizard() {
 
             <TipCard
               icon={<Palette className="w-4 h-4" />}
-              title="Style & Aesthetics Tips"
+              title="Mood & Environment Tips"
               tips={[
-                "Blend multiple artistic styles for unique and visually striking compositions",
+                "Blend multiple location specifying keywords to get the atmosphere just right.",
                 "Consider how different moods (serene, dramatic, mysterious) affect perception",
                 "Emojis can add personality and emphasis to your prompts",
-                "Match the style and mood to complement your subject matter",
-                "Experiment with contrasting styles for creative results",
+                "Use () to emphasize or group ideas.",
               ]}
-              helpImageSrc="/dypaang.png"
+              helpImageSrc="/example.png"
               helpTitle="Dial in the look and feel"
-              helpText="Pick a primary style (e.g., ‘photorealistic’) and optionally add a secondary influence (e.g., ‘with watercolor accents’). Pair it with a mood and color language: ‘serene, pastel palette, soft gradients’. For consistent branding, reuse the same style+mood phrasing across prompts."
+              helpText="For this step we define the venue type, mood, location and emoji expression for the example image generated. \n\n
+              We choose (indoor, table side) for our venue type. \n We choose (modern) for the atmosphere. \n
+              🥂 😄 👔 ✨ 🤝 💬 🍾 🕯️"
             />
           </div>
         )
@@ -435,8 +480,7 @@ export function ImagePromptWizard() {
               </div>
               <p className="text-sm text-green-700 mb-2">
                 Camera techniques and lighting dramatically affect your image. Different angles and lenses create varied
-                effects, while lighting sets the mood and creates depth. Technical parameters like seed values and
-                weight control ensure consistency and balance AI creativity.
+                effects, while lighting sets the mood and creates depth.
               </p>
             </div>
 
@@ -467,10 +511,11 @@ export function ImagePromptWizard() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="close-up">Close-up</SelectItem>
-                  <SelectItem value="wide shot">Wide Shot</SelectItem>
+                  <SelectItem value="wide shot">Wide Angle Shot</SelectItem>
                   <SelectItem value="bird's eye view">Birds Eye View</SelectItem>
                   <SelectItem value="low angle">Low Angle</SelectItem>
                   <SelectItem value="rule of thirds">Rule of Thirds</SelectItem>
+                  <SelectItem value="Drone">Drone Camera</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -501,11 +546,11 @@ export function ImagePromptWizard() {
                   <SelectValue placeholder="Select lighting" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="golden hour">Golden Hour</SelectItem>
                   <SelectItem value="soft natural">Soft Natural</SelectItem>
+                  <SelectItem value="golden hour">Golden Hour</SelectItem>
                   <SelectItem value="dramatic shadows">Dramatic Shadows</SelectItem>
-                  <SelectItem value="studio lighting">Studio Lighting</SelectItem>
-                  <SelectItem value="neon">Neon</SelectItem>
+                  <SelectItem value="cool ambient light">Cool Ambient Light</SelectItem>
+                  <SelectItem value="spotlight">Spotlight</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -544,7 +589,7 @@ export function ImagePromptWizard() {
               </Select>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-3">
                 <Label className="text-gray-700 font-medium flex items-center">
                   Weight Control
@@ -615,23 +660,25 @@ export function ImagePromptWizard() {
                   onChange={(e) => setFormData({ ...formData, seed: e.target.value })}
                 />
               </div>
-            </div>
+            </div> */}
 
             <TipCard
               icon={<Camera className="w-4 h-4" />}
-              title="Technical Details Tips"
+              title="Composition of the image Tips"
               tips={[
+                "Think like a photographer: You know what subjects you are capturing and what mood you are trying to set.",
                 "Different angles create varied effects: bird's-eye view, low angle, etc.",
                 "Lighting plays a crucial role in setting mood and atmosphere",
-                "Consider multiple light sources for dynamic interplay",
-                "Use techniques like chiaroscuro to create depth and contrast",
                 "The aspect ratio shapes your composition: square (1:1) for social media, landscape (16:9) for cinematic scenes",
-                "A weight of 0.75 is recommended for balanced AI creativity",
-                "Save your seed number to recreate similar images later",
+                "Use () to emphasize or group ideas.",
+                "Use -- to set parameters like aspect ratio or style.",
               ]}
-              helpImageSrc="/dypaang.png"
-              helpTitle="Get cinematic results"
-              helpText="Compose with intent: specify angle (‘low angle close-up’), focal length (‘85mm’ if supported), and lighting (‘rim light + soft fill’). Add depth cues like ‘atmospheric haze’ or ‘bokeh’. Choose an aspect ratio that matches your destination: 16:9 for landscape scenes, 9:16 for mobile stories."
+              helpImageSrc="/example.png"
+              helpTitle="Getting the composition right"
+              helpText="We are utilizing three elements to create the example image: composition, lighting & aspect ratio. \n\n
+              --16:9 \n
+              (Soft natural lighting). (golden hour.) \n
+              --Wide angle shot. (Use rule of thirds.)"
             />
           </div>
         )
@@ -643,12 +690,11 @@ export function ImagePromptWizard() {
             <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-4 rounded-lg border border-amber-100">
               <div className="flex items-center mb-2">
                 <BookOpen className="w-5 h-5 text-amber-600 mr-2" />
-                <h3 className="font-medium text-amber-800">Prompt Engineering Guide: Master Prompt</h3>
+                <h3 className="font-medium text-amber-800">Prompt Engineering Guide: Finishing touches</h3>
               </div>
               <p className="text-sm text-amber-700 mb-2">
-                A master prompt defines the overarching scene, characters, colors, and mood while integrating all key
-                principles. Using structured dividers (–) helps separate important elements within the prompt, improving
-                clarity and guiding AI interpretation effectively.
+                Review your prompt below and navigate back to make changes. When you are satisfied and ready to generate images with your text to image prompt
+                use the appropriate action buttons. Choose between: copy prompt to clipholder, export to a .txt file or export to a JSON file.
               </p>
             </div>
 
@@ -660,16 +706,15 @@ export function ImagePromptWizard() {
                     <TooltipTrigger asChild>
                       <div className="flex items-center text-sm text-blue-600">
                         <Layers className="w-4 h-4 mr-1" />
-                        <span>Master Prompt Structure</span>
+                        <span>Text To Image Prompt</span>
                         <HelpCircle className="w-4 h-4 ml-1" />
                       </div>
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
-                        This follows the master prompt structure, which defines the overarching scene, characters,
-                        colors, and mood while integrating all key principles. The structured dividers (–) help separate
-                        important elements within the prompt, improving clarity and guiding AI interpretation
-                        effectively.
+                        A well formed text prompt should include subject(s) and details about them set in an appropriate mood and environment,
+                        where you are mindful of the compositional parts (thinking like a photographer), including natural language enhancements (--) and () to group and emphasize.
+                        Speaking of emphasis do not forget about ℹ️ emojis.
                       </p>
                     </TooltipContent>
                   </Tooltip>
@@ -732,6 +777,7 @@ METADATA:
 - Subject: ${formData.subject || 'N/A'}
 - Style: ${formData.style || 'N/A'}
 - Mood: ${formData.mood || 'N/A'}
+- Location: ${formData.location || 'N/A'}
 - Composition: ${formData.composition || 'N/A'}
 - Lighting: ${formData.lighting || 'N/A'}
 - Details: ${formData.details || 'N/A'}`
@@ -769,6 +815,7 @@ METADATA:
                       subject: formData.subject,
                       style: formData.style,
                       mood: formData.mood,
+                      location: formData.location,
                       composition: formData.composition,
                       lighting: formData.lighting,
                       details: formData.details,
@@ -843,6 +890,21 @@ METADATA:
                     </Tooltip>
                   </TooltipProvider>
                 )}
+                {formData.location && (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Badge variant="secondary" className="flex items-center gap-1">
+                          <MapPin className="w-3 h-3" />
+                          {formData.location}
+                        </Badge>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Location: {formData.location}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
                 {formData.lighting && (
                   <TooltipProvider>
                     <Tooltip>
@@ -908,18 +970,18 @@ METADATA:
 
             <TipCard
               icon={<Sparkles className="w-4 h-4" />}
-              title="Master Prompt Structure Tips"
+              title="General tips using your text prompt"
               tips={[
+                "AI can be unpredictable—repeat and refine. If results fall short, describe what’s missing and tweak your prompt.",
+                "The order of words can be as important as the worlds themselves",
                 "Use structured dividers (–) to separate important elements within your prompt",
-                "The master prompt defines the overarching scene, characters, colors, and mood",
-                "Natural language makes AI interactions more intuitive",
-                "Keep prompts precise and conversational for better interpretation",
                 "Adjust weight to control how strictly the AI follows your prompt",
                 "Consider using a consistent seed for a series of related images",
               ]}
-              helpImageSrc="/neobotanik.png"
-              helpTitle="Build a reliable master prompt"
-              helpText="Structure your prompt top‑down: Subject – Style – Mood – Composition – Lighting – Details – Parameters (aspect ratio, weight, seed). Keep each section short and concrete. Reuse this scaffold across ideas to maintain quality and predictability."
+              helpImageSrc="/example.png"
+              helpTitle="Results"
+              helpText="There you go. You are now ready to have fun watching the fruits of your labor. \n\n
+              Generate. Generate. Generate. Even with the optimal text prompt the nature of AI is random. \n"
             />
           </div>
         )
@@ -934,7 +996,7 @@ METADATA:
       {/* Progress Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-semibold text-gray-900">Image Prompt Generator</h1>
+          <h1 className="text-2xl font-semibold text-gray-900">Image Prompt Progress</h1>
           <div className="text-sm text-gray-600">
             Step {currentStep} of {totalSteps}
           </div>
