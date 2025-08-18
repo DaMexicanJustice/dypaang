@@ -59,7 +59,7 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
   ]
 
   return (
-    <div className="w-64 h-screen bg-white border-r border-gray-200 flex flex-col">
+    <div className="w-64 h-screen bg-[#F8F8F2] border-r border-gray-200 flex flex-col">
       {/* Header */}
       <div className="p-6 border-b border-gray-200">
         <div className="flex items-center gap-3">
@@ -67,8 +67,8 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
             <Sparkles className="w-4 h-4 text-white" />
           </div>
           <div>
-            <h1 className="text-lg font-semibold text-gray-900">BotanicCanvas</h1>
-            <p className="text-xs text-gray-500">Portal</p>
+            <h1 className="text-lg font-semibold text-[#05092E]">BotanicCanvas</h1>
+            <p className="text-xs text-[#05092E]">Portal</p>
           </div>
         </div>
       </div>
@@ -84,8 +84,8 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
                   key={item.id}
                   onClick={item.action}
                   className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${activeSection === "overview"
-                    ? "bg-blue-50 text-blue-700 font-medium"
-                    : "hover:bg-gray-100 text-gray-700"
+                    ? "bg-[#F32D4F] text-white font-medium"
+                    : "hover:bg-gray-100 text-[#05092E]"
                     }`}
                 >
                   <item.icon className="w-4 h-4" />
@@ -104,8 +104,8 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
                 <CollapsibleTrigger asChild>
                   <button className="w-full flex items-center justify-between p-3 hover:bg-gray-100 rounded-lg transition-colors group">
                     <div className="flex items-center gap-3">
-                      <item.icon className="w-4 h-4 text-gray-600" />
-                      <span className="text-gray-700 font-medium">{item.title}</span>
+                      <item.icon className="w-4 h-4 text-[#05092E]" />
+                      <span className="text-[#05092E] font-medium">{item.title}</span>
                     </div>
                     <ChevronDown className="w-4 h-4 text-gray-400 transition-transform group-data-[state=open]:rotate-180" />
                   </button>
@@ -117,8 +117,8 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
                         key={subItem.id}
                         onClick={() => setActiveSection(subItem.id)}
                         className={`w-full text-left p-2 rounded-md transition-colors ${activeSection === subItem.id
-                          ? "bg-blue-50 text-blue-700 font-medium"
-                          : "hover:bg-gray-50 text-gray-600"
+                          ? "bg-[#F32D4F] text-white font-medium"
+                          : "hover:bg-gray-50 text-[#05092E]"
                           }`}
                       >
                         {subItem.title}

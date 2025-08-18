@@ -3,6 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ImageIcon, Video, ArrowRight, Sparkles, Home } from "lucide-react"
+import Image from "next/image"
 
 interface OverviewSectionProps {
   onNavigate?: (section: string) => void
@@ -50,15 +51,18 @@ export function OverviewSection({ onNavigate }: OverviewSectionProps) {
     <div className="p-8 space-y-8">
       {/* Hero Section */}
       <div className="text-center space-y-4 py-12">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full text-sm font-medium text-blue-700 mb-4">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-white mb-4">
           <Sparkles className="w-4 h-4" />
-          Neobotanik // Dypång
+          <div className="flex items-center gap-2">
+            <Image alt="Neobotanik" src="/neobotanik.png" width={200} height={200} />
+            <Image alt="Dypång" src="/dypaang.png" width={200} height={200} />
+          </div>
         </div>
-        <h1 className="text-4xl font-bold text-gray-900">
+        <h1 className="text-4xl font-bold text-[#05092E]">
           Craft Perfect Prompts for
-          <span className="block text-blue-600">Generative AI Models</span>
+          <span className="block text-[#F32D4F]">Generative AI Models</span>
         </h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p className="text-lg text-[#05092E] max-w-2xl mx-auto">
           Transform your ideas into precise, effective prompts that unlock the full potential of AI image and video
           generation.
         </p>
@@ -69,16 +73,16 @@ export function OverviewSection({ onNavigate }: OverviewSectionProps) {
         {quickActions.map((action, index) => (
           <Card key={index} className="hover:shadow-lg transition-shadow duration-300 cursor-pointer group">
             <CardHeader className="pb-4">
-              <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
-                <action.icon className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 rounded-lg bg-[#F32D4F] flex items-center justify-center mb-4 group-hover:bg-[#F32D4F]/80 transition-colors">
+                <action.icon className="w-6 h-6 text-white" />
               </div>
-              <CardTitle className="text-gray-900">{action.title}</CardTitle>
-              <CardDescription className="text-gray-600">{action.description}</CardDescription>
+              <CardTitle className="text-[#05092E]">{action.title}</CardTitle>
+              <CardDescription className="text-[#05092E]">{action.description}</CardDescription>
             </CardHeader>
             <CardContent>
               <Button
                 variant="ghost"
-                className="w-full justify-between group-hover:bg-blue-50"
+                className="w-full justify-between group-hover:bg-[#F32D4F]/10"
                 onClick={() => handleActionClick(action.section)}
               >
                 {action.action}
@@ -107,13 +111,13 @@ export function OverviewSection({ onNavigate }: OverviewSectionProps) {
 
       {/* Welcome Message */}
       <div className="max-w-2xl mx-auto text-center pt-8">
-        <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
+        <Card className="bg-[#F8F8F2] border-gray-200">
           <CardContent className="p-6">
             <div className="flex items-center justify-center gap-2 mb-3">
-              <Home className="w-5 h-5 text-blue-600" />
-              <h3 className="text-lg font-semibold text-gray-900">Welcome to your BotanicCanvas</h3>
+              <Home className="w-5 h-5 text-[#F32D4F]" />
+              <h3 className="text-lg font-semibold text-[#05092E]">Welcome to your BotanicCanvas</h3>
             </div>
-            <p className="text-gray-600">
+            <p className="text-[#05092E]">
               Your portal for creating perfect prompts. Navigate through our tools using the sidebar menu,
               or click on any of the quick action cards above to get started.
             </p>

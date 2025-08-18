@@ -2,7 +2,8 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import Image from "next/image"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -34,13 +35,37 @@ import {
   BookOpen,
 } from "lucide-react"
 
-function TipCard({ icon, title, tips }: { icon: React.ReactNode; title: string; tips: string[] }) {
+const INITIAL_FORM_DATA = {
+  subject: "",
+  style: "",
+  mood: "",
+  composition: "",
+  lighting: "",
+  details: "",
+  aspectRatio: "",
+  quality: "",
+  negativePrompt: "",
+  weight: "0.75",
+  seed: "",
+}
+
+function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { icon: React.ReactNode; title: string; tips: string[]; helpImageSrc?: string; helpTitle?: string; helpText?: string }) {
+  const [isHelpOpen, setIsHelpOpen] = useState(false)
+  const canShowHelp = Boolean(helpImageSrc || helpText)
+
   return (
     <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-4">
-      <h3 className="text-sm font-medium text-blue-800 flex items-center mb-2">
-        {icon}
-        <span className="ml-2">{title}</span>
-      </h3>
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="text-sm font-medium text-blue-800 flex items-center">
+          {icon}
+          <span className="ml-2">{title}</span>
+        </h3>
+        {canShowHelp && (
+          <Button size="sm" variant="outline" className="h-7 px-2 text-xs" onClick={() => setIsHelpOpen(true)}>
+            More help
+          </Button>
+        )}
+      </div>
       <ul className="text-xs text-blue-700 space-y-1.5">
         {tips.map((tip, index) => (
           <li key={index} className="flex items-start">
@@ -49,25 +74,47 @@ function TipCard({ icon, title, tips }: { icon: React.ReactNode; title: string; 
           </li>
         ))}
       </ul>
+
+      {isHelpOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setIsHelpOpen(false)} />
+          <div className="relative z-10 w-full max-w-lg mx-4 bg-white rounded-lg border shadow-lg">
+            <div className="p-4 border-b flex items-center justify-between">
+              <div className="text-sm font-medium text-gray-900">{helpTitle || title}</div>
+              <Button size="sm" variant="ghost" onClick={() => setIsHelpOpen(false)}>Close</Button>
+            </div>
+            <div className="p-4 space-y-3">
+              {helpImageSrc && (
+                <Image src={helpImageSrc} alt={helpTitle || title} width={960} height={540} className="w-full h-auto rounded-md border" />
+              )}
+              {helpText && (
+                <p className="text-sm text-gray-700 leading-relaxed">{helpText}</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
 
 export function ImagePromptWizard() {
+  // Define initial state
+
   const [currentStep, setCurrentStep] = useState(1)
-  const [formData, setFormData] = useState({
-    subject: "",
-    style: "",
-    mood: "",
-    composition: "",
-    lighting: "",
-    details: "",
-    aspectRatio: "",
-    quality: "",
-    negativePrompt: "",
-    weight: "0.75",
-    seed: "",
-  })
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA)
+
+  // Reset function
+  const resetWizard = () => {
+    setCurrentStep(1)
+    setFormData(INITIAL_FORM_DATA)
+  }
+
+  // Reset wizard when component mounts
+  useEffect(() => {
+    setCurrentStep(1)
+    setFormData(INITIAL_FORM_DATA)
+  }, [])
 
   const totalSteps = 4
   const progress = (currentStep / totalSteps) * 100
@@ -242,6 +289,9 @@ export function ImagePromptWizard() {
                 "Include an action (e.g., 'a person gazing at the sunset') to add dynamism",
                 "Use negative prompts to exclude unwanted elements and refine the AI's output",
               ]}
+              helpImageSrc="/neobotanik.png"
+              helpTitle="How to define a clear subject"
+              helpText="Start with one unmistakable main subject (person, object, or scene) and add 2–3 vivid qualifiers and a simple action. Example: ‘An explorer in a red jacket standing on a mossy cliff at sunrise’. Avoid stacking multiple subjects in one prompt; instead, generate separately or use scene composition terms to keep focus."
             />
           </div>
         )
@@ -368,6 +418,9 @@ export function ImagePromptWizard() {
                 "Match the style and mood to complement your subject matter",
                 "Experiment with contrasting styles for creative results",
               ]}
+              helpImageSrc="/dypaang.png"
+              helpTitle="Dial in the look and feel"
+              helpText="Pick a primary style (e.g., ‘photorealistic’) and optionally add a secondary influence (e.g., ‘with watercolor accents’). Pair it with a mood and color language: ‘serene, pastel palette, soft gradients’. For consistent branding, reuse the same style+mood phrasing across prompts."
             />
           </div>
         )
@@ -576,6 +629,9 @@ export function ImagePromptWizard() {
                 "A weight of 0.75 is recommended for balanced AI creativity",
                 "Save your seed number to recreate similar images later",
               ]}
+              helpImageSrc="/dypaang.png"
+              helpTitle="Get cinematic results"
+              helpText="Compose with intent: specify angle (‘low angle close-up’), focal length (‘85mm’ if supported), and lighting (‘rim light + soft fill’). Add depth cues like ‘atmospheric haze’ or ‘bokeh’. Choose an aspect ratio that matches your destination: 16:9 for landscape scenes, 9:16 for mobile stories."
             />
           </div>
         )
@@ -650,9 +706,92 @@ export function ImagePromptWizard() {
                 <Copy className="w-4 h-4 mr-2" />
                 Copy Prompt
               </Button>
-              <Button variant="outline" size="sm">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  // Create plain text export
+                  const textContent = `AI Image Generation Prompt
+Generated by BotanicCanvas Prompt Wizard
+Date: ${new Date().toLocaleDateString()}
+Time: ${new Date().toLocaleTimeString()}
+
+PROMPT:
+${generatedPrompt}
+
+${formData.negativePrompt ? `NEGATIVE PROMPT:
+${formData.negativePrompt}
+
+` : ''}PARAMETERS:
+- Aspect Ratio: ${formData.aspectRatio || 'Default'}
+- Quality: ${formData.quality || 'Default'}
+- Weight: ${formData.weight || 'Default'}
+- Seed: ${formData.seed || 'Random'}
+
+METADATA:
+- Subject: ${formData.subject || 'N/A'}
+- Style: ${formData.style || 'N/A'}
+- Mood: ${formData.mood || 'N/A'}
+- Composition: ${formData.composition || 'N/A'}
+- Lighting: ${formData.lighting || 'N/A'}
+- Details: ${formData.details || 'N/A'}`
+
+                  // Create and download text file
+                  const dataBlob = new Blob([textContent], { type: 'text/plain' })
+                  const url = URL.createObjectURL(dataBlob)
+                  const link = document.createElement('a')
+                  link.href = url
+                  link.download = `prompt-${Date.now()}.txt`
+                  document.body.appendChild(link)
+                  link.click()
+                  document.body.removeChild(link)
+                  URL.revokeObjectURL(url)
+                }}
+              >
                 <Download className="w-4 h-4 mr-2" />
-                Export
+                Export TXT
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  // Create export data
+                  const exportData = {
+                    prompt: generatedPrompt,
+                    negativePrompt: formData.negativePrompt,
+                    parameters: {
+                      aspectRatio: formData.aspectRatio,
+                      quality: formData.quality,
+                      weight: formData.weight,
+                      seed: formData.seed
+                    },
+                    metadata: {
+                      subject: formData.subject,
+                      style: formData.style,
+                      mood: formData.mood,
+                      composition: formData.composition,
+                      lighting: formData.lighting,
+                      details: formData.details,
+                      generatedAt: new Date().toISOString(),
+                      source: "BotanicCanvas Prompt Wizard"
+                    }
+                  }
+
+                  // Create and download JSON file
+                  const dataStr = JSON.stringify(exportData, null, 2)
+                  const dataBlob = new Blob([dataStr], { type: 'application/json' })
+                  const url = URL.createObjectURL(dataBlob)
+                  const link = document.createElement('a')
+                  link.href = url
+                  link.download = `prompt-${Date.now()}.json`
+                  document.body.appendChild(link)
+                  link.click()
+                  document.body.removeChild(link)
+                  URL.revokeObjectURL(url)
+                }}
+              >
+                <Download className="w-4 h-4 mr-2" />
+                Export JSON
               </Button>
             </div>
 
@@ -778,6 +917,9 @@ export function ImagePromptWizard() {
                 "Adjust weight to control how strictly the AI follows your prompt",
                 "Consider using a consistent seed for a series of related images",
               ]}
+              helpImageSrc="/neobotanik.png"
+              helpTitle="Build a reliable master prompt"
+              helpText="Structure your prompt top‑down: Subject – Style – Mood – Composition – Lighting – Details – Parameters (aspect ratio, weight, seed). Keep each section short and concrete. Reuse this scaffold across ideas to maintain quality and predictability."
             />
           </div>
         )
@@ -855,7 +997,7 @@ export function ImagePromptWizard() {
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         ) : (
-          <Button>
+          <Button onClick={resetWizard}>
             <Sparkles className="w-4 h-4 mr-2" />
             Generate New Prompt
           </Button>
