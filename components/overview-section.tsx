@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ImageIcon, Video, ArrowRight, Sparkles, Home } from "lucide-react"
+import { ImageIcon, Video, ArrowRight, Sparkles, Layers } from "lucide-react"
 import Image from "next/image"
 
 interface OverviewSectionProps {
@@ -19,26 +19,19 @@ export function OverviewSection({ onNavigate }: OverviewSectionProps) {
       section: "generate-image-prompt",
     },
     {
+      title: "Generate Omni Reference Image Prompt",
+      description: "Step by step guide to omni reference",
+      icon: Layers,
+      action: "Start Creating",
+      section: "generate-omni-reference-prompt",
+    },
+    {
       title: "Generate Video Prompt",
       description: "Craft prompts for AI video generation",
       icon: Video,
       action: "Start Creating",
       section: "generate-video-prompt",
     },
-    /* {
-      title: "Explore Intent",
-      description: "Learn about intent-driven prompting",
-      icon: Brain,
-      action: "Learn More",
-      section: "what-is-intent",
-    },
-    {
-      title: "View Tutorials",
-      description: "Master the art of prompt engineering",
-      icon: BookOpen,
-      action: "Browse Guides",
-      section: "prompt-images",
-    }, */
   ]
 
   const handleActionClick = (section: string) => {
@@ -48,8 +41,8 @@ export function OverviewSection({ onNavigate }: OverviewSectionProps) {
   }
 
   return (
-    <div className="p-8 space-y-8">
-      {/* Hero Section */}
+    <div className="space-y-0">
+      {/* Hero Section - Navy with oversized display headline */}
       <div className="text-center space-y-4 py-12">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-white mb-4">
           <Sparkles className="w-4 h-4" />
@@ -67,62 +60,49 @@ export function OverviewSection({ onNavigate }: OverviewSectionProps) {
         </p>
       </div>
 
-      {/* Quick Actions Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      {/* Quick Actions Grid on off-white paper */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto p-4">
         {quickActions.map((action, index) => (
-          <Card key={index} className="hover:shadow-lg transition-shadow duration-300 cursor-pointer group">
+          <Card
+            key={index}
+            className="hover:shadow-lg hover:scale-[1.02] transition-all duration-200 cursor-pointer group"
+            onClick={() => handleActionClick(action.section)}
+          >
             <CardHeader className="pb-4">
-              <div className="w-12 h-12 rounded-lg bg-[#F32D4F] flex items-center justify-center mb-4 group-hover:bg-[#F32D4F]/80 transition-colors">
+              <div className="w-12 h-12 rounded-lg bg-coral flex items-center justify-center mb-4 group-hover:brightness-110 group-hover:scale-110 transition-all duration-200">
                 <action.icon className="w-6 h-6 text-white" />
               </div>
-              <CardTitle className="text-[#05092E]">{action.title}</CardTitle>
-              <CardDescription className="text-[#05092E]">{action.description}</CardDescription>
+              <CardTitle className="text-navy group-hover:text-[#F32D4F] transition-colors duration-200">{action.title}</CardTitle>
+              <CardDescription className="text-navy group-hover:text-[#1a1f3a] transition-colors duration-200">{action.description}</CardDescription>
             </CardHeader>
             <CardContent>
               <Button
-                variant="ghost"
-                className="w-full justify-between group-hover:bg-[#F32D4F]/10"
-                onClick={() => handleActionClick(action.section)}
+                variant="outline"
+                className="w-full"
               >
-                {action.action}
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <span>{action.action}</span>
+                <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      {/* Stats Section */}
-      {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto pt-8">
-        <div className="text-center space-y-2">
-          <div className="text-3xl font-bold text-gray-900">10K+</div>
-          <div className="text-sm text-gray-600">Prompts Generated</div>
-        </div>
-        <div className="text-center space-y-2">
-          <div className="text-3xl font-bold text-gray-900">95%</div>
-          <div className="text-sm text-gray-600">Success Rate</div>
-        </div>
-        <div className="text-center space-y-2">
-          <div className="text-3xl font-bold text-gray-900">24/7</div>
-          <div className="text-sm text-gray-600">AI Assistance</div>
-        </div>
-      </div> */}
-
       {/* Welcome Message */}
-      <div className="max-w-2xl mx-auto text-center pt-8">
-        <Card className="bg-[#F8F8F2] border-gray-200">
+      {/* <div className="max-w-2xl mx-auto text-center pb-12 px-8">
+        <Card className="bg-off-white border-gray-200">
           <CardContent className="p-6">
             <div className="flex items-center justify-center gap-2 mb-3">
-              <Home className="w-5 h-5 text-[#F32D4F]" />
-              <h3 className="text-lg font-semibold text-[#05092E]">Welcome to your BotanicCanvas</h3>
+              <Home className="w-5 h-5 text-coral" />
+              <h3 className="text-lg font-semibold text-navy">Welcome to your BotanicCanvas</h3>
             </div>
-            <p className="text-[#05092E]">
+            <p className="text-navy">
               Your portal for creating perfect prompts. Navigate through our tools using the sidebar menu,
               or click on any of the quick action cards above to get started.
             </p>
           </CardContent>
         </Card>
-      </div>
+      </div> */}
     </div>
   )
 }

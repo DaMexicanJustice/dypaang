@@ -2,6 +2,7 @@
 
 import { OverviewSection } from "@/components/overview-section"
 import { ImagePromptWizard } from "@/components/image-prompt-wizard"
+import { OmniReferencePromptWizard } from "@/components/omni-reference-prompt-wizard"
 import { VideoPromptWizard } from "@/components/video-prompt-wizard"
 import { IntentSection } from "@/components/intent-section"
 import { TutorialsSection } from "@/components/tutorials-section"
@@ -15,6 +16,8 @@ export function DashboardContent({ activeSection }: DashboardContentProps) {
     switch (activeSection) {
       case "generate-image-prompt":
         return <ImagePromptWizard />
+      case "generate-omni-reference-prompt":
+        return <OmniReferencePromptWizard />
       case "generate-video-prompt":
         return <VideoPromptWizard />
       case "what-is-intent":
@@ -45,6 +48,7 @@ export function DashboardContent({ activeSection }: DashboardContentProps) {
 function getSectionTitle(section: string): string {
   const titles: Record<string, string> = {
     "generate-image-prompt": "Generate Image Prompt",
+    "generate-omni-reference-prompt": "Generate Omni Reference Prompt",
     "generate-video-prompt": "Generate Video Prompt",
     "what-is-intent": "Understanding Intent",
     "intent-examples": "Intent Examples",

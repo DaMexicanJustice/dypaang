@@ -15,7 +15,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen flex">
       <AppSidebar activeSection={activeSection} setActiveSection={setActiveSection} />
-      <main className="flex-1">
+      <main className="flex-1 flex flex-col">
         {activeSection === "overview" ? (
           <div className="flex-1 flex flex-col">
             <header className="flex h-16 shrink-0 items-center gap-4 border-b border-gray-200 bg-[#F8F8F2] px-6">

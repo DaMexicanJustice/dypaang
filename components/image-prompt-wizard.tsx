@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { Modal } from "@/components/ui/modal"
 import {
   ArrowRight,
   ArrowLeft,
@@ -29,7 +30,7 @@ import {
   Aperture,
   Sliders,
   Hash,
-  Scissors,
+  // Scissors,
   BookOpen,
   MapPin,
 } from "lucide-react"
@@ -44,9 +45,10 @@ const INITIAL_FORM_DATA = {
   details: "",
   aspectRatio: "",
   quality: "",
-  negativePrompt: "",
+  // negativePrompt: "",
   weight: "0.75",
   seed: "",
+  selectedEmojis: [] as string[],
 }
 
 function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { icon: React.ReactNode; title: string; tips: string[]; helpImageSrc?: string; helpTitle?: string; helpText?: string }) {
@@ -62,7 +64,7 @@ function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { ico
           <span className="ml-2">{title}</span>
         </h3>
         {canShowHelp && (
-          <Button size="sm" variant="outline" className="h-7 px-2 text-xs" onClick={() => setIsHelpOpen(true)}>
+          <Button size="sm" variant="outline" className="h-7 px-2 text-xs hover:bg-blue-100 hover:border-blue-300" onClick={() => setIsHelpOpen(true)}>
             Example
           </Button>
         )}
@@ -77,10 +79,10 @@ function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { ico
       </ul>
 
       {isHelpOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-black/50" onClick={() => setIsHelpOpen(false)} />
-          <div className="relative z-10 w-full max-w-lg mx-4 bg-white rounded-lg border shadow-lg">
-            <div className="p-4 border-b flex items-center justify-between">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/50 cursor-pointer transition-opacity duration-200 hover:bg-black/60" onClick={() => setIsHelpOpen(false)} />
+          <div className="relative z-10 w-full max-w-lg bg-white rounded-lg border shadow-lg max-h-[90vh] overflow-y-auto">
+            <div className="p-4 border-b flex items-center justify-between sticky top-0 bg-white">
               <div className="text-sm font-bold text-gray-900">{helpTitle || title}</div>
               <Button size="sm" variant="ghost" onClick={() => setIsHelpOpen(false)}>Close</Button>
             </div>
@@ -104,18 +106,81 @@ export function ImagePromptWizard() {
 
   const [currentStep, setCurrentStep] = useState(1)
   const [formData, setFormData] = useState(INITIAL_FORM_DATA)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isCompositionExamplesOpen, setIsCompositionExamplesOpen] = useState(false)
+  const [isNavigationWarningOpen, setIsNavigationWarningOpen] = useState(false)
+  const [pendingNavigation, setPendingNavigation] = useState<(() => void) | null>(null)
+  const [editablePrompt, setEditablePrompt] = useState("")
+  // const [editableNegativePrompt, setEditableNegativePrompt] = useState("")
 
-  // Reset function
-  const resetWizard = () => {
-    setCurrentStep(1)
-    setFormData(INITIAL_FORM_DATA)
-  }
+
 
   // Reset wizard when component mounts
   useEffect(() => {
     setCurrentStep(1)
     setFormData(INITIAL_FORM_DATA)
   }, [])
+
+  // Check if form has unsaved changes
+  const hasUnsavedChanges = () => {
+    return Object.values(formData).some(value => {
+      if (Array.isArray(value)) {
+        return value.length > 0
+      }
+      return value !== "" && value !== "0.75"
+    })
+  }
+
+  // Handle browser navigation warnings (refresh, back button, URL changes)
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (hasUnsavedChanges()) {
+        e.preventDefault()
+        e.returnValue = "You have unsaved changes. Are you sure you want to leave?"
+        return "You have unsaved changes. Are you sure you want to leave?"
+      }
+    }
+
+    const handlePopState = (e: PopStateEvent) => {
+      if (hasUnsavedChanges()) {
+        e.preventDefault()
+        setPendingNavigation(() => () => {
+          // Allow the navigation to proceed
+          window.history.pushState(null, "", window.location.href)
+        })
+        setIsNavigationWarningOpen(true)
+        // Push the current state back to prevent immediate navigation
+        window.history.pushState(null, "", window.location.href)
+      }
+    }
+
+    // Add event listeners
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    window.addEventListener('popstate', handlePopState)
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+      window.removeEventListener('popstate', handlePopState)
+    }
+  }, [formData])
+
+  // Confirm navigation and lose progress
+  const confirmNavigation = () => {
+    if (pendingNavigation) {
+      pendingNavigation()
+      setFormData(INITIAL_FORM_DATA)
+      setCurrentStep(1)
+    }
+    setIsNavigationWarningOpen(false)
+    setPendingNavigation(null)
+  }
+
+  // Cancel navigation
+  const cancelNavigation = () => {
+    setIsNavigationWarningOpen(false)
+    setPendingNavigation(null)
+  }
 
   const totalSteps = 4
   const progress = (currentStep / totalSteps) * 100
@@ -183,6 +248,13 @@ export function ImagePromptWizard() {
     }
 
     return parts.join("\n")
+  }
+
+  const handleFinishAndCopy = () => {
+    const generatedPrompt = generatePrompt()
+    setEditablePrompt(generatedPrompt)
+    // setEditableNegativePrompt(formData.negativePrompt || "")
+    setIsModalOpen(true)
   }
 
   const renderStepContent = () => {
@@ -255,31 +327,31 @@ export function ImagePromptWizard() {
               />
             </div>
 
-            <div className="space-y-3">
-              <Label htmlFor="negativePrompt" className="text-gray-700 font-medium flex items-center">
-                Negative Prompt
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
-                    </TooltipTrigger>
-                    <TooltipContent className="max-w-sm">
-                      <p>
-                        Define what should be excluded from your image. Specifying elements to avoid ensures greater
-                        accuracy in achieving the desired results and can help prevent common AI generation issues.
-                      </p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </Label>
-              <Textarea
-                id="negativePrompt"
-                placeholder="Elements to exclude (e.g., blurry, distorted faces, extra limbs)..."
-                value={formData.negativePrompt}
-                onChange={(e) => setFormData({ ...formData, negativePrompt: e.target.value })}
-                className="min-h-[80px]"
-              />
-            </div>
+            {/* <div className="space-y-3">
+               <Label htmlFor="negativePrompt" className="text-gray-700 font-medium flex items-center">
+                 Negative Prompt
+                 <TooltipProvider>
+                   <Tooltip>
+                     <TooltipTrigger asChild>
+                       <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                     </TooltipTrigger>
+                     <TooltipContent className="max-w-sm">
+                       <p>
+                         Define what should be excluded from your image. Specifying elements to avoid ensures greater
+                         accuracy in achieving the desired results and can help prevent common AI generation issues.
+                       </p>
+                     </TooltipContent>
+                   </Tooltip>
+                 </TooltipProvider>
+               </Label>
+               <Textarea
+                 id="negativePrompt"
+                 placeholder="Elements to exclude (e.g., blurry, distorted faces, extra limbs)..."
+                 value={formData.negativePrompt}
+                 onChange={(e) => setFormData({ ...formData, negativePrompt: e.target.value })}
+                 className="min-h-[80px]"
+               />
+             </div> */}
 
             <TipCard
               icon={<Lightbulb className="w-4 h-4" />}
@@ -407,18 +479,32 @@ export function ImagePromptWizard() {
                   </Tooltip>
                 </TooltipProvider>
               </Label>
-              <Select value={formData.location} onValueChange={(value) => setFormData({ ...formData, location: value })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select location" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="tableside">Table side</SelectItem>
-                  <SelectItem value="by water">By water</SelectItem>
-                  <SelectItem value="on grassy field">On grassy field</SelectItem>
-                  <SelectItem value="in urban environment">In urban environment</SelectItem>
-                  <SelectItem value="industrial indoor">Industrial indoor</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="space-y-2">
+                  <Label className="text-sm text-gray-600">Custom Location</Label>
+                  <Input
+                    placeholder="Enter custom location..."
+                    value={formData.location}
+                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm text-gray-600">Quick Select</Label>
+                  <Select value={formData.location} onValueChange={(value) => setFormData({ ...formData, location: value })}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Choose from list" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="tableside">Table side</SelectItem>
+                      <SelectItem value="by water">By water</SelectItem>
+                      <SelectItem value="by harbor">By a harbor</SelectItem>
+                      <SelectItem value="on grassy field">On grassy field</SelectItem>
+                      <SelectItem value="in urban environment">In urban environment</SelectItem>
+                      <SelectItem value="industrial indoor">Industrial indoor</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
             </div>
 
             <div className="space-y-3">
@@ -439,16 +525,37 @@ export function ImagePromptWizard() {
                 </TooltipProvider>
               </Label>
               <div className="flex flex-wrap gap-2">
-                {["😊", "😍", "🌟", "✨", "🔥", "🌈", "🌙", "🌊", "🌿", "🏞️"].map((emoji) => (
-                  <Button
-                    key={emoji}
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setFormData({ ...formData, details: formData.details + " " + emoji })}
-                  >
-                    {emoji}
-                  </Button>
-                ))}
+                {["😊", "😍", "🌟", "✨", "🔥", "🌈", "🌙", "🌊", "🌿", "🏞️", "🚢", "🏛️", "🌅", "🧊", "🌬️", "🍻", "🌲", "🪵", "💼", "🧠", "📊", "🎨", "🎤", "🥂", "🔮", "🎶", "👀"].map((emoji) => {
+                  const isSelected = formData.selectedEmojis.includes(emoji)
+                  return (
+                    <Button
+                      key={emoji}
+                      variant={isSelected ? "default" : "outline"}
+                      size="sm"
+                      className={isSelected
+                        ? "bg-blue-500 hover:bg-blue-600 text-white border-blue-500 hover:shadow-md"
+                        : "hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700 hover:shadow-sm"
+                      }
+                      onClick={() => {
+                        const newSelectedEmojis = isSelected
+                          ? formData.selectedEmojis.filter(e => e !== emoji)
+                          : [...formData.selectedEmojis, emoji]
+
+                        const emojiText = isSelected
+                          ? formData.details.replace(new RegExp(`\\s*${emoji}\\s*`, 'g'), ' ').trim()
+                          : formData.details + " " + emoji
+
+                        setFormData({
+                          ...formData,
+                          selectedEmojis: newSelectedEmojis,
+                          details: emojiText
+                        })
+                      }}
+                    >
+                      {emoji}
+                    </Button>
+                  )
+                })}
               </div>
             </div>
 
@@ -501,6 +608,14 @@ export function ImagePromptWizard() {
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="h-7 px-2 text-xs ml-2 hover:bg-green-100 hover:border-green-300"
+                  onClick={() => setIsCompositionExamplesOpen(true)}
+                >
+                  Examples
+                </Button>
               </Label>
               <Select
                 value={formData.composition}
@@ -685,6 +800,7 @@ export function ImagePromptWizard() {
 
       case 4:
         const generatedPrompt = generatePrompt()
+
         return (
           <div className="space-y-6">
             <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-4 rounded-lg border border-amber-100">
@@ -693,14 +809,14 @@ export function ImagePromptWizard() {
                 <h3 className="font-medium text-amber-800">Prompt Engineering Guide: Finishing touches</h3>
               </div>
               <p className="text-sm text-amber-700 mb-2">
-                Review your prompt below and navigate back to make changes. When you are satisfied and ready to generate images with your text to image prompt
-                use the appropriate action buttons. Choose between: copy prompt to clipholder, export to a .txt file or export to a JSON file.
+                Review your prompt elements below and navigate back to make changes. When you are satisfied and ready to generate images with your text to image prompt
+                use the &ldquo;Finish & Copy&rdquo; button to open the prompt editor.
               </p>
             </div>
 
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <Label className="text-gray-700 font-medium">Generated Prompt</Label>
+                <Label className="text-gray-700 font-medium">Generated Prompt Preview</Label>
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -726,119 +842,28 @@ export function ImagePromptWizard() {
                 </p>
               </div>
 
-              {formData.negativePrompt && (
-                <div className="mt-4">
-                  <div className="flex items-center mb-2">
-                    <Scissors className="w-4 h-4 mr-2 text-red-500" />
-                    <span className="text-sm font-medium">Negative Prompt:</span>
-                  </div>
-                  <div className="p-3 bg-red-50 rounded-lg border border-red-100">
-                    <p className="text-gray-800">{formData.negativePrompt}</p>
-                  </div>
-                </div>
-              )}
+              {/* {formData.negativePrompt && (
+                 <div className="mt-4">
+                   <div className="flex items-center mb-2">
+                     <Scissors className="w-4 h-4 mr-2 text-red-500" />
+                     <span className="text-sm font-medium">Negative Prompt Preview:</span>
+                   </div>
+                   <div className="p-3 bg-red-50 rounded-lg border border-red-100">
+                     <p className="text-gray-800">{formData.negativePrompt}</p>
+                   </div>
+                 </div>
+               )} */}
             </div>
 
             <div className="flex gap-3">
               <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  const fullPrompt = `Prompt:\n${generatedPrompt}\n\n${formData.negativePrompt ? `Negative Prompt:\n${formData.negativePrompt}` : ""}`
-                  navigator.clipboard.writeText(fullPrompt)
-                }}
+                variant="default"
+                size="lg"
+                onClick={handleFinishAndCopy}
+                className="bg-coral hover:bg-coral/90 text-white hover:shadow-lg"
               >
                 <Copy className="w-4 h-4 mr-2" />
-                Copy Prompt
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  // Create plain text export
-                  const textContent = `AI Image Generation Prompt
-Generated by BotanicCanvas Prompt Wizard
-Date: ${new Date().toLocaleDateString()}
-Time: ${new Date().toLocaleTimeString()}
-
-PROMPT:
-${generatedPrompt}
-
-${formData.negativePrompt ? `NEGATIVE PROMPT:
-${formData.negativePrompt}
-
-` : ''}PARAMETERS:
-- Aspect Ratio: ${formData.aspectRatio || 'Default'}
-- Quality: ${formData.quality || 'Default'}
-- Weight: ${formData.weight || 'Default'}
-- Seed: ${formData.seed || 'Random'}
-
-METADATA:
-- Subject: ${formData.subject || 'N/A'}
-- Style: ${formData.style || 'N/A'}
-- Mood: ${formData.mood || 'N/A'}
-- Location: ${formData.location || 'N/A'}
-- Composition: ${formData.composition || 'N/A'}
-- Lighting: ${formData.lighting || 'N/A'}
-- Details: ${formData.details || 'N/A'}`
-
-                  // Create and download text file
-                  const dataBlob = new Blob([textContent], { type: 'text/plain' })
-                  const url = URL.createObjectURL(dataBlob)
-                  const link = document.createElement('a')
-                  link.href = url
-                  link.download = `prompt-${Date.now()}.txt`
-                  document.body.appendChild(link)
-                  link.click()
-                  document.body.removeChild(link)
-                  URL.revokeObjectURL(url)
-                }}
-              >
-                <Download className="w-4 h-4 mr-2" />
-                Export TXT
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  // Create export data
-                  const exportData = {
-                    prompt: generatedPrompt,
-                    negativePrompt: formData.negativePrompt,
-                    parameters: {
-                      aspectRatio: formData.aspectRatio,
-                      quality: formData.quality,
-                      weight: formData.weight,
-                      seed: formData.seed
-                    },
-                    metadata: {
-                      subject: formData.subject,
-                      style: formData.style,
-                      mood: formData.mood,
-                      location: formData.location,
-                      composition: formData.composition,
-                      lighting: formData.lighting,
-                      details: formData.details,
-                      generatedAt: new Date().toISOString(),
-                      source: "BotanicCanvas Prompt Wizard"
-                    }
-                  }
-
-                  // Create and download JSON file
-                  const dataStr = JSON.stringify(exportData, null, 2)
-                  const dataBlob = new Blob([dataStr], { type: 'application/json' })
-                  const url = URL.createObjectURL(dataBlob)
-                  const link = document.createElement('a')
-                  link.href = url
-                  link.download = `prompt-${Date.now()}.json`
-                  document.body.appendChild(link)
-                  link.click()
-                  document.body.removeChild(link)
-                  URL.revokeObjectURL(url)
-                }}
-              >
-                <Download className="w-4 h-4 mr-2" />
-                Export JSON
+                Finish & Copy
               </Button>
             </div>
 
@@ -1009,11 +1034,11 @@ METADATA:
         {steps.map((step) => (
           <div
             key={step.id}
-            className={`p-4 rounded-lg border transition-all ${currentStep === step.id
-              ? "border-blue-300 bg-blue-50"
+            className={`p-4 rounded-lg border transition-all duration-200 hover:shadow-md hover:scale-[1.02] cursor-pointer ${currentStep === step.id
+              ? "border-blue-300 bg-blue-50 hover:bg-blue-100"
               : currentStep > step.id
-                ? "border-green-300 bg-green-50"
-                : "border-gray-200 bg-white"
+                ? "border-green-300 bg-green-50 hover:bg-green-100"
+                : "border-gray-200 bg-white hover:bg-gray-50"
               }`}
           >
             <div className="flex items-center gap-3 mb-2">
@@ -1048,7 +1073,11 @@ METADATA:
 
       {/* Navigation */}
       <div className="flex justify-between mt-8">
-        <Button variant="outline" onClick={prevStep} disabled={currentStep === 1}>
+        <Button
+          variant="outline"
+          onClick={prevStep}
+          disabled={currentStep === 1}
+        >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Previous
         </Button>
@@ -1059,12 +1088,257 @@ METADATA:
             <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         ) : (
-          <Button onClick={resetWizard}>
+          <Button onClick={handleFinishAndCopy}>
             <Sparkles className="w-4 h-4 mr-2" />
-            Generate New Prompt
+            Finish & Copy
           </Button>
         )}
       </div>
+
+      {/* Prompt Editor Modal */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Edit or Copy Your Prompts"
+        className="max-w-4xl"
+      >
+        <div className="space-y-6">
+          {/* Generated Prompt Section */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <Label className="text-gray-700 font-medium text-lg">Generated Prompt</Label>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => navigator.clipboard.writeText(editablePrompt)}
+                  className="hover:bg-green-50 hover:border-green-300 hover:text-green-700"
+                >
+                  <Copy className="w-4 h-4 mr-2" />
+                  Copy to Clipboard
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    // Create plain text export
+                    const textContent = `AI Image Generation Prompt
+Generated by BotanicCanvas Prompt Wizard
+Date: ${new Date().toLocaleDateString()}
+Time: ${new Date().toLocaleTimeString()}
+
+PROMPT:
+${editablePrompt}
+
+PARAMETERS:
+- Aspect Ratio: ${formData.aspectRatio || 'Default'}
+- Quality: ${formData.quality || 'Default'}
+- Weight: ${formData.weight || 'Default'}
+- Seed: ${formData.seed || 'Random'}
+
+METADATA:
+- Subject: ${formData.subject || 'N/A'}
+- Style: ${formData.style || 'N/A'}
+- Mood: ${formData.mood || 'N/A'}
+- Location: ${formData.location || 'N/A'}
+- Composition: ${formData.composition || 'N/A'}
+- Lighting: ${formData.lighting || 'N/A'}
+- Details: ${formData.details || 'N/A'}`
+
+                    // Create and download text file
+                    const dataBlob = new Blob([textContent], { type: 'text/plain' })
+                    const url = URL.createObjectURL(dataBlob)
+                    const link = document.createElement('a')
+                    link.href = url
+                    link.download = `prompt-${Date.now()}.txt`
+                    document.body.appendChild(link)
+                    link.click()
+                    document.body.removeChild(link)
+                    URL.revokeObjectURL(url)
+                  }}
+                  className="hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700"
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  Export TXT
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    // Create export data
+                    const exportData = {
+                      prompt: editablePrompt,
+                      parameters: {
+                        aspectRatio: formData.aspectRatio,
+                        quality: formData.quality,
+                        weight: formData.weight,
+                        seed: formData.seed
+                      },
+                      metadata: {
+                        subject: formData.subject,
+                        style: formData.style,
+                        mood: formData.mood,
+                        location: formData.location,
+                        composition: formData.composition,
+                        lighting: formData.lighting,
+                        details: formData.details,
+                        generatedAt: new Date().toISOString(),
+                        source: "BotanicCanvas Prompt Wizard"
+                      }
+                    }
+
+                    // Create and download JSON file
+                    const dataStr = JSON.stringify(exportData, null, 2)
+                    const dataBlob = new Blob([dataStr], { type: 'application/json' })
+                    const url = URL.createObjectURL(dataBlob)
+                    const link = document.createElement('a')
+                    link.href = url
+                    link.download = `prompt-${Date.now()}.json`
+                    document.body.appendChild(link)
+                    link.click()
+                    document.body.removeChild(link)
+                    URL.revokeObjectURL(url)
+                  }}
+                  className="hover:bg-purple-50 hover:border-purple-300 hover:text-purple-700"
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  Export JSON
+                </Button>
+              </div>
+            </div>
+            <Textarea
+              value={editablePrompt}
+              onChange={(e) => setEditablePrompt(e.target.value)}
+              placeholder="Your generated prompt will appear here..."
+              className="min-h-[200px] text-sm font-mono"
+            />
+          </div>
+
+          {/* Negative Prompt Section */}
+          {/* <div className="space-y-3">
+             <div className="flex items-center justify-between">
+               <Label className="text-gray-700 font-medium text-lg">Negative Prompt</Label>
+               <Button
+                 variant="outline"
+                 size="sm"
+                 onClick={() => navigator.clipboard.writeText(editableNegativePrompt)}
+               >
+                 <Copy className="w-4 h-4 mr-2" />
+                 Copy to Clipboard
+               </Button>
+             </div>
+             <Textarea
+               value={editableNegativePrompt}
+               onChange={(e) => setEditableNegativePrompt(e.target.value)}
+               placeholder="Your negative prompt will appear here..."
+               className="min-h-[150px] text-sm font-mono"
+             />
+           </div> */}
+
+          {/* Action Buttons */}
+          {/* <div className="flex justify-end gap-3 pt-4 border-t">
+             <Button
+               variant="default"
+               onClick={() => {
+                 const fullPrompt = `Prompt:\n${editablePrompt}\n\n${editableNegativePrompt ? `Negative Prompt:\n${editableNegativePrompt}` : ""}`
+                 navigator.clipboard.writeText(fullPrompt)
+               }}
+               className="bg-coral hover:bg-coral/90 text-white"
+             >
+               <Copy className="w-4 h-4 mr-2" />
+               Copy Both Prompts
+             </Button>
+             <Button
+               variant="outline"
+               onClick={() => setIsModalOpen(false)}
+             >
+               Close
+             </Button>
+           </div> */}
+        </div>
+      </Modal>
+
+      {/* Composition Examples Modal */}
+      <Modal
+        isOpen={isCompositionExamplesOpen}
+        onClose={() => setIsCompositionExamplesOpen(false)}
+        title="Composition Examples"
+        className="max-w-6xl"
+      >
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { value: "close-up", label: "Close-up", description: "Intimate, detailed view focusing on specific elements" },
+              { value: "wide-angle-shot", label: "Wide Angle Shot", description: "Broad perspective showing the full scene" },
+              { value: "birds-eye-view", label: "Bird's Eye View", description: "Overhead perspective looking down" },
+              { value: "low-angle", label: "Low Angle", description: "Looking up from below for dramatic effect" },
+              { value: "rule-of-thirds", label: "Rule of Thirds", description: "Composition following the rule of thirds grid" },
+              { value: "drone-camera", label: "Drone Camera", description: "Aerial perspective with drone-like positioning" }
+            ].map((composition) => (
+              <div key={composition.value} className="space-y-3">
+                <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                  <Image
+                    src={`/${composition.value.replace(/[^a-z0-9]/g, '-')}.jpg`}
+                    alt={composition.label}
+                    width={400}
+                    height={225}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement
+                      target.src = "/example.png"
+                    }}
+                  />
+                </div>
+                <div>
+                  <h3 className="font-medium text-gray-900">{composition.label}</h3>
+                  <p className="text-sm text-gray-600">{composition.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Modal>
+
+      {/* Navigation Warning Modal */}
+      <Modal
+        isOpen={isNavigationWarningOpen}
+        onClose={cancelNavigation}
+        title="Unsaved Changes"
+        className="max-w-md"
+      >
+        <div className="space-y-4">
+          <div className="text-center">
+            <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100 mb-4">
+              <svg className="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">
+              You have unsaved changes
+            </h3>
+            <p className="text-sm text-gray-600">
+              Navigating away will lose all your progress. Are you sure you want to continue?
+            </p>
+          </div>
+
+          <div className="flex gap-3 justify-end">
+            <Button
+              variant="outline"
+              onClick={cancelNavigation}
+              className="flex-1 sm:flex-none hover:bg-gray-50 hover:border-gray-300"
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={confirmNavigation}
+              className="flex-1 sm:flex-none hover:bg-red-600 hover:shadow-lg"
+            >
+              Continue & Lose Progress
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   )
 }

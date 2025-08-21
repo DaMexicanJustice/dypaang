@@ -28,13 +28,16 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
       id: "image-flow",
       title: "Image Flow",
       icon: ImageIcon,
-      submenu: [{ id: "generate-image-prompt", title: "Generate Prompt", href: "#" }],
+      submenu: [
+        { id: "generate-image-prompt", title: "Generate Image Prompt", href: "#" },
+        { id: "generate-omni-reference-prompt", title: "Generate Omni Reference Prompt", href: "#" }
+      ],
     },
     {
       id: "video-flow",
       title: "Video Flow",
       icon: Video,
-      submenu: [{ id: "generate-video-prompt", title: "Generate Prompt", href: "#" }],
+      submenu: [{ id: "generate-video-prompt", title: "Generate Video Prompt", href: "#" }],
     },
     {
       id: "intent",
@@ -59,16 +62,16 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
   ]
 
   return (
-    <div className="w-64 h-screen bg-[#F8F8F2] border-r border-gray-200 flex flex-col">
+    <div className="w-64 bg-[#F8F8F2] border-r border-gray-200 flex flex-col">
       {/* Header */}
       <div className="p-6 border-b border-gray-200">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+        <div className="flex items-center gap-3 hover:scale-105 transition-transform duration-200 cursor-pointer">
+          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center hover:shadow-md transition-shadow duration-200">
             <Sparkles className="w-4 h-4 text-white" />
           </div>
           <div>
-            <h1 className="text-lg font-semibold text-[#05092E]">BotanicCanvas</h1>
-            <p className="text-xs text-[#05092E]">Portal</p>
+            <h1 className="text-lg font-semibold text-[#05092E] hover:text-[#F32D4F] transition-colors duration-200">BotanicCanvas</h1>
+            <p className="text-xs text-[#05092E] hover:text-[#1a1f3a] transition-colors duration-200">Portal</p>
           </div>
         </div>
       </div>
@@ -83,12 +86,12 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
                 <button
                   key={item.id}
                   onClick={item.action}
-                  className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${activeSection === "overview"
-                    ? "bg-[#F32D4F] text-white font-medium"
-                    : "hover:bg-gray-100 text-[#05092E]"
+                  className={`w-full flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-sm ${activeSection === "overview"
+                    ? "bg-[#F32D4F] text-white font-medium hover:bg-[#e02a47]"
+                    : "hover:bg-gray-100 text-[#05092E] hover:text-[#F32D4F]"
                     }`}
                 >
-                  <item.icon className="w-4 h-4" />
+                  <item.icon className="w-4 h-4 transition-transform duration-200 group-hover:scale-110" />
                   <span className="font-medium">{item.title}</span>
                 </button>
               )
@@ -102,12 +105,12 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
                 onOpenChange={() => toggleSection(item.id)}
               >
                 <CollapsibleTrigger asChild>
-                  <button className="w-full flex items-center justify-between p-3 hover:bg-gray-100 rounded-lg transition-colors group">
+                  <button className="w-full flex items-center justify-between p-3 hover:bg-gray-100 rounded-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-sm group">
                     <div className="flex items-center gap-3">
-                      <item.icon className="w-4 h-4 text-[#05092E]" />
-                      <span className="text-[#05092E] font-medium">{item.title}</span>
+                      <item.icon className="w-4 h-4 text-[#05092E] transition-transform duration-200 group-hover:scale-110 group-hover:text-[#F32D4F]" />
+                      <span className="text-[#05092E] font-medium group-hover:text-[#F32D4F] transition-colors duration-200">{item.title}</span>
                     </div>
-                    <ChevronDown className="w-4 h-4 text-gray-400 transition-transform group-data-[state=open]:rotate-180" />
+                    <ChevronDown className="w-4 h-4 text-gray-400 transition-transform duration-200 group-data-[state=open]:rotate-180 group-hover:text-[#F32D4F]" />
                   </button>
                 </CollapsibleTrigger>
                 <CollapsibleContent>
@@ -116,9 +119,9 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
                       <button
                         key={subItem.id}
                         onClick={() => setActiveSection(subItem.id)}
-                        className={`w-full text-left p-2 rounded-md transition-colors ${activeSection === subItem.id
-                          ? "bg-[#F32D4F] text-white font-medium"
-                          : "hover:bg-gray-50 text-[#05092E]"
+                        className={`w-full text-left p-2 rounded-md transition-all duration-200 hover:scale-[1.01] hover:shadow-sm ${activeSection === subItem.id
+                          ? "bg-[#F32D4F] text-white font-medium hover:bg-[#e02a47]"
+                          : "hover:bg-gray-50 text-[#05092E] hover:text-[#F32D4F] hover:bg-gray-100"
                           }`}
                       >
                         {subItem.title}
