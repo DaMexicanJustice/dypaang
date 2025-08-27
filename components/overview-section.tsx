@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ImageIcon, Video, ArrowRight, Sparkles, Layers } from "lucide-react"
+import { ImageIcon, Video, ArrowRight, Sparkles } from "lucide-react"
 import Image from "next/image"
 
 interface OverviewSectionProps {
@@ -18,13 +18,13 @@ export function OverviewSection({ onNavigate }: OverviewSectionProps) {
       action: "Start Creating",
       section: "generate-image-prompt",
     },
-    {
-      title: "Generate Omni Reference Image Prompt",
-      description: "Step by step guide to omni reference",
-      icon: Layers,
-      action: "Start Creating",
-      section: "generate-omni-reference-prompt",
-    },
+    /*    {
+         title: "Generate Omni Reference Image Prompt",
+         description: "Step by step guide to omni reference",
+         icon: Layers,
+         action: "Start Creating",
+         section: "generate-omni-reference-prompt",
+       }, */
     {
       title: "Generate Video Prompt",
       description: "Craft prompts for AI video generation",

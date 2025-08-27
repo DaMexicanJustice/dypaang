@@ -30,7 +30,7 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
       icon: ImageIcon,
       submenu: [
         { id: "generate-image-prompt", title: "Generate Image Prompt", href: "#" },
-        { id: "generate-omni-reference-prompt", title: "Generate Omni Reference Prompt", href: "#" }
+        // { id: "generate-omni-reference-prompt", title: "Generate Omni Reference Prompt", href: "#" }
       ],
     },
     {
