@@ -26,7 +26,6 @@ import {
   Camera,
   Lightbulb,
   Layers,
-  Zap,
   Hash,
   // Scissors,
   BookOpen,
@@ -190,7 +189,7 @@ export function VideoPromptWizard() {
     {
       id: 2,
       title: "Visual Style & Motion",
-      description: "Set film grain and motion effects",
+      description: "Set film grain, camera movement, and motion effects",
       icon: Camera,
     },
     {
@@ -217,20 +216,21 @@ export function VideoPromptWizard() {
     // Using natural language dividers as recommended in the principles
     const parts = []
 
-    // Combine camera movement with subject if both are present
+    // Combine camera movement and motion speed with subject
     let subjectLine = ""
-    if (formData.cameraMovement && formData.subject) {
-      subjectLine = `${formData.cameraMovement} ${formData.subject}`
-    } else if (formData.subject) {
-      subjectLine = formData.subject
-    } else if (formData.cameraMovement) {
-      subjectLine = formData.cameraMovement
+    const subjectParts = []
+
+    if (formData.subject) subjectParts.push(formData.subject)
+    if (formData.cameraMovement) subjectParts.push(formData.cameraMovement)
+    if (formData.motionSpeed) subjectParts.push(`in ${formData.motionSpeed}`)
+
+    if (subjectParts.length > 0) {
+      subjectLine = subjectParts.join(" ")
     }
 
     if (subjectLine) parts.push(subjectLine)
     if (formData.details) parts.push(`– ${formData.details}`)
     if (formData.filmGrain) parts.push(`– ${formData.filmGrain}`)
-    if (formData.motionSpeed) parts.push(`– ${formData.motionSpeed}`)
 
     // Add weight parameter if different from default
     if (formData.weight !== "0.75") {
@@ -266,7 +266,7 @@ export function VideoPromptWizard() {
                 The foundation of your video prompt starts with a clear subject. A subject is either a person, several people or objects.
                 Once you understand your subject(s) - you will define additional details to describe them.
                 Be precise and succinct when describing the appearance of subjects and remember to describe both people (clothes, age) as well as objects (in hand, on table, around them etc.)
-                Camera movement can be selected in the next step and will be combined with your subject description.
+                Camera movement and motion effects can be selected in the next step and will be combined with your subject description.
               </p>
             </div>
 
@@ -296,7 +296,7 @@ export function VideoPromptWizard() {
               />
             </div>
 
-            <div className="space-y-3">
+            {/* <div className="space-y-3">
               <Label htmlFor="details" className="text-gray-700 font-medium flex items-center">
                 Additional Details
                 <TooltipProvider>
@@ -321,7 +321,7 @@ export function VideoPromptWizard() {
                 onChange={(e) => setFormData({ ...formData, details: e.target.value })}
                 className="min-h-[100px]"
               />
-            </div>
+            </div> */}
 
             <TipCard
               icon={<Lightbulb className="w-4 h-4" />}
@@ -352,8 +352,8 @@ export function VideoPromptWizard() {
                 <h3 className="font-medium text-green-800">Prompt Engineering Guide: Visual Style & Motion</h3>
               </div>
               <p className="text-sm text-green-700 mb-2">
-                Film grain and motion effects dramatically affect your video. These effects create varied cinematic experiences,
-                while film grain adds character and atmosphere, and motion effects control the dynamic feel of your video.
+                Film grain, camera movement, and motion effects dramatically affect your video. These effects create varied cinematic experiences,
+                while film grain adds character and atmosphere, camera movement guides the viewer&apos;s perspective, and motion effects control the dynamic feel.
               </p>
             </div>
 
@@ -473,20 +473,22 @@ export function VideoPromptWizard() {
 
             <TipCard
               icon={<Camera className="w-4 h-4" />}
-              title="Film Grain & Motion Tips"
+              title="Film Grain, Camera Movement & Motion Tips"
               tips={[
                 "Film grain effects add character and atmosphere to your video",
+                "Camera movement guides the viewer&apos;s attention and creates dynamic perspective",
                 "Motion effects control the dynamic feel and create dramatic tension",
                 "Use () to emphasize cinematic techniques and group related visual concepts",
                 "Specify ultra-high resolution requirements (e.g., '8K equivalent or higher')",
                 "Consider the mood and atmosphere you want to create with your effects",
               ]}
               helpVideoSrc="/example.mp4"
-              helpTitle="Getting the film grain and motion effects right"
-              helpText="For the example video, we use film grain and motion effects to enhance the cinematic quality.\n\n
-               Film grain: (35mm film grain for vintage look) (subtle texture to add character)\n\n
-               Motion effects: (motion blur capturing natural movement) (smooth transitions between scenes)\n\n
-               Style: (prioritize moments over portraits) (story over symmetry) (vibrant corporate party + vintage editorial + candid event videography)"
+              helpTitle="Getting the film grain, camera movement, and motion effects right"
+              helpText="For the example video, we use film grain, camera movement, and motion effects to enhance the cinematic quality.\n\n
+                Film grain: (35mm film grain for vintage look) (subtle texture to add character)\n\n
+                Camera movement: (tracking shot following subjects) (dynamic perspective changes)\n\n
+                Motion effects: (motion blur capturing natural movement) (smooth transitions between scenes)\n\n
+                Style: (prioritize moments over portraits) (story over symmetry) (vibrant corporate party + vintage editorial + candid event videography)"
             />
           </div>
         )
@@ -546,15 +548,23 @@ export function VideoPromptWizard() {
                         <Badge variant="secondary" className="flex items-center gap-1">
                           <ImageIcon className="w-3 h-3" />
                           {(() => {
-                            const displayText = formData.cameraMovement
-                              ? `${formData.cameraMovement} ${formData.subject}`
-                              : formData.subject
+                            const subjectParts = []
+                            if (formData.subject) subjectParts.push(formData.subject)
+                            if (formData.cameraMovement) subjectParts.push(formData.cameraMovement)
+                            if (formData.motionSpeed) subjectParts.push(`in ${formData.motionSpeed}`)
+                            const displayText = subjectParts.join(" ")
                             return displayText.length > 20 ? displayText.substring(0, 20) + "..." : displayText
                           })()}
                         </Badge>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Main subject: {formData.cameraMovement ? `${formData.cameraMovement} ${formData.subject}` : formData.subject}</p>
+                        <p>Main subject: {(() => {
+                          const subjectParts = []
+                          if (formData.subject) subjectParts.push(formData.subject)
+                          if (formData.cameraMovement) subjectParts.push(formData.cameraMovement)
+                          if (formData.motionSpeed) subjectParts.push(`in ${formData.motionSpeed}`)
+                          return subjectParts.join(" ")
+                        })()}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -574,21 +584,7 @@ export function VideoPromptWizard() {
                     </Tooltip>
                   </TooltipProvider>
                 )}
-                {formData.motionSpeed && (
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Badge variant="secondary" className="flex items-center gap-1">
-                          <Zap className="w-3 h-3" />
-                          {formData.motionSpeed}
-                        </Badge>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Motion: {formData.motionSpeed}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                )}
+
 
                 {formData.seed && (
                   <TooltipProvider>
@@ -751,18 +747,14 @@ PARAMETERS:
 
 METADATA:
 - Subject: ${(() => {
-                        if (formData.cameraMovement && formData.subject) {
-                          return `${formData.cameraMovement} ${formData.subject}`
-                        } else if (formData.subject) {
-                          return formData.subject
-                        } else if (formData.cameraMovement) {
-                          return formData.cameraMovement
-                        }
-                        return 'N/A'
+                        const subjectParts = []
+                        if (formData.subject) subjectParts.push(formData.subject)
+                        if (formData.cameraMovement) subjectParts.push(formData.cameraMovement)
+                        if (formData.motionSpeed) subjectParts.push(`in ${formData.motionSpeed}`)
+                        return subjectParts.length > 0 ? subjectParts.join(" ") : 'N/A'
                       })()}
 - Details: ${formData.details || 'N/A'}
-- Film Grain: ${formData.filmGrain || 'N/A'}
-- Motion Speed: ${formData.motionSpeed || 'N/A'}`
+- Film Grain: ${formData.filmGrain || 'N/A'}`
 
                     // Create and download text file
                     const dataBlob = new Blob([textContent], { type: 'text/plain' })
@@ -793,18 +785,14 @@ METADATA:
                       },
                       metadata: {
                         subject: (() => {
-                          if (formData.cameraMovement && formData.subject) {
-                            return `${formData.cameraMovement} ${formData.subject}`
-                          } else if (formData.subject) {
-                            return formData.subject
-                          } else if (formData.cameraMovement) {
-                            return formData.cameraMovement
-                          }
-                          return 'N/A'
+                          const subjectParts = []
+                          if (formData.subject) subjectParts.push(formData.subject)
+                          if (formData.cameraMovement) subjectParts.push(formData.cameraMovement)
+                          if (formData.motionSpeed) subjectParts.push(`in ${formData.motionSpeed}`)
+                          return subjectParts.length > 0 ? subjectParts.join(" ") : 'N/A'
                         })(),
                         details: formData.details,
                         filmGrain: formData.filmGrain,
-                        motionSpeed: formData.motionSpeed,
                         generatedAt: new Date().toISOString(),
                         source: "BotanicCanvas Video Prompt Wizard"
                       }
