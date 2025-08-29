@@ -703,9 +703,12 @@ export function ImagePromptWizard() {
                 <SelectContent>
                   <SelectItem value="soft natural">Soft Natural</SelectItem>
                   <SelectItem value="golden hour">Golden Hour</SelectItem>
-                  <SelectItem value="dramatic shadows">Dramatic Shadows</SelectItem>
+                  <SelectItem value="chiaroscuro">Chiaroscuro</SelectItem>
+                  <SelectItem value="warm lit">Warm lit</SelectItem>
+                  <SelectItem value="bokeh lights">Bokeh lights</SelectItem>
                   <SelectItem value="cool ambient light">Cool Ambient Light</SelectItem>
                   <SelectItem value="spotlight">Spotlight</SelectItem>
+                  <SelectItem value="Contre-Jour">Contre-Jour</SelectItem>
                 </SelectContent>
               </Select>
             </div>
