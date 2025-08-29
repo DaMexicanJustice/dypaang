@@ -9,9 +9,10 @@ import { TutorialsSection } from "@/components/tutorials-section"
 
 interface DashboardContentProps {
   activeSection: string
+  onNavigate?: (section: string) => void
 }
 
-export function DashboardContent({ activeSection }: DashboardContentProps) {
+export function DashboardContent({ activeSection, onNavigate }: DashboardContentProps) {
   const renderContent = () => {
     switch (activeSection) {
       case "generate-image-prompt":
@@ -19,7 +20,7 @@ export function DashboardContent({ activeSection }: DashboardContentProps) {
       case "generate-omni-reference-prompt":
         return <OmniReferencePromptWizard />
       case "generate-video-prompt":
-        return <VideoPromptWizard />
+        return <VideoPromptWizard onNavigate={onNavigate} />
       case "what-is-intent":
       case "intent-examples":
         return <IntentSection activeTab={activeSection} />

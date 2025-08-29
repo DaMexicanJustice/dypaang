@@ -38,7 +38,7 @@ import {
 const INITIAL_FORM_DATA = {
   subject: "",
   style: "",
-  mood: "",
+  mood: [] as string[],
   location: "",
   composition: "",
   lighting: "",
@@ -229,9 +229,9 @@ export function ImagePromptWizard() {
     const parts = []
 
     if (formData.subject) parts.push(formData.subject)
-    if (formData.style) parts.push(`– ${formData.style} style`)
-    if (formData.mood) parts.push(`– ${formData.mood} mood`)
-    if (formData.location) parts.push(`– Location: ${formData.location}`)
+    if (formData.style) parts.push(`${formData.style} style`)
+    if (formData.mood.length > 0) parts.push(`(${formData.mood.join(", ")} mood)`)
+    if (formData.location) parts.push(`${formData.location} location`)
     if (formData.composition) parts.push(`– ${formData.composition}`)
     if (formData.lighting) parts.push(`– ${formData.lighting} lighting`)
     if (formData.details) parts.push(`– ${formData.details}`)
@@ -392,32 +392,89 @@ export function ImagePromptWizard() {
               </p>
             </div>
 
-            <div className="space-y-3">
-              <Label className="text-gray-700 font-medium flex items-center">
-                Venue Type
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
-                    </TooltipTrigger>
-                    <TooltipContent className="max-w-sm">
-                      <p>
-                        Guide the placement of the subjects by specifying a venue type. Are they outdoors? Are they indoors? What can the guests expect.
-                      </p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </Label>
-              <Select value={formData.style} onValueChange={(value) => setFormData({ ...formData, style: value })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Choose an environment" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="outdoor">Outdoor</SelectItem>
-                  <SelectItem value="indoor">Indoor</SelectItem>
-                  <SelectItem value="openair">Hybrid / Open-air</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="space-y-3">
+                <Label className="text-gray-700 font-medium flex items-center">
+                  Venue Type
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-sm">
+                        <p>
+                          Guide the placement of the subjects by specifying a venue type. Are they outdoors? Are they indoors? What can the guests expect.
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </Label>
+                <Select value={formData.style} onValueChange={(value) => setFormData({ ...formData, style: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Choose an environment" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="outdoor">Outdoor</SelectItem>
+                    <SelectItem value="indoor">Indoor</SelectItem>
+                    <SelectItem value="openair">Hybrid / Open-air</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-3">
+                <Label className="text-gray-700 font-medium flex items-center">
+                  Custom Location
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-sm">
+                        <p>
+                          Specify where the scene takes place. Consider the locales emotion invoked. Perhaps a big part of the experience
+                          is the emotions invoked by being by the canal and fresh sea air.
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </Label>
+                <Input
+                  placeholder="Enter custom location..."
+                  value={formData.location}
+                  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                />
+              </div>
+
+              <div className="space-y-3">
+                <Label className="text-gray-700 font-medium flex items-center">
+                  Quick Select
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-sm">
+                        <p>
+                          Choose from predefined location options for quick setup. Be mindful of the venue type you have selected.
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </Label>
+                <Select value={formData.location} onValueChange={(value) => setFormData({ ...formData, location: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Choose from list" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="tableside">Table side</SelectItem>
+                    <SelectItem value="by water">By water</SelectItem>
+                    <SelectItem value="by harbor">By a harbor</SelectItem>
+                    <SelectItem value="on grassy field">On grassy field</SelectItem>
+                    <SelectItem value="in urban environment">In urban environment</SelectItem>
+                    <SelectItem value="industrial indoor">Industrial indoor</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
             <div className="space-y-3">
@@ -430,81 +487,64 @@ export function ImagePromptWizard() {
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
-                        The mood sets the emotional tone of your image. It works together with lighting to create the
-                        overall atmosphere. Consider how different moods (serene, dramatic, mysterious) will affect how
-                        clients perceive the experience.
+                        Select up to 3 moods to set the emotional tone of your image. Multiple moods can create richer,
+                        more nuanced atmospheres. Consider how different mood combinations will affect how clients perceive the experience.
                       </p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
+                <span className="text-xs text-gray-500 ml-2">({formData.mood.length}/3)</span>
               </Label>
-              <Select value={formData.mood} onValueChange={(value) => setFormData({ ...formData, mood: value })}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select mood" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="vibrant">Vibrant</SelectItem>
-                  <SelectItem value="welcoming">Welcoming</SelectItem>
-                  <SelectItem value="playful">Playful</SelectItem>
-                  <SelectItem value="casual">Casual</SelectItem>
-                  <SelectItem value="dynamic">Dynamic</SelectItem>
-                  <SelectItem value="intimate">Intimate</SelectItem>
-                  <SelectItem value="stylish">Stylish</SelectItem>
-                  <SelectItem value="modern">Modern</SelectItem>
-                  <SelectItem value="cozy">Cozy</SelectItem>
-                  <SelectItem value="sophisticated">Sophisticated</SelectItem>
-                  <SelectItem value="eclectic">Eclectic</SelectItem>
-                  <SelectItem value="relaxed">Relaxed</SelectItem>
-                  <SelectItem value="lush">Lush</SelectItem>
-                  <SelectItem value="serene">Serene</SelectItem>
-                  <SelectItem value="rustic">Rustic</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                {[
+                  "vibrant", "welcoming", "playful", "casual", "dynamic", "intimate",
+                  "stylish", "modern", "cozy", "sophisticated", "eclectic", "relaxed",
+                  "lush", "serene", "rustic"
+                ].map((mood) => {
+                  const isSelected = formData.mood.includes(mood)
+                  const isDisabled = !isSelected && formData.mood.length >= 3
 
-            <div className="space-y-3">
-              <Label className="text-gray-700 font-medium flex items-center">
-                Location
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
-                    </TooltipTrigger>
-                    <TooltipContent className="max-w-sm">
-                      <p>
-                        Specify where the scene takes place. Consider the locales emotion invoked. Perhaps a big part of the experience
-                        is the emotions invoked by being by the canal and fresh sea air.
-                      </p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </Label>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div className="space-y-2">
-                  <Label className="text-sm text-gray-600">Custom Location</Label>
-                  <Input
-                    placeholder="Enter custom location..."
-                    value={formData.location}
-                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-sm text-gray-600">Quick Select</Label>
-                  <Select value={formData.location} onValueChange={(value) => setFormData({ ...formData, location: value })}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Choose from list" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="tableside">Table side</SelectItem>
-                      <SelectItem value="by water">By water</SelectItem>
-                      <SelectItem value="by harbor">By a harbor</SelectItem>
-                      <SelectItem value="on grassy field">On grassy field</SelectItem>
-                      <SelectItem value="in urban environment">In urban environment</SelectItem>
-                      <SelectItem value="industrial indoor">Industrial indoor</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+                  return (
+                    <Button
+                      key={mood}
+                      variant={isSelected ? "default" : "outline"}
+                      size="sm"
+                      disabled={isDisabled}
+                      className={isSelected
+                        ? "bg-blue-500 hover:bg-blue-600 text-white border-blue-500 hover:shadow-md"
+                        : isDisabled
+                          ? "opacity-50 cursor-not-allowed"
+                          : "hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700 hover:shadow-sm"
+                      }
+                      onClick={() => {
+                        if (isSelected) {
+                          setFormData({
+                            ...formData,
+                            mood: formData.mood.filter(m => m !== mood)
+                          })
+                        } else if (formData.mood.length < 3) {
+                          setFormData({
+                            ...formData,
+                            mood: [...formData.mood, mood]
+                          })
+                        }
+                      }}
+                    >
+                      {mood.charAt(0).toUpperCase() + mood.slice(1)}
+                    </Button>
+                  )
+                })}
               </div>
+              {formData.mood.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-2">
+                  <span className="text-sm text-gray-600">Selected:</span>
+                  {formData.mood.map((mood) => (
+                    <Badge key={mood} variant="secondary" className="text-xs">
+                      {mood.charAt(0).toUpperCase() + mood.slice(1)}
+                    </Badge>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="space-y-3">
@@ -900,17 +940,17 @@ export function ImagePromptWizard() {
                     </Tooltip>
                   </TooltipProvider>
                 )}
-                {formData.mood && (
+                {formData.mood.length > 0 && (
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <Badge variant="secondary" className="flex items-center gap-1">
                           <Zap className="w-3 h-3" />
-                          {formData.mood}
+                          {formData.mood.join(", ")}
                         </Badge>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Mood: {formData.mood}</p>
+                        <p>Mood: {formData.mood.join(", ")}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -1139,7 +1179,7 @@ PARAMETERS:
 METADATA:
 - Subject: ${formData.subject || 'N/A'}
 - Style: ${formData.style || 'N/A'}
-- Mood: ${formData.mood || 'N/A'}
+- Mood: ${formData.mood.length > 0 ? formData.mood.join(", ") : 'N/A'}
 - Location: ${formData.location || 'N/A'}
 - Composition: ${formData.composition || 'N/A'}
 - Lighting: ${formData.lighting || 'N/A'}
@@ -1177,7 +1217,7 @@ METADATA:
                       metadata: {
                         subject: formData.subject,
                         style: formData.style,
-                        mood: formData.mood,
+                        mood: formData.mood.join(", "),
                         location: formData.location,
                         composition: formData.composition,
                         lighting: formData.lighting,

@@ -28,7 +28,7 @@ export default function Dashboard() {
             </div>
           </div>
         ) : (
-          <DashboardContent activeSection={activeSection} />
+          <DashboardContent activeSection={activeSection} onNavigate={handleNavigate} />
         )}
       </main>
     </div>

@@ -96,7 +96,11 @@ function TipCard({ icon, title, tips, helpVideoSrc, helpTitle, helpText }: { ico
   )
 }
 
-export function VideoPromptWizard() {
+interface VideoPromptWizardProps {
+  onNavigate?: (section: string) => void
+}
+
+export function VideoPromptWizard({ onNavigate }: VideoPromptWizardProps) {
   // Define initial state
 
   const [currentStep, setCurrentStep] = useState(1)
@@ -269,6 +273,30 @@ export function VideoPromptWizard() {
                 Camera movement and motion effects can be selected in the next step and will be combined with your subject description.
               </p>
             </div>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <ImageIcon className="w-5 h-5 text-blue-500 mr-2" />
+                  Step 1: Generate an image using the image prompt wizard
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <p className="text-gray-700">
+                  <strong>What to do:</strong> Generate an image. It will be used together with this prompt to create your video.
+                </p>
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <h4 className="font-medium text-blue-900 mb-2">If you do not have an image yet, use the image prompt wizard to generate one:</h4>
+                  <Button
+                    variant="link"
+                    className="p-0 h-auto"
+                    onClick={() => onNavigate?.("generate-image-prompt")}
+                  >
+                    Image Prompt Wizard
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
 
             <div className="space-y-3">
               <Label htmlFor="subject" className="text-gray-700 font-medium flex items-center">
