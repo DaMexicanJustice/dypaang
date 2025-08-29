@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { ImageIcon, Video, Brain, BookOpen, ChevronDown, Sparkles, Home } from "lucide-react"
+import { ImageIcon, Video, Brain, ChevronDown, Sparkles, Home } from "lucide-react"
 
 interface AppSidebarProps {
   activeSection: string
@@ -48,17 +48,17 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
         { id: "intent-examples", title: "Examples", href: "#" },
       ],
     },
-    {
+    /* {
       id: "tutorials",
       title: "Tutorials",
       icon: BookOpen,
       submenu: [
-        { id: "prompt-images", title: "How to Prompt Images", href: "#" },
+        { id: "prompt-images", title: "How to Prompt Images", href: "#" },  
         { id: "prompt-videos", title: "How to Prompt Videos", href: "#" },
         { id: "use-intent", title: "How to Use Intent", href: "#" },
         { id: "prompt-engineering", title: "Prompt Engineering", href: "#" },
       ],
-    },
+    }, */
   ]
 
   return (
