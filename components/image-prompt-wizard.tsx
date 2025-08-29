@@ -108,6 +108,7 @@ export function ImagePromptWizard() {
   const [formData, setFormData] = useState(INITIAL_FORM_DATA)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isCompositionExamplesOpen, setIsCompositionExamplesOpen] = useState(false)
+  const [isLightingExamplesOpen, setIsLightingExamplesOpen] = useState(false)
   const [isNavigationWarningOpen, setIsNavigationWarningOpen] = useState(false)
   const [pendingNavigation, setPendingNavigation] = useState<(() => void) | null>(null)
   const [editablePrompt, setEditablePrompt] = useState("")
@@ -692,6 +693,14 @@ export function ImagePromptWizard() {
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="h-7 px-2 text-xs ml-2 hover:bg-green-100 hover:border-green-300"
+                  onClick={() => setIsLightingExamplesOpen(true)}
+                >
+                  Examples
+                </Button>
               </Label>
               <Select
                 value={formData.lighting}
@@ -707,7 +716,6 @@ export function ImagePromptWizard() {
                   <SelectItem value="warm lit">Warm lit</SelectItem>
                   <SelectItem value="bokeh lights">Bokeh lights</SelectItem>
                   <SelectItem value="cool ambient light">Cool Ambient Light</SelectItem>
-                  <SelectItem value="spotlight">Spotlight</SelectItem>
                   <SelectItem value="Contre-Jour">Contre-Jour</SelectItem>
                 </SelectContent>
               </Select>
@@ -1338,6 +1346,30 @@ METADATA:
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </Modal>
+
+      {/* Lighting Examples Modal */}
+      <Modal
+        isOpen={isLightingExamplesOpen}
+        onClose={() => setIsLightingExamplesOpen(false)}
+        title="Lighting Examples"
+        className="max-w-4xl"
+      >
+        <div className="space-y-6">
+          <div className="text-center">
+            <Image
+              src="/lighting.png"
+              alt="Lighting Examples"
+              width={800}
+              height={600}
+              className="w-full h-auto"
+            />
+            <p className="text-sm text-gray-600 mt-4">
+              Different lighting techniques can dramatically change the mood and atmosphere of your image.
+              Choose the lighting style that best matches your desired emotional tone.
+            </p>
           </div>
         </div>
       </Modal>
