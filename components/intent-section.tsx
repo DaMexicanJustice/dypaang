@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Brain, Target, Lightbulb, Zap } from "lucide-react"
+import { Brain, Target, Lightbulb, Zap, ArrowLeftRight } from "lucide-react"
 
 interface IntentSectionProps {
   activeTab: string
@@ -23,6 +23,17 @@ export function IntentSection({ activeTab }: IntentSectionProps) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <ArrowLeftRight className="w-8 h-8 text-blue-500 mb-2" />
+              <CardTitle className="text-gray-900">Prompt engineering or intent-driven</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CardDescription className="text-gray-600">
+                You either choose or combine both approaches: <br></br><br></br><strong>Prompt Engineering:</strong> You describe all the details yourself - composition, lighting, style, etc. <br></br><br></br> <strong>Intent-Driven:</strong> You describe your intention, what it&apos;s used for, and ask ChatGPT questions - letting ChatGPT handle the prompt engineering for you.
+              </CardDescription>
+            </CardContent>
+          </Card>
           <Card>
             <CardHeader>
               <Target className="w-8 h-8 text-green-500 mb-2" />
@@ -99,27 +110,141 @@ export function IntentSection({ activeTab }: IntentSectionProps) {
         </p>
       </div>
 
+      {/* Dypång Event Bureau Card - ChatGPT Style */}
+      <Card className="bg-white border-gray-200">
+        <CardHeader>
+          <div className="flex items-center gap-3">
+            <div className="w-3 h-3 rounded-full bg-purple-500" />
+            <CardTitle className="text-lg text-gray-900">ChatGPT intent-driven conversation</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* User Message */}
+          <div className="flex gap-3 justify-end">
+            <div className="flex-1"></div>
+            <div className="flex-1 flex justify-end">
+              <div className="bg-purple-500 p-4 rounded-2xl rounded-tr-sm max-w-[80%]">
+                <p className="text-white">
+                  I am creating text to image prompts and images for a Danish company called dypång. (This is their website https://www.dypång.dk, look up what they do). I want to create text prompts that will be used to showcase venues and events, so they should invoke emotion, a promise of a cool experience, ideally candid moments captured of people enjoying the event -- to help sell events.
+                </p>
+              </div>
+            </div>
+            <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-white text-sm font-bold">You</span>
+            </div>
+          </div>
+
+          {/* AI Response */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-white text-sm font-bold">AI</span>
+            </div>
+            <div className="flex-1">
+              <div className="bg-gray-50 p-4 rounded-2xl rounded-tl-sm max-w-[80%]">
+                <p className="text-gray-700">
+                  You're on the right track! From my research, dypång is an event bureau based in Aarhus, Denmark, focused on creating immersive, emotionally charged events that foster movement, energy, and connection—including company days, kick-offs, product launches, jubilees, conferences, family days, summer parties, and Christmas celebrations
+                  dypaang.dk
+                  +2
+                  dypaang.dk
+                  +2
+                  .
+
+                  They create experiences that are simultaneously "sanselige & snorlige"—meaning deeply sensory, yet precisely controlled—combining creativity with structure to produce memorable, emotionally resonant moments
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* User Message */}
+          <div className="flex gap-3 justify-end">
+            <div className="flex-1"></div>
+            <div className="flex-1 flex justify-end">
+              <div className="bg-purple-500 p-4 rounded-2xl rounded-tr-sm max-w-[80%]">
+                <p className="text-white">
+                  Just to check tell me what types of events they specialize in
+                </p>
+              </div>
+            </div>
+            <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-white text-sm font-bold">You</span>
+            </div>
+          </div>
+
+          {/* AI Response */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-white text-sm font-bold">AI</span>
+            </div>
+            <div className="flex-1">
+              <div className="bg-gray-50 p-4 rounded-2xl rounded-tl-sm max-w-[80%]">
+                <p className="text-gray-700">
+                  They specialize in company days, kick-offs, product launches, jubilees, conferences, family days, summer parties, and Christmas celebrations.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* User Message */}
+          <div className="flex gap-3 justify-end">
+            <div className="flex-1"></div>
+            <div className="flex-1 flex justify-end">
+              <div className="bg-purple-500 p-4 rounded-2xl rounded-tr-sm max-w-[80%]">
+                <p className="text-white">
+                  My event is for a target diverse group in the 40s
+                </p>
+              </div>
+            </div>
+            <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-white text-sm font-bold">You</span>
+            </div>
+          </div>
+
+          {/* AI Response */}
+          <div className="flex gap-3">
+            <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-white text-sm font-bold">AI</span>
+            </div>
+            <div className="flex-1">
+              <div className="bg-gray-50 p-4 rounded-2xl rounded-tl-sm max-w-[80%]">
+                <p className="text-gray-700">
+                  Perfect — thank you for clarifying!
+                  If the target audience is a diverse group in their 40s, we’ll want to reflect:
+
+                  Confidence & maturity → people who know how to enjoy themselves without it being over-the-top.
+
+                  Diversity → a mix of ages (late 30s–50s), genders, ethnicities, styles.
+
+                  Energy with sophistication → not wild party vibes, but joyful, relaxed, connected.
+
+                  Candid, genuine emotion → laughter, conversation, dancing, meaningful connections.½
+                </p>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       <div className="space-y-6">
         {[
           {
-            intent: "Commercial Product Photography",
-            prompt: "A sleek smartphone on a minimalist white background",
+            intent: "Event Photography",
+            prompt: "People at a party mingling and in high spirits.",
             enhanced:
-              "A sleek smartphone on a minimalist white background, professional product photography for e-commerce, clean lighting, high-end commercial appeal, studio quality",
+              "“A stylish group of professionals in their 40s gathered in a modern event space, laughing candidly while holding drinks, warm ambient lighting, chic décor with natural wood and greenery, people caught mid-conversation and mid-laughter—diverse group, vibrant yet sophisticated energy.”",
             color: "blue",
           },
           {
-            intent: "Social Media Content",
-            prompt: "A cup of coffee on a wooden table",
+            intent: "Dining & Social Events",
+            prompt: "People eating dinner at a table-- celebrating a holiday",
             enhanced:
-              "A cup of coffee on a wooden table, Instagram-worthy lifestyle shot, warm natural lighting, cozy atmosphere, millennial aesthetic, shareable content",
+              "“Candid photo of a diverse group of adults in their 40s seated around a beautifully decorated dinner table, clinking glasses of wine, warm golden lighting from candles, elegant table setting, relaxed smiles and lively conversation—atmosphere of warmth, connection, and joy.”",
             color: "pink",
           },
           {
-            intent: "Editorial Illustration",
-            prompt: "A person reading a book in a library",
+            intent: "Celebration & Toast Moments",
+            prompt: "People celebrating and toasting to each other by a table.",
             enhanced:
-              "A person reading a book in a library, editorial illustration for magazine article about education, thoughtful mood, intellectual atmosphere, sophisticated composition",
+              "“Candid shot of people in their 40s dressed in smart-casual attire, raising glasses in a toast, warm and inviting lighting, confetti gently falling, background filled with laughter and clapping—diverse group radiating joy and shared celebration.”",
             color: "green",
           },
         ].map((example, index) => (

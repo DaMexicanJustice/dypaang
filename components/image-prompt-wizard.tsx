@@ -233,10 +233,10 @@ export function ImagePromptWizard() {
     if (formData.style) parts.push(`${formData.style} style`)
     if (formData.mood.length > 0) parts.push(`(${formData.mood.join(", ")} mood)`)
     if (formData.location) parts.push(`${formData.location} location`)
-    if (formData.composition) parts.push(`– ${formData.composition}`)
-    if (formData.lighting) parts.push(`– ${formData.lighting} lighting`)
-    if (formData.details) parts.push(`– ${formData.details}`)
-    if (formData.aspectRatio) parts.push(`– Aspect ratio: ${formData.aspectRatio}`)
+    if (formData.composition) parts.push(`–${formData.composition}`)
+    if (formData.lighting) parts.push(`–${formData.lighting} lighting`)
+    if (formData.details) parts.push(`–${formData.details}`)
+    if (formData.aspectRatio) parts.push(`–Aspect ratio: ${formData.aspectRatio}`)
 
     // Add weight parameter if different from default
     if (formData.weight !== "0.75") {
@@ -311,7 +311,7 @@ export function ImagePromptWizard() {
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
-                        Add specific details about textures, objects, or elements. Using vivid adjectives like rough,
+                        Add specific details about what surrounds the subject(s) as well as the textures. Using vivid adjectives like rough,
                         silky, or glossy helps capture the essence of different surfaces. Including an action (e.g.,
                         a person gazing at the sunset) adds dynamism.
                       </p>
@@ -321,7 +321,7 @@ export function ImagePromptWizard() {
               </Label>
               <Textarea
                 id="details"
-                placeholder="Add specific details, objects, or elements you want to include..."
+                placeholder="Add specific details about what surrounds the subject(s), objects, or elements you want to include..."
                 value={formData.details}
                 onChange={(e) => setFormData({ ...formData, details: e.target.value })}
                 className="min-h-[100px]"
