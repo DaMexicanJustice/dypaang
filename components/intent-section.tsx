@@ -142,14 +142,14 @@ export function IntentSection({ activeTab }: IntentSectionProps) {
             <div className="flex-1">
               <div className="bg-gray-50 p-4 rounded-2xl rounded-tl-sm max-w-[80%]">
                 <p className="text-gray-700">
-                  You're on the right track! From my research, dypång is an event bureau based in Aarhus, Denmark, focused on creating immersive, emotionally charged events that foster movement, energy, and connection—including company days, kick-offs, product launches, jubilees, conferences, family days, summer parties, and Christmas celebrations
+                  You are on the right track! From my research, dypång is an event bureau based in Aarhus, Denmark, focused on creating immersive, emotionally charged events that foster movement, energy, and connection—including company days, kick-offs, product launches, jubilees, conferences, family days, summer parties, and Christmas celebrations
                   dypaang.dk
                   +2
                   dypaang.dk
                   +2
                   .
 
-                  They create experiences that are simultaneously "sanselige & snorlige"—meaning deeply sensory, yet precisely controlled—combining creativity with structure to produce memorable, emotionally resonant moments
+                  They create experiences that are simultaneously sanselige & snorlige —meaning deeply sensory, yet precisely controlled—combining creativity with structure to produce memorable, emotionally resonant moments
                 </p>
               </div>
             </div>
