@@ -30,7 +30,7 @@ import {
   Aperture,
   Sliders,
   Hash,
-  // Scissors,
+  Scissors,
   BookOpen,
   MapPin,
 } from "lucide-react"
@@ -45,10 +45,12 @@ const INITIAL_FORM_DATA = {
   details: "",
   aspectRatio: "",
   quality: "",
-  // negativePrompt: "",
+  negativePrompt: "",
   weight: "0.75",
   seed: "",
   selectedEmojis: [] as string[],
+  cameraEffects: [] as string[],
+  authorName: "",
 }
 
 function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { icon: React.ReactNode; title: string; tips: string[]; helpImageSrc?: string; helpTitle?: string; helpText?: string }) {
@@ -112,7 +114,7 @@ export function ImagePromptWizard() {
   const [isNavigationWarningOpen, setIsNavigationWarningOpen] = useState(false)
   const [pendingNavigation, setPendingNavigation] = useState<(() => void) | null>(null)
   const [editablePrompt, setEditablePrompt] = useState("")
-  // const [editableNegativePrompt, setEditableNegativePrompt] = useState("")
+  const [editableNegativePrompt, setEditableNegativePrompt] = useState("")
 
 
 
@@ -235,6 +237,7 @@ export function ImagePromptWizard() {
     if (formData.location) parts.push(`${formData.location} location`)
     if (formData.composition) parts.push(`–${formData.composition}`)
     if (formData.lighting) parts.push(`–${formData.lighting} lighting`)
+    if ((formData.cameraEffects || []).length > 0) parts.push(`–Camera: ${(formData.cameraEffects || []).join(", ")}`)
     if (formData.details) parts.push(`–${formData.details}`)
     if (formData.aspectRatio) parts.push(`–Aspect ratio: ${formData.aspectRatio}`)
 
@@ -254,7 +257,7 @@ export function ImagePromptWizard() {
   const handleFinishAndCopy = () => {
     const generatedPrompt = generatePrompt()
     setEditablePrompt(generatedPrompt)
-    // setEditableNegativePrompt(formData.negativePrompt || "")
+    setEditableNegativePrompt(formData.negativePrompt || "")
     setIsModalOpen(true)
   }
 
@@ -263,6 +266,31 @@ export function ImagePromptWizard() {
       case 1:
         return (
           <div className="space-y-6">
+            <div className="space-y-3">
+              <Label htmlFor="authorName" className="text-gray-700 font-medium flex items-center">
+                Who is authoring this prompt today?
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-sm">
+                      <p>
+                        Add your name to attribute authorship in exported files. This helps keep
+                        track of who created each prompt.
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </Label>
+              <Input
+                id="authorName"
+                placeholder="e.g., Patrick Jensen"
+                value={formData.authorName ?? ""}
+                onChange={(e) => setFormData({ ...formData, authorName: e.target.value })}
+              />
+            </div>
+
             <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-100">
               <div className="flex items-center mb-2">
                 <BookOpen className="w-5 h-5 text-blue-600 mr-2" />
@@ -328,31 +356,31 @@ export function ImagePromptWizard() {
               />
             </div>
 
-            {/* <div className="space-y-3">
-               <Label htmlFor="negativePrompt" className="text-gray-700 font-medium flex items-center">
-                 Negative Prompt
-                 <TooltipProvider>
-                   <Tooltip>
-                     <TooltipTrigger asChild>
-                       <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
-                     </TooltipTrigger>
-                     <TooltipContent className="max-w-sm">
-                       <p>
-                         Define what should be excluded from your image. Specifying elements to avoid ensures greater
-                         accuracy in achieving the desired results and can help prevent common AI generation issues.
-                       </p>
-                     </TooltipContent>
-                   </Tooltip>
-                 </TooltipProvider>
-               </Label>
-               <Textarea
-                 id="negativePrompt"
-                 placeholder="Elements to exclude (e.g., blurry, distorted faces, extra limbs)..."
-                 value={formData.negativePrompt}
-                 onChange={(e) => setFormData({ ...formData, negativePrompt: e.target.value })}
-                 className="min-h-[80px]"
-               />
-             </div> */}
+            <div className="space-y-3">
+              <Label htmlFor="negativePrompt" className="text-gray-700 font-medium flex items-center">
+                Negative Prompt
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-sm">
+                      <p>
+                        Define what should be excluded from your image. Specifying elements to avoid ensures greater
+                        accuracy in achieving the desired results and can help prevent common AI generation issues.
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </Label>
+              <Textarea
+                id="negativePrompt"
+                placeholder="Elements to exclude (e.g., blurry, distorted faces, extra limbs)..."
+                value={formData.negativePrompt}
+                onChange={(e) => setFormData({ ...formData, negativePrompt: e.target.value })}
+                className="min-h-[80px]"
+              />
+            </div>
 
             <TipCard
               icon={<Lightbulb className="w-4 h-4" />}
@@ -389,7 +417,7 @@ export function ImagePromptWizard() {
               <p className="text-sm text-purple-700 mb-2">
                 Once the subjects and core details of an image are defined, adding location, venue type, mood, and expressive elements helps shape the narrative and emotional tone of the scene.
                 These contextual layers guide the AI to place the subjects in a setting that feels intentional and immersive—whether it iss a vibrant rooftop kick-off or a serene indoor depot.
-                Expressive cues like emojis or mood tags further refine the atmosphere, ensuring the final image reflects not just what’s in it, but how it should feel to the viewer.
+                Expressive cues like emojis or mood tags further refine the atmosphere, ensuring the final image reflects not just what’s in it, but how it should feel to the viewer. While lighting sets the mood and creates depth.
               </p>
             </div>
 
@@ -476,6 +504,57 @@ export function ImagePromptWizard() {
                   </SelectContent>
                 </Select>
               </div>
+            </div>
+
+            <div className="space-y-3">
+              <Label className="text-gray-700 font-medium flex items-center">
+                Lighting
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-sm">
+                      <p>
+                        Lighting plays a crucial role in setting the mood and atmosphere. Consider specifying multiple
+                        light sources for dynamic interplay and using techniques like chiaroscuro to create depth and
+                        contrast. The type of lighting—soft, dramatic, neon glow—significantly enhances the scene.
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="h-7 px-2 text-xs ml-2 hover:bg-green-100 hover:border-green-300"
+                  onClick={() => setIsLightingExamplesOpen(true)}
+                >
+                  Examples
+                </Button>
+              </Label>
+              <Select
+                value={formData.lighting}
+                onValueChange={(value) => setFormData({ ...formData, lighting: value })}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select lighting" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="soft natural">Soft Natural</SelectItem>
+                  <SelectItem value="golden hour">Golden Hour</SelectItem>
+                  <SelectItem value="chiaroscuro">Chiaroscuro</SelectItem>
+                  <SelectItem value="warm lit">Warm lit</SelectItem>
+                  <SelectItem value="bokeh lights">Bokeh lights</SelectItem>
+                  <SelectItem value="cool ambient light">Cool Ambient Light</SelectItem>
+                  <SelectItem value="Contre-Jour">Contre-Jour</SelectItem>
+                  <SelectItem value="Contre-Jour">Midday Sun</SelectItem>
+                  <SelectItem value="Contre-Jour">Overcast Lighting</SelectItem>
+                  <SelectItem value="Contre-Jour">Urban Night lights</SelectItem>
+                  <SelectItem value="Contre-Jour">Neon Glow Lighting</SelectItem>
+                  <SelectItem value="Contre-Jour">Fire light</SelectItem>
+                  <SelectItem value="Contre-Jour">Fairy lights</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="space-y-3">
@@ -678,51 +757,6 @@ export function ImagePromptWizard() {
 
             <div className="space-y-3">
               <Label className="text-gray-700 font-medium flex items-center">
-                Lighting
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
-                    </TooltipTrigger>
-                    <TooltipContent className="max-w-sm">
-                      <p>
-                        Lighting plays a crucial role in setting the mood and atmosphere. Consider specifying multiple
-                        light sources for dynamic interplay and using techniques like chiaroscuro to create depth and
-                        contrast. The type of lighting—soft, dramatic, neon glow—significantly enhances the scene.
-                      </p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="h-7 px-2 text-xs ml-2 hover:bg-green-100 hover:border-green-300"
-                  onClick={() => setIsLightingExamplesOpen(true)}
-                >
-                  Examples
-                </Button>
-              </Label>
-              <Select
-                value={formData.lighting}
-                onValueChange={(value) => setFormData({ ...formData, lighting: value })}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select lighting" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="soft natural">Soft Natural</SelectItem>
-                  <SelectItem value="golden hour">Golden Hour</SelectItem>
-                  <SelectItem value="chiaroscuro">Chiaroscuro</SelectItem>
-                  <SelectItem value="warm lit">Warm lit</SelectItem>
-                  <SelectItem value="bokeh lights">Bokeh lights</SelectItem>
-                  <SelectItem value="cool ambient light">Cool Ambient Light</SelectItem>
-                  <SelectItem value="Contre-Jour">Contre-Jour</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-3">
-              <Label className="text-gray-700 font-medium flex items-center">
                 Aspect Ratio
                 <TooltipProvider>
                   <Tooltip>
@@ -739,20 +773,115 @@ export function ImagePromptWizard() {
                   </Tooltip>
                 </TooltipProvider>
               </Label>
-              <Select
-                value={formData.aspectRatio}
-                onValueChange={(value) => setFormData({ ...formData, aspectRatio: value })}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Choose aspect ratio" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1:1">Square (1:1)</SelectItem>
-                  <SelectItem value="16:9">Landscape (16:9)</SelectItem>
-                  <SelectItem value="9:16">Portrait (9:16)</SelectItem>
-                  <SelectItem value="4:3">Standard (4:3)</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {[
+                  { label: "Square", value: "1:1", ar: "1 / 1" },
+                  { label: "Landscape", value: "16:9", ar: "16 / 9" },
+                  { label: "Portrait", value: "9:16", ar: "9 / 16" },
+                  { label: "Standard", value: "4:3", ar: "4 / 3" },
+                ].map((ratio) => {
+                  const isSelected = formData.aspectRatio === ratio.value
+                  return (
+                    <button
+                      key={ratio.value}
+                      type="button"
+                      className={`${isSelected ? "border-blue-500 ring-2 ring-blue-200" : "border-gray-300 hover:border-amber-300 hover:shadow-sm"} w-full rounded-md border bg-white transition focus:outline-none focus:ring-2 focus:ring-blue-300`}
+                      onClick={() => setFormData({ ...formData, aspectRatio: ratio.value })}
+                    >
+                      <div className="p-3">
+                        <div className="w-full rounded-sm overflow-hidden border border-white/60 bg-gradient-to-br from-sky-200 to-teal-200" style={{ aspectRatio: ratio.ar }} />
+                        <div className="mt-2 text-center">
+                          <div className="text-sm font-medium text-gray-900">{ratio.label}</div>
+                          <div className="text-xs text-gray-600">{ratio.value}</div>
+                        </div>
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <Label className="text-gray-700 font-medium flex items-center">
+                Camera Effects & Lenses
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                    </TooltipTrigger>
+                    <TooltipContent className="max-w-sm">
+                      <p>
+                        Select up to 5 camera-related effects or lens choices to refine the photographic
+                        look, such as flash, vignettes, long exposure, or lens types.
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                <span className="text-xs text-gray-500 ml-2">({(formData.cameraEffects || []).length}/5)</span>
+              </Label>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                {[
+                  "flash photography",
+                  "vignette",
+                  "wide-angle lens",
+                  "telephoto lens",
+                  "prime lens",
+                  "fisheye lens",
+                  "tilt-shift",
+                  "long exposure",
+                  "shallow depth of field",
+                  "bokeh",
+                  "polarizing filter",
+                  "HDR look",
+                  "cinematic grain",
+                  "soft focus",
+                ].map((effect) => {
+                  const currentEffects = formData.cameraEffects || []
+                  const isSelected = currentEffects.includes(effect)
+                  const isDisabled = !isSelected && currentEffects.length >= 5
+
+                  return (
+                    <Button
+                      key={effect}
+                      variant={isSelected ? "default" : "outline"}
+                      size="sm"
+                      disabled={isDisabled}
+                      className={isSelected
+                        ? "bg-blue-500 hover:bg-blue-600 text-white border-blue-500 hover:shadow-md"
+                        : isDisabled
+                          ? "opacity-50 cursor-not-allowed"
+                          : "hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700 hover:shadow-sm"
+                      }
+                      onClick={() => {
+                        const current = formData.cameraEffects || []
+                        if (isSelected) {
+                          setFormData({
+                            ...formData,
+                            cameraEffects: current.filter(e => e !== effect)
+                          })
+                        } else if (current.length < 5) {
+                          setFormData({
+                            ...formData,
+                            cameraEffects: [...current, effect]
+                          })
+                        }
+                      }}
+                    >
+                      {effect.charAt(0).toUpperCase() + effect.slice(1)}
+                    </Button>
+                  )
+                })}
+              </div>
+              {(formData.cameraEffects || []).length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-2">
+                  <span className="text-sm text-gray-600">Selected:</span>
+                  {(formData.cameraEffects || []).map((effect) => (
+                    <Badge key={effect} variant="secondary" className="text-xs">
+                      {effect.charAt(0).toUpperCase() + effect.slice(1)}
+                    </Badge>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -893,17 +1022,17 @@ export function ImagePromptWizard() {
                 </p>
               </div>
 
-              {/* {formData.negativePrompt && (
-                 <div className="mt-4">
-                   <div className="flex items-center mb-2">
-                     <Scissors className="w-4 h-4 mr-2 text-red-500" />
-                     <span className="text-sm font-medium">Negative Prompt Preview:</span>
-                   </div>
-                   <div className="p-3 bg-red-50 rounded-lg border border-red-100">
-                     <p className="text-gray-800">{formData.negativePrompt}</p>
-                   </div>
-                 </div>
-               )} */}
+              {formData.negativePrompt && (
+                <div className="mt-4">
+                  <div className="flex items-center mb-2">
+                    <Scissors className="w-4 h-4 mr-2 text-red-500" />
+                    <span className="text-sm font-medium">Negative Prompt Preview:</span>
+                  </div>
+                  <div className="p-3 bg-red-50 rounded-lg border border-red-100">
+                    <p className="text-gray-800">{formData.negativePrompt}</p>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="flex gap-3">
@@ -992,6 +1121,21 @@ export function ImagePromptWizard() {
                       </TooltipTrigger>
                       <TooltipContent>
                         <p>Lighting: {formData.lighting}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
+                {(formData.cameraEffects || []).length > 0 && (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Badge variant="secondary" className="flex items-center gap-1">
+                          <Aperture className="w-3 h-3" />
+                          {(formData.cameraEffects || []).join(", ")}
+                        </Badge>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Camera: {(formData.cameraEffects || []).join(", ")}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -1091,6 +1235,15 @@ export function ImagePromptWizard() {
                 ? "border-green-300 bg-green-50 hover:bg-green-100"
                 : "border-gray-200 bg-white hover:bg-gray-50"
               }`}
+            onClick={() => setCurrentStep(step.id)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault()
+                setCurrentStep(step.id)
+              }
+            }}
           >
             <div className="flex items-center gap-3 mb-2">
               <div
@@ -1174,7 +1327,7 @@ export function ImagePromptWizard() {
                   onClick={() => {
                     // Create plain text export
                     const textContent = `AI Image Generation Prompt
-Generated by BotanicCanvas Prompt Wizard
+Author: ${formData.authorName || 'Unknown'}
 Date: ${new Date().toLocaleDateString()}
 Time: ${new Date().toLocaleTimeString()}
 
@@ -1194,6 +1347,8 @@ METADATA:
 - Location: ${formData.location || 'N/A'}
 - Composition: ${formData.composition || 'N/A'}
 - Lighting: ${formData.lighting || 'N/A'}
+- Camera: ${formData.cameraEffects && formData.cameraEffects.length > 0 ? formData.cameraEffects.join(", ") : 'N/A'}
+ - Camera: ${(formData.cameraEffects || []).length > 0 ? (formData.cameraEffects || []).join(", ") : 'N/A'}
 - Details: ${formData.details || 'N/A'}`
 
                     // Create and download text file
@@ -1226,15 +1381,17 @@ METADATA:
                         seed: formData.seed
                       },
                       metadata: {
+                        author: formData.authorName || undefined,
                         subject: formData.subject,
                         style: formData.style,
                         mood: formData.mood.join(", "),
                         location: formData.location,
                         composition: formData.composition,
                         lighting: formData.lighting,
+                        camera: formData.cameraEffects || [],
                         details: formData.details,
                         generatedAt: new Date().toISOString(),
-                        source: "BotanicCanvas Prompt Wizard"
+                        source: "Image Prompt Wizard"
                       }
                     }
 
@@ -1266,46 +1423,46 @@ METADATA:
           </div>
 
           {/* Negative Prompt Section */}
-          {/* <div className="space-y-3">
-             <div className="flex items-center justify-between">
-               <Label className="text-gray-700 font-medium text-lg">Negative Prompt</Label>
-               <Button
-                 variant="outline"
-                 size="sm"
-                 onClick={() => navigator.clipboard.writeText(editableNegativePrompt)}
-               >
-                 <Copy className="w-4 h-4 mr-2" />
-                 Copy to Clipboard
-               </Button>
-             </div>
-             <Textarea
-               value={editableNegativePrompt}
-               onChange={(e) => setEditableNegativePrompt(e.target.value)}
-               placeholder="Your negative prompt will appear here..."
-               className="min-h-[150px] text-sm font-mono"
-             />
-           </div> */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <Label className="text-gray-700 font-medium text-lg">Negative Prompt</Label>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigator.clipboard.writeText(editableNegativePrompt)}
+              >
+                <Copy className="w-4 h-4 mr-2" />
+                Copy to Clipboard
+              </Button>
+            </div>
+            <Textarea
+              value={editableNegativePrompt}
+              onChange={(e) => setEditableNegativePrompt(e.target.value)}
+              placeholder="Your negative prompt will appear here..."
+              className="min-h-[150px] text-sm font-mono"
+            />
+          </div>
 
           {/* Action Buttons */}
-          {/* <div className="flex justify-end gap-3 pt-4 border-t">
-             <Button
-               variant="default"
-               onClick={() => {
-                 const fullPrompt = `Prompt:\n${editablePrompt}\n\n${editableNegativePrompt ? `Negative Prompt:\n${editableNegativePrompt}` : ""}`
-                 navigator.clipboard.writeText(fullPrompt)
-               }}
-               className="bg-coral hover:bg-coral/90 text-white"
-             >
-               <Copy className="w-4 h-4 mr-2" />
-               Copy Both Prompts
-             </Button>
-             <Button
-               variant="outline"
-               onClick={() => setIsModalOpen(false)}
-             >
-               Close
-             </Button>
-           </div> */}
+          <div className="flex justify-end gap-3 pt-4 border-t">
+            <Button
+              variant="default"
+              onClick={() => {
+                const fullPrompt = `Prompt:\n${editablePrompt}\n\n${editableNegativePrompt ? `Negative Prompt:\n${editableNegativePrompt}` : ""}`
+                navigator.clipboard.writeText(fullPrompt)
+              }}
+              className="bg-coral hover:bg-coral/90 text-white"
+            >
+              <Copy className="w-4 h-4 mr-2" />
+              Copy Both Prompts
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setIsModalOpen(false)}
+            >
+              Close
+            </Button>
+          </div>
         </div>
       </Modal>
 
@@ -1357,19 +1514,30 @@ METADATA:
         title="Lighting Examples"
         className="max-w-4xl"
       >
-        <div className="space-y-6">
-          <div className="text-center">
-            <Image
-              src="/lighting.png"
-              alt="Lighting Examples"
-              width={800}
-              height={600}
-              className="w-full h-auto"
-            />
-            <p className="text-sm text-gray-600 mt-4">
-              Different lighting techniques can dramatically change the mood and atmosphere of your image.
-              Choose the lighting style that best matches your desired emotional tone.
-            </p>
+        <div className="space-y-4 max-h-[75vh] overflow-y-auto pr-1">
+          <p className="text-sm text-gray-600">
+            Different lighting techniques can dramatically change the mood and atmosphere of your image. Choose the
+            lighting style that best matches your desired emotional tone.
+          </p>
+          <div className="flex flex-col gap-4">
+            <div className="rounded-md overflow-hidden border">
+              <Image
+                src="/lighting.png"
+                alt="Lighting Examples"
+                width={800}
+                height={600}
+                className="w-full h-auto"
+              />
+            </div>
+            <div className="rounded-md overflow-hidden border">
+              <Image
+                src="/lighting-2.png"
+                alt="Lighting Examples 2"
+                width={800}
+                height={600}
+                className="w-full h-auto"
+              />
+            </div>
           </div>
         </div>
       </Modal>
