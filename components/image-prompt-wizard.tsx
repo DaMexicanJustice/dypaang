@@ -789,7 +789,7 @@ export function ImagePromptWizard() {
                       onClick={() => setFormData({ ...formData, aspectRatio: ratio.value })}
                     >
                       <div className="p-3">
-                        <div className="w-full rounded-sm overflow-hidden border border-white/60 bg-gradient-to-br from-sky-200 to-teal-200" style={{ aspectRatio: ratio.ar }} />
+                        <div className="h-16 rounded-sm overflow-hidden border border-white/60 bg-gradient-to-br from-sky-200 to-teal-200" style={{ aspectRatio: ratio.ar }} />
                         <div className="mt-2 text-center">
                           <div className="text-sm font-medium text-gray-900">{ratio.label}</div>
                           <div className="text-xs text-gray-600">{ratio.value}</div>
