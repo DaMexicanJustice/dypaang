@@ -51,11 +51,11 @@ export function OverviewSection({ onNavigate }: OverviewSectionProps) {
             <Image alt="Dypång" src="/dypaang.png" width={200} height={200} />
           </div>
         </div>
-        <h1 className="text-4xl font-bold text-[#05092E]">
+        <h1 className="text-4xl font-bold text-[#36151E]">
           Craft Optimal Prompts for
           <span className="block text-[#F32D4F]">Generative AI Models</span>
         </h1>
-        <p className="text-lg text-[#05092E] max-w-2xl mx-auto">
+        <p className="text-lg text-[#36151E] max-w-2xl mx-auto">
           Transform your vision into vivid prompts—unlock AI-powered visuals that inspire, captivate, and <span className="font-bold">sell</span> the experience.
         </p>
       </div>

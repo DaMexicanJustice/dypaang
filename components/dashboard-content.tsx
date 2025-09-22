@@ -36,9 +36,9 @@ export function DashboardContent({ activeSection, onNavigate }: DashboardContent
 
   return (
     <div className="flex-1 flex flex-col">
-      <header className="flex h-16 shrink-0 items-center gap-4 border-b border-gray-200 bg-[#F8F8F2] px-6">
+      <header className="flex h-16 shrink-0 items-center gap-4 border-b border-gray-200 bg-[#4A5859] px-6">
         <div className="flex-1">
-          <h2 className="text-xl font-semibold text-[#05092E]">{getSectionTitle(activeSection)}</h2>
+          <h2 className="text-xl font-semibold text-[#FBFBEB]">{getSectionTitle(activeSection)}</h2>
         </div>
       </header>
       <div className="flex-1 overflow-auto">{renderContent()}</div>

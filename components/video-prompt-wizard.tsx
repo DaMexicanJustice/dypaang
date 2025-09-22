@@ -261,12 +261,12 @@ export function VideoPromptWizard({ onNavigate }: VideoPromptWizardProps) {
       case 1:
         return (
           <div className="space-y-6">
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-100">
+            <div className="bg-gradient-to-r from-[#F3415E]/10 to-purple-50 p-4 rounded-lg">
               <div className="flex items-center mb-2">
-                <BookOpen className="w-5 h-5 text-blue-600 mr-2" />
-                <h3 className="font-medium text-blue-800">Prompt Engineering Guide: Subject in focus & Details</h3>
+                <BookOpen className="w-5 h-5 text-[#F3415E] mr-2" />
+                <h3 className="font-medium text-[#F3415E]">Prompt Engineering Guide: Subject in focus & Details</h3>
               </div>
-              <p className="text-sm text-blue-700 mb-2">
+              <p className="text-sm text-[#F3415E] mb-2">
                 The foundation of your video prompt starts with a clear subject. A subject is either a person, several people or objects.
                 Once you understand your subject(s) - you will define additional details to describe them.
                 Be precise and succinct when describing the appearance of subjects and remember to describe both people (clothes, age) as well as objects (in hand, on table, around them etc.)
@@ -285,8 +285,8 @@ export function VideoPromptWizard({ onNavigate }: VideoPromptWizardProps) {
                 <p className="text-gray-700">
                   <strong>What to do:</strong> Generate an image. It will be used together with this prompt to create your video.
                 </p>
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-medium text-blue-900 mb-2">If you do not have an image yet, use the image prompt wizard to generate one:</h4>
+                <div className="bg-[#F3415E]/10 p-4 rounded-lg">
+                  <h4 className="font-medium text-[#F3415E] mb-2">If you do not have an image yet, use the image prompt wizard to generate one:</h4>
                   <Button
                     variant="link"
                     className="p-0 h-auto"
@@ -374,12 +374,12 @@ export function VideoPromptWizard({ onNavigate }: VideoPromptWizardProps) {
       case 2:
         return (
           <div className="space-y-6">
-            <div className="bg-gradient-to-r from-green-50 to-teal-50 p-4 rounded-lg border border-green-100">
+            <div className="bg-gradient-to-r from-[#36151E]/10 to-teal-50 p-4 rounded-lg">
               <div className="flex items-center mb-2">
-                <BookOpen className="w-5 h-5 text-green-600 mr-2" />
-                <h3 className="font-medium text-green-800">Prompt Engineering Guide: Visual Style & Motion</h3>
+                <BookOpen className="w-5 h-5 text-[#36151E] mr-2" />
+                <h3 className="font-medium text-[#36151E]">Prompt Engineering Guide: Visual Style & Motion</h3>
               </div>
-              <p className="text-sm text-green-700 mb-2">
+              <p className="text-sm text-[#36151E] mb-2">
                 Film grain, camera movement, and motion effects dramatically affect your video. These effects create varied cinematic experiences,
                 while film grain adds character and atmosphere, camera movement guides the viewer&apos;s perspective, and motion effects control the dynamic feel.
               </p>
@@ -559,7 +559,7 @@ export function VideoPromptWizard({ onNavigate }: VideoPromptWizardProps) {
                   </Tooltip>
                 </TooltipProvider>
               </div>
-              <div className="p-4 bg-blue-50 rounded-lg border whitespace-pre-line">
+              <div className="p-4 bg-[#F3415E]/10 rounded-lg whitespace-pre-line">
                 <p className="text-gray-800">
                   {generatedPrompt || "Complete the previous steps to generate your prompt"}
                 </p>
@@ -673,19 +673,19 @@ export function VideoPromptWizard({ onNavigate }: VideoPromptWizardProps) {
         {steps.map((step) => (
           <div
             key={step.id}
-            className={`p-4 rounded-lg border transition-all duration-200 hover:shadow-md hover:scale-[1.02] cursor-pointer ${currentStep === step.id
-              ? "border-blue-300 bg-blue-50 hover:bg-blue-100"
+            className={`p-4 rounded-lg transition-all duration-200 hover:shadow-md hover:scale-[1.02] cursor-pointer ${currentStep === step.id
+              ? "bg-[#F3415E] hover:bg-[#F3415E]/90"
               : currentStep > step.id
-                ? "border-green-300 bg-green-50 hover:bg-green-100"
+                ? "bg-[#36151E] hover:bg-[#36151E]/90"
                 : "border-gray-200 bg-white hover:bg-gray-50"
               }`}
           >
             <div className="flex items-center gap-3 mb-2">
               <div
                 className={`w-8 h-8 rounded-lg flex items-center justify-center ${currentStep === step.id
-                  ? "bg-blue-500 text-white"
+                  ? "bg-[#F3415E] text-white"
                   : currentStep > step.id
-                    ? "bg-green-500 text-white"
+                    ? "bg-[#36151E] text-white"
                     : "bg-gray-200 text-gray-600"
                   }`}
               >

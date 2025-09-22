@@ -59,19 +59,19 @@ function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { ico
   const displayHelpText = (helpText || "").replace(/\\n/g, "\n")
 
   return (
-    <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-4">
+    <div className="bg-[#05092E] p-4 rounded-lg mt-4">
       <div className="flex items-center justify-between mb-2">
-        <h3 className="text-sm font-medium text-blue-800 flex items-center">
+        <h3 className="text-sm font-medium text-white flex items-center">
           {icon}
           <span className="ml-2">{title}</span>
         </h3>
         {canShowHelp && (
-          <Button size="sm" variant="outline" className="h-7 px-2 text-xs hover:bg-blue-100 hover:border-blue-300" onClick={() => setIsHelpOpen(true)}>
+          <Button size="sm" variant="outline" className="h-7 px-2 text-xs text-white" onClick={() => setIsHelpOpen(true)}>
             Example
           </Button>
         )}
       </div>
-      <ul className="text-xs text-blue-700 space-y-1.5">
+      <ul className="text-xs text-white space-y-1.5">
         {tips.map((tip, index) => (
           <li key={index} className="flex items-start">
             <span className="mr-1.5">•</span>
@@ -291,12 +291,12 @@ export function ImagePromptWizard() {
               />
             </div>
 
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-100">
+            <div className="bg-[#F3415E] p-4 rounded-lg">
               <div className="flex items-center mb-2">
-                <BookOpen className="w-5 h-5 text-blue-600 mr-2" />
-                <h3 className="font-medium text-blue-800">Prompt Engineering Guide: Subject & Details</h3>
+                <BookOpen className="w-5 h-5 text-white mr-2" />
+                <h3 className="font-medium text-white">Prompt Engineering Guide: Subject & Details</h3>
               </div>
-              <p className="text-sm text-blue-700 mb-2">
+              <p className="text-sm text-white mb-2">
                 The foundation of your image prompt starts with a clear subject. A subject is either a person, several people or objects.
                 Once you understand your subject(s) - you will define additional details to describe them.
                 Be precise and succinct when describing the appearance of subjects and remember to describe both people (clothes, age) as well as objects (in hand, on table, around them etc.)
@@ -409,12 +409,12 @@ export function ImagePromptWizard() {
       case 2:
         return (
           <div className="space-y-6">
-            <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg border border-purple-100">
+            <div className="bg-[#F3415E] p-4 rounded-lg border border-purple-100">
               <div className="flex items-center mb-2">
-                <BookOpen className="w-5 h-5 text-purple-600 mr-2" />
-                <h3 className="font-medium text-purple-800">Prompt Engineering Guide: Mood & Environment</h3>
+                <BookOpen className="w-5 h-5 text-white mr-2" />
+                <h3 className="font-medium text-white">Prompt Engineering Guide: Mood & Environment</h3>
               </div>
-              <p className="text-sm text-purple-700 mb-2">
+              <p className="text-sm text-white mb-2">
                 Once the subjects and core details of an image are defined, adding location, venue type, mood, and expressive elements helps shape the narrative and emotional tone of the scene.
                 These contextual layers guide the AI to place the subjects in a setting that feels intentional and immersive—whether it iss a vibrant rooftop kick-off or a serene indoor depot.
                 Expressive cues like emojis or mood tags further refine the atmosphere, ensuring the final image reflects not just what’s in it, but how it should feel to the viewer. While lighting sets the mood and creates depth.
@@ -526,7 +526,7 @@ export function ImagePromptWizard() {
                 <Button
                   size="sm"
                   variant="outline"
-                  className="h-7 px-2 text-xs ml-2 hover:bg-green-100 hover:border-green-300"
+                  className="h-7 px-2 text-xs ml-2 hover:bg-[#36151E]"
                   onClick={() => setIsLightingExamplesOpen(true)}
                 >
                   Examples
@@ -591,7 +591,7 @@ export function ImagePromptWizard() {
                       size="sm"
                       disabled={isDisabled}
                       className={isSelected
-                        ? "bg-blue-500 hover:bg-blue-600 text-white border-blue-500 hover:shadow-md"
+                        ? "bg-[#F3415E] hover:bg-[#F3415E]/90 text-white hover:shadow-md"
                         : isDisabled
                           ? "opacity-50 cursor-not-allowed"
                           : "hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700 hover:shadow-sm"
@@ -700,12 +700,12 @@ export function ImagePromptWizard() {
       case 3:
         return (
           <div className="space-y-6">
-            <div className="bg-gradient-to-r from-green-50 to-teal-50 p-4 rounded-lg border border-green-100">
+            <div className="bg-[#F3415E] p-4 rounded-lg">
               <div className="flex items-center mb-2">
-                <BookOpen className="w-5 h-5 text-green-600 mr-2" />
-                <h3 className="font-medium text-green-800">Prompt Engineering Guide: Technical Details</h3>
+                <BookOpen className="w-5 h-5 text-white mr-2" />
+                <h3 className="font-medium text-white">Prompt Engineering Guide: Technical Details</h3>
               </div>
-              <p className="text-sm text-green-700 mb-2">
+              <p className="text-sm text-white mb-2">
                 Camera techniques and lighting dramatically affect your image. Different angles and lenses create varied
                 effects, while lighting sets the mood and creates depth.
               </p>
@@ -731,7 +731,7 @@ export function ImagePromptWizard() {
                 <Button
                   size="sm"
                   variant="outline"
-                  className="h-7 px-2 text-xs ml-2 hover:bg-green-100 hover:border-green-300"
+                  className="h-7 px-2 text-xs ml-2 hover:bg-[#36151E]"
                   onClick={() => setIsCompositionExamplesOpen(true)}
                 >
                   Examples
@@ -785,7 +785,7 @@ export function ImagePromptWizard() {
                     <button
                       key={ratio.value}
                       type="button"
-                      className={`${isSelected ? "border-blue-500 ring-2 ring-blue-200" : "border-gray-300 hover:border-amber-300 hover:shadow-sm"} w-full rounded-md border bg-white transition focus:outline-none focus:ring-2 focus:ring-blue-300`}
+                      className={`${isSelected ? "ring-2 ring-[#F3415E]" : "border-gray-300 hover:border-amber-300 hover:shadow-sm"} w-full rounded-md border bg-white transition focus:outline-none`}
                       onClick={() => setFormData({ ...formData, aspectRatio: ratio.value })}
                     >
                       <div className="p-3">
@@ -847,7 +847,7 @@ export function ImagePromptWizard() {
                       size="sm"
                       disabled={isDisabled}
                       className={isSelected
-                        ? "bg-blue-500 hover:bg-blue-600 text-white border-blue-500 hover:shadow-md"
+                        ? "bg-[#F3415E] hover:bg-[#F3415E]/90 text-white hover:shadow-md"
                         : isDisabled
                           ? "opacity-50 cursor-not-allowed"
                           : "hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700 hover:shadow-sm"
@@ -983,12 +983,12 @@ export function ImagePromptWizard() {
 
         return (
           <div className="space-y-6">
-            <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-4 rounded-lg border border-amber-100">
+            <div className="bg-[#F3415E] p-4 rounded-lg">
               <div className="flex items-center mb-2">
-                <BookOpen className="w-5 h-5 text-amber-600 mr-2" />
-                <h3 className="font-medium text-amber-800">Prompt Engineering Guide: Finishing touches</h3>
+                <BookOpen className="w-5 h-5 text-white mr-2" />
+                <h3 className="font-medium text-white">Prompt Engineering Guide: Finishing touches</h3>
               </div>
-              <p className="text-sm text-amber-700 mb-2">
+              <p className="text-sm text-white mb-2">
                 Review your prompt elements below and navigate back to make changes. When you are satisfied and ready to generate images with your text to image prompt
                 use the &ldquo;Finish & Copy&rdquo; button to open the prompt editor.
               </p>
@@ -1000,7 +1000,7 @@ export function ImagePromptWizard() {
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <div className="flex items-center text-sm text-blue-600">
+                      <div className="flex items-center text-sm text-[#F3415E]">
                         <Layers className="w-4 h-4 mr-1" />
                         <span>Text To Image Prompt</span>
                         <HelpCircle className="w-4 h-4 ml-1" />
@@ -1016,7 +1016,7 @@ export function ImagePromptWizard() {
                   </Tooltip>
                 </TooltipProvider>
               </div>
-              <div className="p-4 bg-blue-50 rounded-lg border whitespace-pre-line">
+              <div className="p-4 bg-[#F3415E]/10 rounded-lg whitespace-pre-line">
                 <p className="text-gray-800">
                   {generatedPrompt || "Complete the previous steps to generate your prompt"}
                 </p>
@@ -1229,11 +1229,9 @@ export function ImagePromptWizard() {
         {steps.map((step) => (
           <div
             key={step.id}
-            className={`p-4 rounded-lg border transition-all duration-200 hover:shadow-md hover:scale-[1.02] cursor-pointer ${currentStep === step.id
-              ? "border-blue-300 bg-blue-50 hover:bg-blue-100"
-              : currentStep > step.id
-                ? "border-green-300 bg-green-50 hover:bg-green-100"
-                : "border-gray-200 bg-white hover:bg-gray-50"
+            className={`p-4 rounded-lg transition-all duration-200 border-2 border-[#F3415E] hover:shadow-md hover:scale-[1.02] cursor-pointer ${currentStep === step.id
+              ? "bg-[#FBFBEB] hover:bg-[#FBFBEB]/90"
+              : "border-gray-200 bg-white hover:bg-gray-50"
               }`}
             onClick={() => setCurrentStep(step.id)}
             role="button"
@@ -1248,17 +1246,17 @@ export function ImagePromptWizard() {
             <div className="flex items-center gap-3 mb-2">
               <div
                 className={`w-8 h-8 rounded-lg flex items-center justify-center ${currentStep === step.id
-                  ? "bg-blue-500 text-white"
+                  ? "bg-[#F3415E] text-white"
                   : currentStep > step.id
-                    ? "bg-green-500 text-white"
+                    ? "bg-[#36151E] text-white"
                     : "bg-gray-200 text-gray-600"
                   }`}
               >
                 <step.icon className="w-4 h-4" />
               </div>
-              <div className="text-sm font-medium text-gray-900">{step.title}</div>
+              <div className="text-sm font-bold text-slate-900">{step.title}</div>
             </div>
-            <div className="text-xs text-gray-600">{step.description}</div>
+            <div className="text-xs text-black">{step.description}</div>
           </div>
         ))}
       </div>
@@ -1316,7 +1314,7 @@ export function ImagePromptWizard() {
                   variant="outline"
                   size="sm"
                   onClick={() => navigator.clipboard.writeText(editablePrompt)}
-                  className="hover:bg-green-50 hover:border-green-300 hover:text-green-700"
+                  className="hover:bg-[#FBFBEB] hover:border-[#F3415E]"
                 >
                   <Copy className="w-4 h-4 mr-2" />
                   Copy to Clipboard
@@ -1362,7 +1360,7 @@ METADATA:
                     document.body.removeChild(link)
                     URL.revokeObjectURL(url)
                   }}
-                  className="hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700"
+                  className="hover:bg-[#FBFBEB] hover:border-[#F3415E]"
                 >
                   <Download className="w-4 h-4 mr-2" />
                   Export TXT
@@ -1407,7 +1405,7 @@ METADATA:
                     document.body.removeChild(link)
                     URL.revokeObjectURL(url)
                   }}
-                  className="hover:bg-purple-50 hover:border-purple-300 hover:text-purple-700"
+                  className="hover:bg-[#FBFBEB] hover:border-[#F3415E]"
                 >
                   <Download className="w-4 h-4 mr-2" />
                   Export JSON
@@ -1422,6 +1420,8 @@ METADATA:
             />
           </div>
 
+          <hr></hr>
+
           {/* Negative Prompt Section */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
@@ -1430,6 +1430,7 @@ METADATA:
                 variant="outline"
                 size="sm"
                 onClick={() => navigator.clipboard.writeText(editableNegativePrompt)}
+                className="hover:bg-[#FBFBEB] hover:border-[#F3415E]"
               >
                 <Copy className="w-4 h-4 mr-2" />
                 Copy to Clipboard
@@ -1451,7 +1452,7 @@ METADATA:
                 const fullPrompt = `Prompt:\n${editablePrompt}\n\n${editableNegativePrompt ? `Negative Prompt:\n${editableNegativePrompt}` : ""}`
                 navigator.clipboard.writeText(fullPrompt)
               }}
-              className="bg-coral hover:bg-coral/90 text-white"
+              className=""
             >
               <Copy className="w-4 h-4 mr-2" />
               Copy Both Prompts
@@ -1459,6 +1460,7 @@ METADATA:
             <Button
               variant="outline"
               onClick={() => setIsModalOpen(false)}
+              className="hover:bg-[#FBFBEB] hover:border-[#F3415E]"
             >
               Close
             </Button>
