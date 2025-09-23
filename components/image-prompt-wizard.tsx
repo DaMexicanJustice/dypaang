@@ -297,9 +297,9 @@ export function ImagePromptWizard() {
                 <h3 className="font-medium text-white">Prompt Engineering Guide: Subject & Details</h3>
               </div>
               <p className="text-sm text-white mb-2">
-                The foundation of your image prompt starts with a clear subject. A subject is either a person, several people or objects.
-                Once you understand your subject(s) - you will define additional details to describe them.
-                Be precise and succinct when describing the appearance of subjects and remember to describe both people (clothes, age) as well as objects (in hand, on table, around them etc.)
+                The foundation of your image prompt starts with a clear subject. A subject is a location, an object or people.
+                Once you understand your subject(s) - you will define additional details to describe them and their surroundings.
+                Be precise and succinct.
               </p>
             </div>
 
@@ -323,7 +323,7 @@ export function ImagePromptWizard() {
               </Label>
               <Input
                 id="subject"
-                placeholder="e.g., James, Jacob and Emma in a hall venue celebrating. Sitting by their table."
+                placeholder="e.g., B21 venue plaza decorated for a summer party."
                 value={formData.subject}
                 onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
               />
@@ -507,31 +507,33 @@ export function ImagePromptWizard() {
             </div>
 
             <div className="space-y-3">
-              <Label className="text-gray-700 font-medium flex items-center">
-                Lighting
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
-                    </TooltipTrigger>
-                    <TooltipContent className="max-w-sm">
-                      <p>
-                        Lighting plays a crucial role in setting the mood and atmosphere. Consider specifying multiple
-                        light sources for dynamic interplay and using techniques like chiaroscuro to create depth and
-                        contrast. The type of lighting—soft, dramatic, neon glow—significantly enhances the scene.
-                      </p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+              <div className="flex flex-row ">
+                <Label className="text-gray-700 font-medium flex items-center">
+                  Lighting
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-sm">
+                        <p>
+                          Lighting plays a crucial role in setting the mood and atmosphere. Consider specifying multiple
+                          light sources for dynamic interplay and using techniques like chiaroscuro to create depth and
+                          contrast. The type of lighting—soft, dramatic, neon glow—significantly enhances the scene.
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </Label>
                 <Button
                   size="sm"
                   variant="outline"
-                  className="h-7 px-2 text-xs ml-2 hover:bg-[#36151E]"
+                  className="h-7 px-2 text-xs ml-2"
                   onClick={() => setIsLightingExamplesOpen(true)}
                 >
                   Examples
                 </Button>
-              </Label>
+              </div>
               <Select
                 value={formData.lighting}
                 onValueChange={(value) => setFormData({ ...formData, lighting: value })}
@@ -542,17 +544,22 @@ export function ImagePromptWizard() {
                 <SelectContent>
                   <SelectItem value="soft natural">Soft Natural</SelectItem>
                   <SelectItem value="golden hour">Golden Hour</SelectItem>
+                  <SelectItem value="hard flash / direct flash">Hard flash / direct flash</SelectItem> {/* Missing reference image */}
+                  <SelectItem value="diffused natural light">Diffused natural light</SelectItem> {/* Missing reference image */}
+                  <SelectItem value="long exposure light trails">Long exposure light trails</SelectItem> {/* Missing reference image */}
+                  <SelectItem value="overhead harsh light">Overhead harsh light</SelectItem> {/* Missing reference image */}
+                  <SelectItem value="Silhouette lighting">Silhouette lighting</SelectItem>
                   <SelectItem value="chiaroscuro">Chiaroscuro</SelectItem>
                   <SelectItem value="warm lit">Warm lit</SelectItem>
                   <SelectItem value="bokeh lights">Bokeh lights</SelectItem>
                   <SelectItem value="cool ambient light">Cool Ambient Light</SelectItem>
                   <SelectItem value="Contre-Jour">Contre-Jour</SelectItem>
-                  <SelectItem value="Contre-Jour">Midday Sun</SelectItem>
-                  <SelectItem value="Contre-Jour">Overcast Lighting</SelectItem>
-                  <SelectItem value="Contre-Jour">Urban Night lights</SelectItem>
-                  <SelectItem value="Contre-Jour">Neon Glow Lighting</SelectItem>
-                  <SelectItem value="Contre-Jour">Fire light</SelectItem>
-                  <SelectItem value="Contre-Jour">Fairy lights</SelectItem>
+                  <SelectItem value="midday sun">Midday Sun</SelectItem>
+                  <SelectItem value="overcast lighting">Overcast Lighting</SelectItem>
+                  <SelectItem value="urban night lights">Urban Night lights</SelectItem>
+                  <SelectItem value="neon glow lighting">Neon Glow Lighting</SelectItem>
+                  <SelectItem value="fire light">Fire light</SelectItem>
+                  <SelectItem value="fairy lights">Fairy lights</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -712,31 +719,33 @@ export function ImagePromptWizard() {
             </div>
 
             <div className="space-y-3">
-              <Label className="text-gray-700 font-medium flex items-center">
-                Composition
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
-                    </TooltipTrigger>
-                    <TooltipContent className="max-w-sm">
-                      <p>
-                        The perspective of an image can transform its impact. Different angles like birds-eye view,
-                        frog perspective, or helicopter view create varied effects suited to different compositions. The
-                        right composition guides the viewers eye through the image.
-                      </p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+              <div className="flex flex-row">
+                <Label className="text-gray-700 font-medium flex items-center">
+                  Composition
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-sm">
+                        <p>
+                          The perspective of an image can transform its impact. Different angles like birds-eye view,
+                          frog perspective, or helicopter view create varied effects suited to different compositions. The
+                          right composition guides the viewers eye through the image.
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </Label>
                 <Button
                   size="sm"
                   variant="outline"
-                  className="h-7 px-2 text-xs ml-2 hover:bg-[#36151E]"
+                  className="h-7 px-2 text-xs ml-2"
                   onClick={() => setIsCompositionExamplesOpen(true)}
                 >
                   Examples
                 </Button>
-              </Label>
+              </div>
               <Select
                 value={formData.composition}
                 onValueChange={(value) => setFormData({ ...formData, composition: value })}
@@ -746,6 +755,7 @@ export function ImagePromptWizard() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="close-up">Close-up</SelectItem>
+                  <SelectItem value="eye-level shot">Eye-level shot</SelectItem>
                   <SelectItem value="wide shot">Wide Angle Shot</SelectItem>
                   <SelectItem value="bird's eye view">Birds Eye View</SelectItem>
                   <SelectItem value="low angle">Low Angle</SelectItem>
@@ -823,18 +833,12 @@ export function ImagePromptWizard() {
                 {[
                   "flash photography",
                   "vignette",
-                  "wide-angle lens",
-                  "telephoto lens",
-                  "prime lens",
-                  "fisheye lens",
-                  "tilt-shift",
-                  "long exposure",
-                  "shallow depth of field",
-                  "bokeh",
-                  "polarizing filter",
-                  "HDR look",
+                  "35mm analog film",
+                  "16mm film grain",
+                  "Light leaks",
+                  "Polaroid instant film",
                   "cinematic grain",
-                  "soft focus",
+                  "Dust and scratches",
                 ].map((effect) => {
                   const currentEffects = formData.cameraEffects || []
                   const isSelected = currentEffects.includes(effect)
@@ -1065,6 +1069,21 @@ export function ImagePromptWizard() {
                     </Tooltip>
                   </TooltipProvider>
                 )}
+                {formData.location && (
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Badge variant="secondary" className="flex items-center gap-1">
+                          <MapPin className="w-3 h-3" />
+                          {formData.location}
+                        </Badge>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Location: {formData.location}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )}
                 {formData.style && (
                   <TooltipProvider>
                     <Tooltip>
@@ -1091,21 +1110,6 @@ export function ImagePromptWizard() {
                       </TooltipTrigger>
                       <TooltipContent>
                         <p>Mood: {formData.mood.join(", ")}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                )}
-                {formData.location && (
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Badge variant="secondary" className="flex items-center gap-1">
-                          <MapPin className="w-3 h-3" />
-                          {formData.location}
-                        </Badge>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Location: {formData.location}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -1340,14 +1344,14 @@ PARAMETERS:
 
 METADATA:
 - Subject: ${formData.subject || 'N/A'}
+- Details: ${formData.details || 'N/A'}
+- Location: ${formData.location || 'N/A'}
 - Style: ${formData.style || 'N/A'}
 - Mood: ${formData.mood.length > 0 ? formData.mood.join(", ") : 'N/A'}
-- Location: ${formData.location || 'N/A'}
-- Composition: ${formData.composition || 'N/A'}
 - Lighting: ${formData.lighting || 'N/A'}
+- Composition: ${formData.composition || 'N/A'}
 - Camera: ${formData.cameraEffects && formData.cameraEffects.length > 0 ? formData.cameraEffects.join(", ") : 'N/A'}
- - Camera: ${(formData.cameraEffects || []).length > 0 ? (formData.cameraEffects || []).join(", ") : 'N/A'}
-- Details: ${formData.details || 'N/A'}`
+ - Camera: ${(formData.cameraEffects || []).length > 0 ? (formData.cameraEffects || []).join(", ") : 'N/A'}`
 
                     // Create and download text file
                     const dataBlob = new Blob([textContent], { type: 'text/plain' })
@@ -1381,13 +1385,13 @@ METADATA:
                       metadata: {
                         author: formData.authorName || undefined,
                         subject: formData.subject,
+                        details: formData.details,
+                        location: formData.location,
                         style: formData.style,
                         mood: formData.mood.join(", "),
-                        location: formData.location,
-                        composition: formData.composition,
                         lighting: formData.lighting,
+                        composition: formData.composition,
                         camera: formData.cameraEffects || [],
-                        details: formData.details,
                         generatedAt: new Date().toISOString(),
                         source: "Image Prompt Wizard"
                       }
