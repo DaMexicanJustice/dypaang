@@ -842,6 +842,7 @@ export function ImagePromptWizard() {
               </Label>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                 {[
+                  "Candid photography",
                   "flash photography",
                   "vignette",
                   "35mm analog film",
