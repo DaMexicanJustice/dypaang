@@ -228,31 +228,42 @@ export function ImagePromptWizard() {
   }
 
   const generatePrompt = () => {
-    // Using natural language dividers as recommended in the principles
-    const parts = []
+    const parts: string[] = []
 
+    // 1. Subject
     if (formData.subject) parts.push(formData.subject)
-    if (formData.style) parts.push(`${formData.style} style`)
-    if (formData.mood.length > 0) parts.push(`(${formData.mood.join(", ")} mood)`)
-    if (formData.location) parts.push(`${formData.location} location`)
-    if (formData.composition) parts.push(`–${formData.composition}`)
-    if (formData.lighting) parts.push(`–${formData.lighting} lighting`)
-    if ((formData.cameraEffects || []).length > 0) parts.push(`–Camera: ${(formData.cameraEffects || []).join(", ")}`)
-    if (formData.details) parts.push(`–${formData.details}`)
-    if (formData.aspectRatio) parts.push(`–Aspect ratio: ${formData.aspectRatio}`)
 
-    // Add weight parameter if different from default
-    if (formData.weight !== "0.75") {
-      parts.push(`– Weight: ${formData.weight}`)
+    // 2. Details
+    if (formData.details) parts.push(formData.details)
+
+    // 3. Location
+    if (formData.location) parts.push(`${formData.location} location`)
+
+    // 4. Mood
+    if (formData.mood.length > 0) parts.push(`(${formData.mood.join(", ")} mood)`)
+
+    // 5. Lighting
+    if (formData.lighting) parts.push(`–${formData.lighting} lighting`)
+
+    // 6. Composition
+    if (formData.composition) parts.push(`–${formData.composition}`)
+
+    // 7. Camera effects
+    if ((formData.cameraEffects || []).length > 0) {
+      parts.push(`–Camera: ${(formData.cameraEffects || []).join(", ")}`)
     }
 
-    // Add seed if provided
-    if (formData.seed) {
-      parts.push(`– Seed: ${formData.seed}`)
+    // 8. Aspect ratio
+    if (formData.aspectRatio) parts.push(`–Aspect ratio: ${formData.aspectRatio}`)
+
+    // 9. Negative prompt (only add if present)
+    if (formData.negativePrompt) {
+      parts.push(`–Negative prompt: ${formData.negativePrompt}`)
     }
 
     return parts.join("\n")
   }
+
 
   const handleFinishAndCopy = () => {
     const generatedPrompt = generatePrompt()
