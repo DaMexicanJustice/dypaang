@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { ImageIcon, Video, Brain, ChevronDown, Sparkles, Home } from "lucide-react"
+import { ImageIcon, Video, Brain, ChevronDown, Sparkles, Home, BookA } from "lucide-react"
 
 interface AppSidebarProps {
   activeSection: string
@@ -46,6 +46,17 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
       submenu: [
         { id: "what-is-intent", title: "Nano Banana", href: "#" },
         { id: "chat-to-edit-examples", title: "Chat-to-edit examples", href: "#" },
+      ],
+    },
+    {
+      id: "documentation",
+      title: "Knowledge Base",
+      icon: BookA,
+      submenu: [
+        { id: "placeholder-id-1", title: "Key Prompting Principles", href: "#" },
+        { id: "placeholder-id-2", title: "How-To image prompt", href: "#" },
+        { id: "placeholder-id-3", title: "How-To venue prompt with omni-reference", href: "#" },
+        { id: "placeholder-id-4", title: "Prompt Engineering Vs. Intent-Driven", href: "#" },
       ],
     },
     /* {
