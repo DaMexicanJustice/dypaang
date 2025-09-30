@@ -22,8 +22,15 @@ export function DashboardContent({ activeSection, onNavigate }: DashboardContent
       case "generate-video-prompt":
         return <VideoPromptWizard onNavigate={onNavigate} />
       case "what-is-intent":
-      case "intent-examples":
-        return <IntentSection activeTab={activeSection} />
+      case "chat-to-edit-examples":
+        return (
+          <IntentSection
+            activeTab={activeSection}
+            setActiveSection={(section: string) => {
+              if (onNavigate) onNavigate(section)
+            }}
+          />
+        )
       case "prompt-images":
       case "prompt-videos":
       case "use-intent":
@@ -52,7 +59,7 @@ function getSectionTitle(section: string): string {
     "generate-omni-reference-prompt": "Generate Omni Reference Prompt",
     "generate-video-prompt": "Generate Video Prompt",
     "what-is-intent": "Understanding Intent",
-    "intent-examples": "Intent Examples",
+    "chat-to-edit-examples": "Chat-To-Edit Examples",
     "prompt-images": "Image Prompting Tutorial",
     "prompt-videos": "Video Prompting Tutorial",
     "use-intent": "Using Intent Tutorial",

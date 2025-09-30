@@ -40,12 +40,12 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
       submenu: [{ id: "generate-video-prompt", title: "Generate Video Prompt", href: "#" }],
     },
     {
-      id: "intent",
-      title: "Intent",
+      id: "workflows",
+      title: "Meet your heroes",
       icon: Brain,
       submenu: [
-        { id: "what-is-intent", title: "What is Intent", href: "#" },
-        { id: "intent-examples", title: "Examples", href: "#" },
+        { id: "what-is-intent", title: "Nano Banana", href: "#" },
+        { id: "chat-to-edit-examples", title: "Chat-to-edit examples", href: "#" },
       ],
     },
     /* {
