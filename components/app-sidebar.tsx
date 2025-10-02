@@ -30,6 +30,7 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
       icon: ImageIcon,
       submenu: [
         { id: "generate-image-prompt", title: "Generate Image Prompt", href: "#" },
+        { id: "omni-reference-prompt-wizard", title: "Generate Venue Image With Omni-reference", href: "#" },
         // { id: "generate-omni-reference-prompt", title: "Generate Omni Reference Prompt", href: "#" }
       ],
     },
@@ -42,7 +43,7 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
     {
       id: "workflows",
       title: "Meet your heroes",
-      icon: Brain,
+      icon: Brain
       submenu: [
         { id: "what-is-intent", title: "Nano Banana", href: "#" },
         { id: "chat-to-edit-examples", title: "Chat-to-edit examples", href: "#" },
@@ -54,7 +55,6 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
       icon: BookA,
       submenu: [
         { id: "prompt-principles-section", title: "Key Prompting Principles", href: "#" },
-        { id: "omni-reference-prompt-wizard", title: "How-To venue prompt with omni-reference", href: "#" },
         { id: "prompt-vs-intent-section", title: "Prompt Engineering Vs. Intent-Driven", href: "#" },
       ],
     },
