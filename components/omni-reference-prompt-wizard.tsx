@@ -64,19 +64,19 @@ function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { ico
     const displayHelpText = (helpText || "").replace(/\\n/g, "\n")
 
     return (
-        <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-4">
+        <div className="bg-[#05092E] p-4 rounded-lg border border-blue-100 mt-4">
             <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-medium text-blue-800 flex items-center">
+                <h3 className="text-sm font-medium text-white flex items-center">
                     {icon}
                     <span className="ml-2">{title}</span>
                 </h3>
                 {canShowHelp && (
-                    <Button size="sm" variant="outline" className="h-7 px-2 text-xs hover:bg-blue-100 hover:border-blue-300" onClick={() => setIsHelpOpen(true)}>
+                    <Button size="sm" variant="outline" className="h-7 px-2 text-xs text-white" onClick={() => setIsHelpOpen(true)}>
                         Example
                     </Button>
                 )}
             </div>
-            <ul className="text-xs text-blue-700 space-y-1.5">
+            <ul className="text-xs text-white space-y-1.5">
                 {tips.map((tip, index) => (
                     <li key={index} className="flex items-start">
                         <span className="mr-1.5">•</span>
@@ -88,8 +88,8 @@ function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { ico
             {isHelpOpen && (
                 <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
                     <div className="absolute inset-0 bg-black/50 cursor-pointer transition-opacity duration-200 hover:bg-black/60" onClick={() => setIsHelpOpen(false)} />
-                    <div className="relative z-10 w-full max-w-lg bg-white rounded-lg border shadow-lg max-h-[90vh] overflow-y-auto">
-                        <div className="p-4 border-b flex items-center justify-between sticky top-0 bg-white">
+                    <div className="relative z-10 w-full max-w-lg  rounded-lg border shadow-lg max-h-[90vh] overflow-y-auto">
+                        <div className="p-4 border-b flex items-center justify-between sticky top-0 ">
                             <div className="text-sm font-bold text-gray-900">{helpTitle || title}</div>
                             <Button size="sm" variant="ghost" onClick={() => setIsHelpOpen(false)}>Close</Button>
                         </div>
@@ -112,12 +112,12 @@ function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { ico
 function Step1BackgroundPlanning() {
     return (
         <div className="space-y-6">
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-100">
+            <div className="bg-[#F3415E] p-4 rounded-lg">
                 <div className="flex items-center mb-2">
-                    <BookOpen className="w-5 h-5 text-blue-600 mr-2" />
-                    <h3 className="font-medium text-blue-800">Omni Reference Guide: Background & Props</h3>
+                    <BookOpen className="w-5 h-5 text-white mr-2" />
+                    <h3 className="font-medium text-white">Omni Reference Guide: Background & Props</h3>
                 </div>
-                <p className="text-sm text-blue-700 mb-2">
+                <p className="text-sm text-white mb-2">
                     Before proceeding with the wizard, you need to prepare your background references
                     This step will guide you through what you need to gather for the next steps.
                 </p>
@@ -127,7 +127,7 @@ function Step1BackgroundPlanning() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center">
-                            <ImageIcon className="w-5 h-5 text-blue-500 mr-2" />
+                            <ImageIcon className="w-5 h-5 text-white mr-2" />
                             Step 1: Define Your Backgrounds
                         </CardTitle>
                     </CardHeader>
@@ -135,8 +135,8 @@ function Step1BackgroundPlanning() {
                         <p className="text-gray-700">
                             <strong>What to do:</strong> Choose a background and add it to the omni reference window in openart.ai. Nano Banana supports up to 4 backgrounds-- the more you use the better. Consider different angles.
                         </p>
-                        <div className="bg-blue-50 p-4 rounded-lg">
-                            <h4 className="font-medium text-blue-900 mb-2">Screenshot:</h4>
+                        <div className="p-4 rounded-lg">
+                            <h4 className="font-medium text-white mb-2">Screenshot:</h4>
                             <Image src="/omni-reference-screenshot.png" alt="Omni Reference Screenshot" width={300} height={400} />
                         </div>
                     </CardContent>
@@ -145,7 +145,7 @@ function Step1BackgroundPlanning() {
                 {/* <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center">
-                            <Palette className="w-5 h-5 text-purple-500 mr-2" />
+                            <Palette className="w-5 h-5 text-white mr-2" />
                             Step 2: Plan Your Props (Up to 3)
                         </CardTitle>
                     </CardHeader>
@@ -154,7 +154,7 @@ function Step1BackgroundPlanning() {
                             <strong>What to do:</strong> Choose up to 3 props and add them to the omni reference window in openart.ai as images.
                         </p>
                         <div className="bg-purple-50 p-4 rounded-lg">
-                            <h4 className="font-medium text-purple-900 mb-2">Screenshot:</h4>
+                            <h4 className="font-medium text-white mb-2">Screenshot:</h4>
                             <Image src="/omni-reference-screenshot-2.png" alt="Omni Reference Screenshot" width={300} height={400} />
                         </div>
                         <p className="text-sm text-gray-600">
@@ -163,12 +163,12 @@ function Step1BackgroundPlanning() {
                     </CardContent>
                 </Card> */}
 
-                <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
+                <div className="bg-[#05092E] p-4 rounded-lg border">
                     <div className="flex items-start">
-                        <Lightbulb className="w-5 h-5 text-amber-600 mr-3 mt-0.5 flex-shrink-0" />
+                        <Lightbulb className="w-5 h-5 text-white mr-3 mt-0.5 flex-shrink-0" />
                         <div>
-                            <h4 className="font-medium text-amber-900 mb-2">Ready to Continue?</h4>
-                            <p className="text-sm text-amber-800">
+                            <h4 className="font-medium text-white mb-2">Ready to Continue?</h4>
+                            <p className="text-sm text-white">
                                 Once you have your background and props planned out, click /Next Step/ to start entering them into the wizard.
                                 You will be able to input your background and props in the next step.
                             </p>
@@ -183,12 +183,12 @@ function Step1BackgroundPlanning() {
 function Step2MainSubject({ formData, setFormData }: StepProps) {
     return (
         <div className="space-y-6">
-            <div className="bg-gradient-to-r from-green-50 to-teal-50 p-4 rounded-lg border border-green-100">
+            <div className="bg-[#F3415E] p-4 rounded-lg">
                 <div className="flex items-center mb-2">
-                    <BookOpen className="w-5 h-5 text-green-600 mr-2" />
-                    <h3 className="font-medium text-green-800">Omni Reference Guide: Main Subject</h3>
+                    <BookOpen className="w-5 h-5 text-white mr-2" />
+                    <h3 className="font-medium text-white">Omni Reference Guide: Main Subject</h3>
                 </div>
-                <p className="text-sm text-green-700 mb-2">
+                <p className="text-sm text-white mb-2">
                     Describe your main subject (the background/venue).
                     This will be the background all props are added to.
                 </p>
@@ -262,12 +262,12 @@ function Step3SubjectDetails({ formData, setFormData, propInput, setPropInput }:
 
     return (
         <div className="space-y-6">
-            <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-4 rounded-lg border border-amber-100">
+            <div className="bg-[#F3415E] p-4 rounded-lg">
                 <div className="flex items-center mb-2">
-                    <BookOpen className="w-5 h-5 text-amber-600 mr-2" />
-                    <h3 className="font-medium text-amber-800">Omni Reference Guide: Subject Details</h3>
+                    <BookOpen className="w-5 h-5 text-white mr-2" />
+                    <h3 className="font-medium text-white">Omni Reference Guide: Subject Details</h3>
                 </div>
-                <p className="text-sm text-amber-700 mb-2">
+                <p className="text-sm text-white mb-2">
                     Add props and details. For example: several potted plants, pallet furniture, etc.
                     Each prop will be automatically wrapped in parentheses.
                 </p>
@@ -309,6 +309,11 @@ function Step3SubjectDetails({ formData, setFormData, propInput, setPropInput }:
                         <Plus className="w-4 h-4" />
                     </Button>
                 </div>
+                {formData.props.length < 3 && (
+                    <p className="text-xs text-gray-500 mt-1 ml-1">
+                        Press <span className="font-semibold">Enter</span> or click <span className="font-semibold">+</span> to add a prop.
+                    </p>
+                )}
             </div>
 
             {formData.props.length > 0 && (
@@ -316,7 +321,7 @@ function Step3SubjectDetails({ formData, setFormData, propInput, setPropInput }:
                     <Label className="text-gray-700 font-medium">Added Props</Label>
                     <div className="flex flex-wrap gap-2">
                         {formData.props.map((prop, index) => (
-                            <Badge key={index} variant="secondary" className="flex items-center gap-1">
+                            <Badge key={index} variant="default" className="flex items-center gap-1 p-2">
                                 ({prop})
                                 <Button
                                     type="button"
@@ -354,12 +359,12 @@ function Step3SubjectDetails({ formData, setFormData, propInput, setPropInput }:
 function Step4TechnicalSettings() {
     return (
         <div className="space-y-6">
-            <div className="bg-gradient-to-r from-indigo-50 to-blue-50 p-4 rounded-lg border border-indigo-100">
+            <div className="bg-[#F3415E] p-4 rounded-lg">
                 <div className="flex items-center mb-2">
-                    <BookOpen className="w-5 h-5 text-indigo-600 mr-2" />
-                    <h3 className="font-medium text-indigo-800">Omni Reference Guide: Technical Settings</h3>
+                    <BookOpen className="w-5 h-5 text-white mr-2" />
+                    <h3 className="font-medium text-white">Omni Reference Guide: Technical Settings</h3>
                 </div>
-                <p className="text-sm text-indigo-700 mb-2">
+                <p className="text-sm text-white mb-2">
                     Configure your aspect ratio and batch size directly in OpenArt AI.
                 </p>
             </div>
@@ -368,7 +373,7 @@ function Step4TechnicalSettings() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center">
-                            <MessageSquare className="w-5 h-5 text-indigo-500 mr-2" />
+                            <MessageSquare className="w-5 h-5 text-white mr-2" />
                             Step 1: Set Aspect Ratio in OpenArt AI
                         </CardTitle>
                     </CardHeader>
@@ -376,9 +381,9 @@ function Step4TechnicalSettings() {
                         <p className="text-gray-700">
                             <strong>What to do:</strong> In OpenArt AI, select your desired aspect ratio from the size dropdown menu.
                         </p>
-                        <div className="bg-indigo-50 p-4 rounded-lg">
-                            <h4 className="font-medium text-indigo-900 mb-2">Recommended Options:</h4>
-                            <ul className="text-sm text-indigo-800 space-y-1">
+                        <div className="bg-[#05092E] p-4 rounded-lg">
+                            <h4 className="font-medium text-white mb-2">Recommended Options:</h4>
+                            <ul className="text-sm text-white space-y-1">
                                 <li>• 16:9 - Great for wide scenes and landscapes</li>
                                 <li>• 1:1 - Perfect for social media and focused compositions</li>
                                 <li>• 9:16 - Ideal for portrait-oriented content</li>
@@ -391,7 +396,7 @@ function Step4TechnicalSettings() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center">
-                            <Hash className="w-5 h-5 text-purple-500 mr-2" />
+                            <Hash className="w-5 h-5 text-white mr-2" />
                             Step 2: Set Batch Size in OpenArt AI
                         </CardTitle>
                     </CardHeader>
@@ -399,9 +404,9 @@ function Step4TechnicalSettings() {
                         <p className="text-gray-700">
                             <strong>What to do:</strong> Choose how many images to generate at once in OpenArt AI.
                         </p>
-                        <div className="bg-purple-50 p-4 rounded-lg">
-                            <h4 className="font-medium text-purple-900 mb-2">Batch Size Options:</h4>
-                            <ul className="text-sm text-purple-800 space-y-1">
+                        <div className="bg-[#05092E] p-4 rounded-lg">
+                            <h4 className="font-medium text-white mb-2">Batch Size Options:</h4>
+                            <ul className="text-sm text-white space-y-1">
                                 <li>• 1 image - Good starting point for evaluating your text to image prompt</li>
                                 <li>• 2 images - Good starting point for testing</li>
                                 <li>• 3 images - Balanced variety and consistency</li>
@@ -597,29 +602,29 @@ export function OmniReferencePromptWizard() {
             case 5:
                 return (
                     <div className="space-y-6">
-                        <div className="bg-gradient-to-r from-emerald-50 to-green-50 p-4 rounded-lg border border-emerald-100">
+                        <div className="bg-[#F3415E] p-4 rounded-lg">
                             <div className="flex items-center mb-2">
-                                <BookOpen className="w-5 h-5 text-emerald-600 mr-2" />
-                                <h3 className="font-medium text-emerald-800">Omni Reference Guide: Chat to Edit</h3>
+                                <BookOpen className="w-5 h-5 text-white mr-2" />
+                                <h3 className="font-medium text-white">Omni Reference Guide: Chat to Edit</h3>
                             </div>
-                            <p className="text-sm text-emerald-700 mb-2">
+                            <p className="text-sm text-white mb-2">
                                 Use OpenArt AI Chat to Edit feature to refine your generated image.
                             </p>
                         </div>
 
                         <div className="space-y-6">
-                            <div className="bg-white p-6 rounded-lg border border-gray-200">
+                            <div className="p-6 rounded-lg border border-gray-200">
                                 <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                                    <Sparkles className="w-5 h-5 text-emerald-500 mr-2" />
+                                    <Sparkles className="w-5 h-5 text-white mr-2" />
                                     Step 1: Generate Your Initial Image
                                 </h3>
                                 <div className="space-y-3">
                                     <p className="text-gray-700">
                                         <strong>What to do:</strong> Use your omni reference prompt to generate your initial image in OpenArt AI.
                                     </p>
-                                    <div className="bg-emerald-50 p-4 rounded-lg">
-                                        <h4 className="font-medium text-emerald-900 mb-2">After Generation:</h4>
-                                        <ul className="text-sm text-emerald-800 space-y-1">
+                                    <div className="bg-[#05092E]  p-4 rounded-lg">
+                                        <h4 className="font-medium text-white mb-2">After Generation:</h4>
+                                        <ul className="text-sm text-white space-y-1">
                                             <li>• Review the generated image(s)</li>
                                             <li>• Identify what you would like to change or improve</li>
                                             <li>• Note specific details you want to modify</li>
@@ -628,18 +633,18 @@ export function OmniReferencePromptWizard() {
                                 </div>
                             </div>
 
-                            <div className="bg-white p-6 rounded-lg border border-gray-200">
+                            <div className=" p-6 rounded-lg border border-gray-200">
                                 <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                                    <MessageSquare className="w-5 h-5 text-blue-500 mr-2" />
+                                    <MessageSquare className="w-5 h-5 text-white mr-2" />
                                     Step 2: Access Chat to Edit
                                 </h3>
                                 <div className="space-y-3">
                                     <p className="text-gray-700">
                                         <strong>What to do:</strong> In OpenArt AI, go to the Chat to Edit section and select your desired image from the history.
                                     </p>
-                                    <div className="bg-blue-50 p-4 rounded-lg">
-                                        <h4 className="font-medium text-blue-900 mb-2">Chat to Edit Process:</h4>
-                                        <ul className="text-sm text-blue-800 space-y-1">
+                                    <div className="bg-[#05092E] p-4 rounded-lg">
+                                        <h4 className="font-medium text-white mb-2">Chat to Edit Process:</h4>
+                                        <ul className="text-sm text-white space-y-1">
                                             <li>• Navigate to the Chat to Edit tab in OpenArt AI</li>
                                             <li>• Browse your generation history</li>
                                             <li>• Select the image you want to edit</li>
@@ -649,18 +654,18 @@ export function OmniReferencePromptWizard() {
                                 </div>
                             </div>
 
-                            <div className="bg-white p-6 rounded-lg border border-gray-200">
+                            <div className=" p-6 rounded-lg border border-gray-200">
                                 <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                                    <Edit3 className="w-5 h-5 text-purple-500 mr-2" />
+                                    <Edit3 className="w-5 h-5 text-white mr-2" />
                                     Step 3: Describe Your Changes
                                 </h3>
                                 <div className="space-y-3">
                                     <p className="text-gray-700">
                                         <strong>What to do:</strong> In the chat interface, describe the specific changes you want to make to your image.
                                     </p>
-                                    <div className="bg-purple-50 p-4 rounded-lg">
-                                        <h4 className="font-medium text-purple-900 mb-2">Example Edit Requests:</h4>
-                                        <ul className="text-sm text-purple-800 space-y-1">
+                                    <div className="bg-[#05092E]  p-4 rounded-lg">
+                                        <h4 className="font-medium text-white mb-2">Example Edit Requests:</h4>
+                                        <ul className="text-sm text-white space-y-1">
                                             <li>• Add golden hour lighting</li>
                                             <li>• Add string lights</li>
                                         </ul>
@@ -694,30 +699,30 @@ export function OmniReferencePromptWizard() {
 
                 return (
                     <div className="space-y-6">
-                        <div className="bg-gradient-to-r from-emerald-50 to-green-50 p-4 rounded-lg border border-emerald-100">
+                        <div className="bg-[#F3415E] p-4 rounded-lg">
                             <div className="flex items-center mb-2">
-                                <BookOpen className="w-5 h-5 text-emerald-600 mr-2" />
-                                <h3 className="font-medium text-emerald-800">Omni Reference Guide: Final Details & Upscaling</h3>
+                                <BookOpen className="w-5 h-5 text-white mr-2" />
+                                <h3 className="font-medium text-white">Omni Reference Guide: Final Details & Upscaling</h3>
                             </div>
-                            <p className="text-sm text-emerald-700 mb-2">
+                            <p className="text-sm text-white mb-2">
                                 Add any final details and prepare to upscale your result to 2x for better resolution.
                                 Review your complete prompt before generating.
                             </p>
                         </div>
 
                         <div className="space-y-6">
-                            <div className="bg-white p-6 rounded-lg border border-gray-200">
+                            <div className=" p-6 rounded-lg border border-gray-200">
                                 <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                                    <Sparkles className="w-5 h-5 text-emerald-500 mr-2" />
+                                    <Sparkles className="w-5 h-5 text-white mr-2" />
                                     Step 1: Generate and Review Your Result
                                 </h3>
                                 <div className="space-y-3">
                                     <p className="text-gray-700">
                                         <strong>What to do:</strong> Use your omni reference prompt to generate your image in OpenArt AI and review the results.
                                     </p>
-                                    <div className="bg-emerald-50 p-4 rounded-lg">
-                                        <h4 className="font-medium text-emerald-900 mb-2">Review Checklist:</h4>
-                                        <ul className="text-sm text-emerald-800 space-y-1">
+                                    <div className="bg-[#05092E] p-4 rounded-lg">
+                                        <h4 className="font-medium text-white mb-2">Review Checklist:</h4>
+                                        <ul className="text-sm text-white space-y-1">
                                             <li>• Composition looks balanced and appealing</li>
                                             <li>• All props are positioned correctly</li>
                                             <li>• Lighting and atmosphere match your vision</li>
@@ -727,18 +732,18 @@ export function OmniReferencePromptWizard() {
                                 </div>
                             </div>
 
-                            <div className="bg-white p-6 rounded-lg border border-gray-200">
+                            <div className=" p-6 rounded-lg border border-gray-200">
                                 <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                                    <Layers className="w-5 h-5 text-blue-500 mr-2" />
+                                    <Layers className="w-5 h-5 text-white mr-2" />
                                     Step 2: Upscale to 2x Resolution
                                 </h3>
                                 <div className="space-y-3">
                                     <p className="text-gray-700">
                                         <strong>What to do:</strong> Once satisfied with your result, upscale it to 2x for better resolution and detail.
                                     </p>
-                                    <div className="bg-blue-50 p-4 rounded-lg">
-                                        <h4 className="font-medium text-blue-900 mb-2">Upscaling Process:</h4>
-                                        <ul className="text-sm text-blue-800 space-y-1">
+                                    <div className="bg-[#05092E] p-4 rounded-lg">
+                                        <h4 className="font-medium text-white mb-2">Upscaling Process:</h4>
+                                        <ul className="text-sm text-white space-y-1">
                                             <li>• Select your best generated image</li>
                                             <li>• Click the upscale option in OpenArt AI</li>
                                             <li>• Choose 2x upscaling for optimal quality</li>
@@ -760,7 +765,7 @@ export function OmniReferencePromptWizard() {
                                 <TooltipProvider>
                                     <Tooltip>
                                         <TooltipTrigger asChild>
-                                            <div className="flex items-center text-sm text-blue-600">
+                                            <div className="flex items-center text-sm text-white">
                                                 <Layers className="w-4 h-4 mr-1" />
                                                 <span>Omni Reference Prompt</span>
                                                 <HelpCircle className="w-4 h-4 ml-1" />
@@ -775,8 +780,8 @@ export function OmniReferencePromptWizard() {
                                     </Tooltip>
                                 </TooltipProvider>
                             </div>
-                            <div className="p-4 bg-blue-50 rounded-lg border whitespace-pre-line">
-                                <p className="text-gray-800">
+                            <div className="p-4 bg-[#F3415E] rounded-lg border whitespace-pre-line">
+                                <p className="text-white font-semibold">
                                     {generatedPrompt || "Complete the previous steps to generate your prompt"}
                                 </p>
                             </div>
@@ -823,27 +828,28 @@ export function OmniReferencePromptWizard() {
                 {steps.map((step) => (
                     <div
                         key={step.id}
+                        onClick={() => setCurrentStep(step.id)}
                         className={`p-4 rounded-lg border transition-all duration-200 hover:shadow-md hover:scale-[1.02] cursor-pointer ${currentStep === step.id
-                            ? "border-blue-300 bg-blue-50 hover:bg-blue-100"
+                            ? "border-[#F3415E] bg-[#FBFBEB]"
                             : currentStep > step.id
-                                ? "border-green-300 bg-green-50 hover:bg-green-100"
-                                : "border-gray-200 bg-white hover:bg-gray-50"
+                                ? "border-[#05092E] bg-[#FBFBEB] hover:bg-[#F3415E]/10"
+                                : "border-[#05092E]  hover:bg-[#FBFBEB]"
                             }`}
                     >
                         <div className="flex items-center gap-3 mb-2">
                             <div
                                 className={`w-8 h-8 rounded-lg flex items-center justify-center ${currentStep === step.id
-                                    ? "bg-blue-500 text-white"
+                                    ? "bg-[#F3415E] text-white"
                                     : currentStep > step.id
-                                        ? "bg-green-500 text-white"
-                                        : "bg-gray-200 text-gray-600"
+                                        ? "bg-[#05092E] text-white"
+                                        : "bg-[#FBFBEB] text-[#05092E]"
                                     }`}
                             >
                                 <step.icon className="w-4 h-4" />
                             </div>
-                            <div className="text-sm font-medium text-gray-900">{step.title}</div>
+                            <div className="text-sm font-medium text-[#05092E]">{step.title}</div>
                         </div>
-                        <div className="text-xs text-gray-600">{step.description}</div>
+                        <div className="text-xs text-[#05092E]">{step.description}</div>
                     </div>
                 ))}
             </div>
@@ -852,7 +858,7 @@ export function OmniReferencePromptWizard() {
             <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-gray-900">
-                        <Sparkles className="w-5 h-5 text-blue-500" />
+                        <Sparkles className="w-5 h-5 text-white" />
                         {steps[currentStep - 1]?.title}
                     </CardTitle>
                     <CardDescription className="text-gray-600">{steps[currentStep - 1]?.description}</CardDescription>
@@ -901,7 +907,7 @@ export function OmniReferencePromptWizard() {
                                     variant="outline"
                                     size="sm"
                                     onClick={() => navigator.clipboard.writeText(editablePrompt)}
-                                    className="hover:bg-green-50 hover:border-green-300 hover:text-green-700"
+                                    className="hover:bg-green-50 hover:border-green-300 hover:text-white"
                                 >
                                     <Copy className="w-4 h-4 mr-2" />
                                     Copy to Clipboard
@@ -936,7 +942,7 @@ METADATA:
                                         document.body.removeChild(link)
                                         URL.revokeObjectURL(url)
                                     }}
-                                    className="hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700"
+                                    className="hover:bg-[#F3415E] hover:border-blue-300 hover:text-white"
                                 >
                                     <Download className="w-4 h-4 mr-2" />
                                     Export TXT
@@ -975,7 +981,7 @@ METADATA:
                                         document.body.removeChild(link)
                                         URL.revokeObjectURL(url)
                                     }}
-                                    className="hover:bg-purple-50 hover:border-purple-300 hover:text-purple-700"
+                                    className="hover:bg-purple-50 hover:border-purple-300 hover:text-white"
                                 >
                                     <Download className="w-4 h-4 mr-2" />
                                     Export JSON
