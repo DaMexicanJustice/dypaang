@@ -20,7 +20,6 @@ import {
     HelpCircle,
     Sparkles,
     ImageIcon,
-    Palette,
     Camera,
     Lightbulb,
     Layers,
@@ -119,7 +118,7 @@ function Step1BackgroundPlanning() {
                     <h3 className="font-medium text-blue-800">Omni Reference Guide: Background & Props</h3>
                 </div>
                 <p className="text-sm text-blue-700 mb-2">
-                    Before proceeding with the wizard, you need to prepare your background and props.
+                    Before proceeding with the wizard, you need to prepare your background references
                     This step will guide you through what you need to gather for the next steps.
                 </p>
             </div>
@@ -129,12 +128,12 @@ function Step1BackgroundPlanning() {
                     <CardHeader>
                         <CardTitle className="flex items-center">
                             <ImageIcon className="w-5 h-5 text-blue-500 mr-2" />
-                            Step 1: Define Your Background
+                            Step 1: Define Your Backgrounds
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
                         <p className="text-gray-700">
-                            <strong>What to do:</strong> Choose a background and add it to the omni reference window in openart.ai as the first image.
+                            <strong>What to do:</strong> Choose a background and add it to the omni reference window in openart.ai. Nano Banana supports up to 4 backgrounds-- the more you use the better. Consider different angles.
                         </p>
                         <div className="bg-blue-50 p-4 rounded-lg">
                             <h4 className="font-medium text-blue-900 mb-2">Screenshot:</h4>
@@ -143,7 +142,7 @@ function Step1BackgroundPlanning() {
                     </CardContent>
                 </Card>
 
-                <Card>
+                {/* <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center">
                             <Palette className="w-5 h-5 text-purple-500 mr-2" />
@@ -162,7 +161,7 @@ function Step1BackgroundPlanning() {
                             <strong>Tip:</strong> Props should create the atmosphere you want.
                         </p>
                     </CardContent>
-                </Card>
+                </Card> */}
 
                 <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
                     <div className="flex items-start">
@@ -214,7 +213,7 @@ function Step2MainSubject({ formData, setFormData }: StepProps) {
                 </Label>
                 <Textarea
                     id="mainSubject"
-                    placeholder="Describe your main subject (background/venue)..."
+                    placeholder="E.g Open area outside a warehouse building with a seating area and food trucks off to the side"
                     value={formData.mainSubject}
                     onChange={(e) => setFormData({ ...formData, mainSubject: e.target.value })}
                     className="min-h-[100px]"
@@ -229,7 +228,7 @@ function Step2MainSubject({ formData, setFormData }: StepProps) {
                     "Include key architectural or design elements",
                     "Keep descriptions clear and prioritized",
                 ]}
-                helpImageSrc="/venue-2.jpg"
+                helpImageSrc="/chat-to-edit-ex-0.jpg"
                 helpTitle="Example Main Subject Description"
                 helpText="A modernized industrial building located between Aarhus city center and the harbor, originally a shipbuilding hall now repurposed as a creative space."
             />
@@ -683,7 +682,7 @@ export function OmniReferencePromptWizard() {
                                 "Mention lighting changes (golden hour, dramatic shadows)",
                                 "Focus on one or two key changes at a time",
                             ]}
-                            helpImageSrc="/example-2.jpg"
+                            helpImageSrc="/chat-to-edit-ex-1.jpg"
                             helpTitle="Chat to Edit Process"
                             helpText="After generating your image, use OpenArt AI's Chat to Edit feature to refine it. Select your image from history and describe the changes you want in the chat interface."
                         />
@@ -794,7 +793,7 @@ export function OmniReferencePromptWizard() {
                                 "Remember AI is an iterative process, so you may need to tweak your prompt to get the desired result.",
                                 "Sometimes sticking to your prompt and regenerating to get the desired result is better than tweaking the prompt.",
                             ]}
-                            helpImageSrc="/venue-2.jpg"
+                            helpImageSrc="/chat-to-edit-ex-2.jpg"
                             helpTitle="Ready for Generation & Upscaling"
                             helpText="Your omni reference prompt is complete! Use this with your image references in OpenArt AI to generate your scene. Once satisfied with the result, upscale to 2x for optimal resolution and detail."
                         />

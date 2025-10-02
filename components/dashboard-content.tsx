@@ -5,7 +5,8 @@ import { ImagePromptWizard } from "@/components/image-prompt-wizard"
 import { OmniReferencePromptWizard } from "@/components/omni-reference-prompt-wizard"
 import { VideoPromptWizard } from "@/components/video-prompt-wizard"
 import { IntentSection } from "@/components/intent-section"
-import { TutorialsSection } from "@/components/tutorials-section"
+import { PromptPrinciplesSection } from "./prompt-principles-section"
+import { PromptVsIntentSection } from "./prompt-vs-intent-section"
 
 interface DashboardContentProps {
   activeSection: string
@@ -17,7 +18,7 @@ export function DashboardContent({ activeSection, onNavigate }: DashboardContent
     switch (activeSection) {
       case "generate-image-prompt":
         return <ImagePromptWizard />
-      case "generate-omni-reference-prompt":
+      case "omni-reference-prompt-wizard":
         return <OmniReferencePromptWizard />
       case "generate-video-prompt":
         return <VideoPromptWizard onNavigate={onNavigate} />
@@ -31,11 +32,10 @@ export function DashboardContent({ activeSection, onNavigate }: DashboardContent
             }}
           />
         )
-      case "prompt-images":
-      case "prompt-videos":
-      case "use-intent":
-      case "prompt-engineering":
-        return <TutorialsSection activeTab={activeSection} />
+      case "prompt-principles-section":
+        return <PromptPrinciplesSection />
+      case "prompt-vs-intent-section":
+        return <PromptVsIntentSection />
       default:
         return <OverviewSection />
     }

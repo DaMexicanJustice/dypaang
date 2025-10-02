@@ -53,9 +53,9 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
       title: "Knowledge Base",
       icon: BookA,
       submenu: [
-        { id: "placeholder-id-1", title: "Key Prompting Principles", href: "#" },
-        { id: "placeholder-id-2", title: "How-To venue prompt with omni-reference", href: "#" },
-        { id: "placeholder-id-3", title: "Prompt Engineering Vs. Intent-Driven", href: "#" },
+        { id: "prompt-principles-section", title: "Key Prompting Principles", href: "#" },
+        { id: "omni-reference-prompt-wizard", title: "How-To venue prompt with omni-reference", href: "#" },
+        { id: "prompt-vs-intent-section", title: "Prompt Engineering Vs. Intent-Driven", href: "#" },
       ],
     },
     /* {
