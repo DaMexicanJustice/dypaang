@@ -64,7 +64,7 @@ function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { ico
     const displayHelpText = (helpText || "").replace(/\\n/g, "\n")
 
     return (
-        <div className="bg-[#05092E] p-4 rounded-lg border border-blue-100 mt-4">
+        <div className="bg-[#05092E] p-4 rounded-lg mt-4">
             <div className="flex items-center justify-between mb-2">
                 <h3 className="text-sm font-medium text-white flex items-center">
                     {icon}
@@ -88,7 +88,7 @@ function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { ico
             {isHelpOpen && (
                 <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
                     <div className="absolute inset-0 bg-black/50 cursor-pointer transition-opacity duration-200 hover:bg-black/60" onClick={() => setIsHelpOpen(false)} />
-                    <div className="relative z-10 w-full max-w-lg  rounded-lg border shadow-lg max-h-[90vh] overflow-y-auto">
+                    <div className="bg-white relative z-10 w-full max-w-lg  rounded-lg border shadow-lg max-h-[90vh] overflow-y-auto">
                         <div className="p-4 border-b flex items-center justify-between sticky top-0 ">
                             <div className="text-sm font-bold text-gray-900">{helpTitle || title}</div>
                             <Button size="sm" variant="ghost" onClick={() => setIsHelpOpen(false)}>Close</Button>
