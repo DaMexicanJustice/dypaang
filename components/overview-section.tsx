@@ -12,7 +12,7 @@ interface OverviewSectionProps {
 export function OverviewSection({ onNavigate }: OverviewSectionProps) {
   const quickActions = [
     {
-      title: "Generate Image Prompt",
+      title: "Generate Moodboard Image Prompt",
       description: "Create detailed prompts for AI image generation",
       icon: ImageIcon,
       action: "Start Creating",
@@ -26,11 +26,11 @@ export function OverviewSection({ onNavigate }: OverviewSectionProps) {
          section: "generate-omni-reference-prompt",
        }, */
     {
-      title: "Generate Video Prompt",
+      title: "Generate Venue Image Prompt",
       description: "Craft prompts for AI video generation",
       icon: Video,
       action: "Start Creating",
-      section: "generate-video-prompt",
+      section: "omni-reference-prompt-wizard",
     },
   ]
 
