@@ -34,12 +34,12 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
         // { id: "generate-omni-reference-prompt", title: "Generate Omni Reference Prompt", href: "#" }
       ],
     },
-    {
-      id: "video-flow",
-      title: "Video Flow",
-      icon: Video,
-      submenu: [{ id: "generate-video-prompt", title: "Generate Video Prompt", href: "#" }],
-    },
+    /*  {
+       id: "video-flow",
+       title: "Video Flow",
+       icon: Video,
+       submenu: [{ id: "generate-video-prompt", title: "Generate Video Prompt", href: "#" }],
+     }, */
     {
       id: "workflows",
       title: "Toolbox",
