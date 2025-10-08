@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { ImageIcon, Video, Brain, ChevronDown, Sparkles, Home, BookA } from "lucide-react"
+import { ImageIcon, Video, Wrench, ChevronDown, Sparkles, Home, BookA } from "lucide-react"
 
 interface AppSidebarProps {
   activeSection: string
@@ -29,8 +29,8 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
       title: "Image Flow",
       icon: ImageIcon,
       submenu: [
-        { id: "generate-image-prompt", title: "Generate Image Prompt", href: "#" },
-        { id: "omni-reference-prompt-wizard", title: "Generate Venue Image With Omni-reference", href: "#" }
+        { id: "generate-image-prompt", title: "Moodboard image prompt", href: "#" },
+        { id: "omni-reference-prompt-wizard", title: "Venue image prompt", href: "#" }
         // { id: "generate-omni-reference-prompt", title: "Generate Omni Reference Prompt", href: "#" }
       ],
     },
@@ -42,11 +42,11 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
     },
     {
       id: "workflows",
-      title: "Meet your heroes",
-      icon: Brain,
+      title: "Toolbox",
+      icon: Wrench,
       submenu: [
-        { id: "what-is-intent", title: "Nano Banana", href: "#" },
-        { id: "chat-to-edit-examples", title: "Chat-to-edit examples", href: "#" },
+        { id: "what-is-intent", title: "Intro: Nano Banana AI brain", href: "#" },
+        { id: "chat-to-edit-examples", title: "Chat-to-edit feature", href: "#" },
       ],
     },
     {
@@ -72,7 +72,7 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
   ]
 
   return (
-    <div className="w-64 bg-[#4A5859] border-r border-gray-200 flex flex-col">
+    <div className="w-64 bg-[#05092E] border-r border-gray-200 flex flex-col">
       {/* Header */}
       <div className="p-6">
         <div className="flex items-center gap-3 transition-transform duration-200">
@@ -102,7 +102,7 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
                     }`}
                 >
                   <item.icon className="w-4 h-4 transition-transform duration-200 group-hover:scale-110" />
-                  <span className="font-medium">{item.title}</span>
+                  <span className="font-medium capitalize">{item.title}</span>
                 </button>
               )
             }
@@ -118,7 +118,7 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
                   <button className="w-full flex items-center justify-between p-3 hover:bg-gray-100 rounded-lg transition-all duration-200 hover:scale-[1.02] hover:shadow-sm group">
                     <div className="flex items-center gap-3">
                       <item.icon className="w-4 h-4 text-[#FBFBEB] transition-transform duration-200 group-hover:scale-110 group-hover:text-[#000000]" />
-                      <span className="text-[#FBFBEB] font-medium group-hover:text-[#000000] transition-colors duration-200">{item.title}</span>
+                      <span className="text-[#FBFBEB] font-medium capitalize group-hover:text-[#000000] transition-colors duration-200">{item.title}</span>
                     </div>
                     <ChevronDown className="w-4 h-4 text-gray-400 transition-transform duration-200 group-data-[state=open]:rotate-180 group-hover:text-[#000000]" />
                   </button>
@@ -129,7 +129,7 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
                       <button
                         key={subItem.id}
                         onClick={() => setActiveSection(subItem.id)}
-                        className={`w-full text-left p-2 rounded-md transition-all duration-200 hover:scale-[1.01] hover:shadow-sm ${activeSection === subItem.id
+                        className={`capitalize w-full text-left p-2 rounded-md transition-all duration-200 hover:scale-[1.01] hover:shadow-sm ${activeSection === subItem.id
                           ? "bg-gray-100 text-black font-medium"
                           : "hover:bg-gray-50 text-[#FBFBEB] hover:text-[#000000] hover:bg-gray-100"
                           }`}

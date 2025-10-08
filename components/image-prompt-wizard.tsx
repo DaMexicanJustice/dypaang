@@ -85,7 +85,7 @@ function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { ico
           <div className="absolute inset-0 bg-black/50 cursor-pointer transition-opacity duration-200 hover:bg-black/60" onClick={() => setIsHelpOpen(false)} />
           <div className="relative z-10 w-full max-w-lg bg-white rounded-lg border shadow-lg max-h-[90vh] overflow-y-auto">
             <div className="p-4 border-b flex items-center justify-between sticky top-0 bg-white">
-              <div className="text-sm font-bold text-gray-900">{helpTitle || title}</div>
+              <div className="text-sm font-bold text-[#05092E]">{helpTitle || title}</div>
               <Button size="sm" variant="ghost" onClick={() => setIsHelpOpen(false)}>Close</Button>
             </div>
             <div className="p-4 space-y-3">
@@ -93,7 +93,7 @@ function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { ico
                 <Image src={helpImageSrc} alt={helpTitle || title} width={960} height={540} className="w-full h-auto rounded-md border" />
               )}
               {helpText && (
-                <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">{displayHelpText}</p>
+                <p className="text-sm text-[#05092E] leading-relaxed whitespace-pre-line">{displayHelpText}</p>
               )}
             </div>
           </div>
@@ -254,7 +254,7 @@ export function ImagePromptWizard() {
     }
 
     // 8. Aspect ratio
-    if (formData.aspectRatio) parts.push(`–Aspect ratio: ${formData.aspectRatio}`)
+    if (formData.aspectRatio) parts.push(`–Output size: ${formData.aspectRatio}`)
 
     // 9. Negative prompt (only add if present)
     if (formData.negativePrompt) {
@@ -278,12 +278,12 @@ export function ImagePromptWizard() {
         return (
           <div className="space-y-6">
             <div className="space-y-3">
-              <Label htmlFor="authorName" className="text-gray-700 font-medium flex items-center">
+              <Label htmlFor="authorName" className="text-[#05092E] font-medium flex items-center">
                 Who is authoring this prompt today?
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                      <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
@@ -302,7 +302,7 @@ export function ImagePromptWizard() {
               />
             </div>
 
-            <div className="bg-[#F3415E] p-4 rounded-lg">
+            <div className="bg-[#F4274A] p-4 rounded-lg">
               <div className="flex items-center mb-2">
                 <BookOpen className="w-5 h-5 text-white mr-2" />
                 <h3 className="font-medium text-white">Prompt Engineering Guide: Subject & Details</h3>
@@ -315,12 +315,12 @@ export function ImagePromptWizard() {
             </div>
 
             <div className="space-y-3">
-              <Label htmlFor="subject" className="text-gray-700 font-medium flex items-center">
+              <Label htmlFor="subject" className="text-[#05092E] font-medium flex items-center">
                 Main Subject
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                      <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
@@ -341,12 +341,12 @@ export function ImagePromptWizard() {
             </div>
 
             <div className="space-y-3">
-              <Label htmlFor="details" className="text-gray-700 font-medium flex items-center">
+              <Label htmlFor="details" className="text-[#05092E] font-medium flex items-center">
                 Additional Details
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                      <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
@@ -368,12 +368,12 @@ export function ImagePromptWizard() {
             </div>
 
             <div className="space-y-3">
-              <Label htmlFor="negativePrompt" className="text-gray-700 font-medium flex items-center">
+              <Label htmlFor="negativePrompt" className="text-[#05092E] font-medium flex items-center">
                 Negative Prompt
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                      <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
@@ -420,7 +420,7 @@ export function ImagePromptWizard() {
       case 2:
         return (
           <div className="space-y-6">
-            <div className="bg-[#F3415E] p-4 rounded-lg border border-purple-100">
+            <div className="bg-[#F4274A] p-4 rounded-lg border border-purple-100">
               <div className="flex items-center mb-2">
                 <BookOpen className="w-5 h-5 text-white mr-2" />
                 <h3 className="font-medium text-white">Prompt Engineering Guide: Mood & Environment</h3>
@@ -434,12 +434,12 @@ export function ImagePromptWizard() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="space-y-3">
-                <Label className="text-gray-700 font-medium flex items-center">
+                <Label className="text-[#05092E] font-medium flex items-center">
                   Venue Type
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                        <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
                       </TooltipTrigger>
                       <TooltipContent className="max-w-sm">
                         <p>
@@ -462,12 +462,12 @@ export function ImagePromptWizard() {
               </div>
 
               <div className="space-y-3">
-                <Label className="text-gray-700 font-medium flex items-center">
+                <Label className="text-[#05092E] font-medium flex items-center">
                   Custom Location
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                        <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
                       </TooltipTrigger>
                       <TooltipContent className="max-w-sm">
                         <p>
@@ -486,12 +486,12 @@ export function ImagePromptWizard() {
               </div>
 
               <div className="space-y-3">
-                <Label className="text-gray-700 font-medium flex items-center">
+                <Label className="text-[#05092E] font-medium flex items-center">
                   Quick Select
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                        <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
                       </TooltipTrigger>
                       <TooltipContent className="max-w-sm">
                         <p>
@@ -519,12 +519,12 @@ export function ImagePromptWizard() {
 
             <div className="space-y-3">
               <div className="flex flex-row ">
-                <Label className="text-gray-700 font-medium flex items-center">
+                <Label className="text-[#05092E] font-medium flex items-center">
                   Lighting
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                        <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
                       </TooltipTrigger>
                       <TooltipContent className="max-w-sm">
                         <p>
@@ -576,12 +576,12 @@ export function ImagePromptWizard() {
             </div>
 
             <div className="space-y-3">
-              <Label className="text-gray-700 font-medium flex items-center">
+              <Label className="text-[#05092E] font-medium flex items-center">
                 Mood & Atmosphere
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                      <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
@@ -591,7 +591,7 @@ export function ImagePromptWizard() {
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
-                <span className="text-xs text-gray-500 ml-2">({formData.mood.length}/3)</span>
+                <span className="text-xs text-[#05092E] ml-2">({formData.mood.length}/3)</span>
               </Label>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                 {[
@@ -609,7 +609,7 @@ export function ImagePromptWizard() {
                       size="sm"
                       disabled={isDisabled}
                       className={isSelected
-                        ? "bg-[#F3415E] hover:bg-[#F3415E]/90 text-white hover:shadow-md"
+                        ? "bg-[#F4274A] hover:bg-[#F4274A]/90 text-white hover:shadow-md"
                         : isDisabled
                           ? "opacity-50 cursor-not-allowed"
                           : "hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700 hover:shadow-sm"
@@ -635,7 +635,7 @@ export function ImagePromptWizard() {
               </div>
               {formData.mood.length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-2">
-                  <span className="text-sm text-gray-600">Selected:</span>
+                  <span className="text-sm text-[#05092E]">Selected:</span>
                   {formData.mood.map((mood) => (
                     <Badge key={mood} variant="secondary" className="text-xs">
                       {mood.charAt(0).toUpperCase() + mood.slice(1)}
@@ -646,12 +646,12 @@ export function ImagePromptWizard() {
             </div>
 
             <div className="space-y-3">
-              <Label className="text-gray-700 font-medium flex items-center">
+              <Label className="text-[#05092E] font-medium flex items-center">
                 Expressive Elements
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                      <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
@@ -718,7 +718,7 @@ export function ImagePromptWizard() {
       case 3:
         return (
           <div className="space-y-6">
-            <div className="bg-[#F3415E] p-4 rounded-lg">
+            <div className="bg-[#F4274A] p-4 rounded-lg">
               <div className="flex items-center mb-2">
                 <BookOpen className="w-5 h-5 text-white mr-2" />
                 <h3 className="font-medium text-white">Prompt Engineering Guide: Technical Details</h3>
@@ -731,12 +731,12 @@ export function ImagePromptWizard() {
 
             <div className="space-y-3">
               <div className="flex flex-row">
-                <Label className="text-gray-700 font-medium flex items-center">
+                <Label className="text-[#05092E] font-medium flex items-center">
                   Composition
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                        <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
                       </TooltipTrigger>
                       <TooltipContent className="max-w-sm">
                         <p>
@@ -777,16 +777,16 @@ export function ImagePromptWizard() {
             </div>
 
             <div className="space-y-3">
-              <Label className="text-gray-700 font-medium flex items-center">
-                Aspect Ratio
+              <Label className="text-[#05092E] font-medium flex items-center">
+                Output size
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                      <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
-                        The aspect ratio determines the shape of your image. Different ratios serve different purposes:
+                        The Output size determines the shape of your image. Different ratios serve different purposes:
                         square (1:1) for social media posts, landscape (16:9) for cinematic scenes, portrait (9:16) for
                         mobile displays.
                       </p>
@@ -806,14 +806,14 @@ export function ImagePromptWizard() {
                     <button
                       key={ratio.value}
                       type="button"
-                      className={`${isSelected ? "ring-2 ring-[#F3415E]" : "border-gray-300 hover:border-amber-300 hover:shadow-sm"} w-full rounded-md border bg-white transition focus:outline-none`}
+                      className={`${isSelected ? "ring-2 ring-[#F4274A]" : "border-gray-300 hover:border-amber-300 hover:shadow-sm"} w-full rounded-md border bg-white transition focus:outline-none`}
                       onClick={() => setFormData({ ...formData, aspectRatio: ratio.value })}
                     >
                       <div className="p-3">
-                        <div className="h-16 rounded-sm overflow-hidden border border-white/60 bg-gradient-to-br from-sky-200 to-teal-200" style={{ aspectRatio: ratio.ar }} />
+                        <div className="h-16 rounded-sm overflow-hidden border border-white/60 bg-gradient-to-br from-[#F4274B] to-[#A2142D]" style={{ aspectRatio: ratio.ar }} />
                         <div className="mt-2 text-center">
-                          <div className="text-sm font-medium text-gray-900">{ratio.label}</div>
-                          <div className="text-xs text-gray-600">{ratio.value}</div>
+                          <div className="text-sm font-medium text-[#05092E]">{ratio.label}</div>
+                          <div className="text-xs text-[#05092E]">{ratio.value}</div>
                         </div>
                       </div>
                     </button>
@@ -823,12 +823,12 @@ export function ImagePromptWizard() {
             </div>
 
             <div className="space-y-3">
-              <Label className="text-gray-700 font-medium flex items-center">
+              <Label className="text-[#05092E] font-medium flex items-center">
                 Camera Effects & Lenses
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                      <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
                     </TooltipTrigger>
                     <TooltipContent className="max-w-sm">
                       <p>
@@ -838,7 +838,7 @@ export function ImagePromptWizard() {
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
-                <span className="text-xs text-gray-500 ml-2">({(formData.cameraEffects || []).length}/5)</span>
+                <span className="text-xs text-[#05092E] ml-2">({(formData.cameraEffects || []).length}/5)</span>
               </Label>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                 {[
@@ -863,7 +863,7 @@ export function ImagePromptWizard() {
                       size="sm"
                       disabled={isDisabled}
                       className={isSelected
-                        ? "bg-[#F3415E] hover:bg-[#F3415E]/90 text-white hover:shadow-md"
+                        ? "bg-[#F4274A] hover:bg-[#F4274A]/90 text-white hover:shadow-md"
                         : isDisabled
                           ? "opacity-50 cursor-not-allowed"
                           : "hover:bg-amber-50 hover:border-amber-300 hover:text-amber-700 hover:shadow-sm"
@@ -890,7 +890,7 @@ export function ImagePromptWizard() {
               </div>
               {(formData.cameraEffects || []).length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-2">
-                  <span className="text-sm text-gray-600">Selected:</span>
+                  <span className="text-sm text-[#05092E]">Selected:</span>
                   {(formData.cameraEffects || []).map((effect) => (
                     <Badge key={effect} variant="secondary" className="text-xs">
                       {effect.charAt(0).toUpperCase() + effect.slice(1)}
@@ -902,12 +902,12 @@ export function ImagePromptWizard() {
 
             {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-3">
-                <Label className="text-gray-700 font-medium flex items-center">
+                <Label className="text-[#05092E] font-medium flex items-center">
                   Weight Control
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                        <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
                       </TooltipTrigger>
                       <TooltipContent className="max-w-sm">
                         <p>
@@ -947,12 +947,12 @@ export function ImagePromptWizard() {
               </div>
 
               <div className="space-y-3">
-                <Label htmlFor="seed" className="text-gray-700 font-medium flex items-center">
+                <Label htmlFor="seed" className="text-[#05092E] font-medium flex items-center">
                   Seed Value
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <HelpCircle className="w-4 h-4 text-gray-400 ml-2 inline" />
+                        <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
                       </TooltipTrigger>
                       <TooltipContent className="max-w-sm">
                         <p>
@@ -980,13 +980,13 @@ export function ImagePromptWizard() {
                 "Think like a photographer: You know what subjects you are capturing and what mood you are trying to set.",
                 "Different angles create varied effects: bird's-eye view, low angle, etc.",
                 "Lighting plays a crucial role in setting mood and atmosphere",
-                "The aspect ratio shapes your composition: square (1:1) for social media, landscape (16:9) for cinematic scenes",
+                "The Output size shapes your composition: square (1:1) for social media, landscape (16:9) for cinematic scenes",
                 "Use () to emphasize or group ideas.",
-                "Use -- to set parameters like aspect ratio or style.",
+                "Use -- to set parameters like Output size or style.",
               ]}
               helpImageSrc="/example.png"
               helpTitle="Getting the composition right"
-              helpText="We are utilizing three elements to create the example image: composition, lighting & aspect ratio. \n\n
+              helpText="We are utilizing three elements to create the example image: composition, lighting & Output size. \n\n
               --16:9 \n
               (Soft natural lighting). (golden hour.) \n
               --Wide angle shot. (Use rule of thirds.)"
@@ -999,7 +999,7 @@ export function ImagePromptWizard() {
 
         return (
           <div className="space-y-6">
-            <div className="bg-[#F3415E] p-4 rounded-lg">
+            <div className="bg-[#F4274A] p-4 rounded-lg">
               <div className="flex items-center mb-2">
                 <BookOpen className="w-5 h-5 text-white mr-2" />
                 <h3 className="font-medium text-white">Prompt Engineering Guide: Finishing touches</h3>
@@ -1012,11 +1012,11 @@ export function ImagePromptWizard() {
 
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <Label className="text-gray-700 font-medium">Generated Prompt Preview</Label>
+                <Label className="text-[#05092E] font-medium">Generated Prompt Preview</Label>
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <div className="flex items-center text-sm text-[#F3415E]">
+                      <div className="flex items-center text-sm text-[#F4274A]">
                         <Layers className="w-4 h-4 mr-1" />
                         <span>Text To Image Prompt</span>
                         <HelpCircle className="w-4 h-4 ml-1" />
@@ -1032,8 +1032,8 @@ export function ImagePromptWizard() {
                   </Tooltip>
                 </TooltipProvider>
               </div>
-              <div className="p-4 bg-[#F3415E]/10 rounded-lg whitespace-pre-line">
-                <p className="text-gray-800">
+              <div className="p-4 bg-[#F4274A]/10 rounded-lg whitespace-pre-line">
+                <p className="text-[#05092E]">
                   {generatedPrompt || "Complete the previous steps to generate your prompt"}
                 </p>
               </div>
@@ -1045,7 +1045,7 @@ export function ImagePromptWizard() {
                     <span className="text-sm font-medium">Negative Prompt Preview:</span>
                   </div>
                   <div className="p-3 bg-red-50 rounded-lg border border-red-100">
-                    <p className="text-gray-800">{formData.negativePrompt}</p>
+                    <p className="text-[#05092E]">{formData.negativePrompt}</p>
                   </div>
                 </div>
               )}
@@ -1064,7 +1064,7 @@ export function ImagePromptWizard() {
             </div>
 
             <div className="space-y-3">
-              <Label className="text-gray-700 font-medium">Prompt Elements</Label>
+              <Label className="text-[#05092E] font-medium">Prompt Elements</Label>
               <div className="flex flex-wrap gap-2">
                 {formData.subject && (
                   <TooltipProvider>
@@ -1181,7 +1181,7 @@ export function ImagePromptWizard() {
                         </Badge>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Aspect ratio: {formData.aspectRatio}</p>
+                        <p>Output size: {formData.aspectRatio}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
@@ -1232,8 +1232,8 @@ export function ImagePromptWizard() {
       {/* Progress Header */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-semibold text-gray-900">Image Prompt Progress</h1>
-          <div className="text-sm text-gray-600">
+          <h1 className="text-2xl font-semibold text-[#05092E]">Image Prompt Progress</h1>
+          <div className="text-sm text-[#05092E]">
             Step {currentStep} of {totalSteps}
           </div>
         </div>
@@ -1245,7 +1245,7 @@ export function ImagePromptWizard() {
         {steps.map((step) => (
           <div
             key={step.id}
-            className={`p-4 rounded-lg transition-all duration-200 border-2 border-[#F3415E] hover:shadow-md hover:scale-[1.02] cursor-pointer ${currentStep === step.id
+            className={`p-4 rounded-lg transition-all duration-200 border-2 border-[#F4274A] hover:shadow-md hover:scale-[1.02] cursor-pointer ${currentStep === step.id
               ? "bg-[#FBFBEB] hover:bg-[#FBFBEB]/90"
               : "border-gray-200 bg-white hover:bg-gray-50"
               }`}
@@ -1262,10 +1262,10 @@ export function ImagePromptWizard() {
             <div className="flex items-center gap-3 mb-2">
               <div
                 className={`w-8 h-8 rounded-lg flex items-center justify-center ${currentStep === step.id
-                  ? "bg-[#F3415E] text-white"
+                  ? "bg-[#F4274A] text-white"
                   : currentStep > step.id
                     ? "bg-[#36151E] text-white"
-                    : "bg-gray-200 text-gray-600"
+                    : "bg-gray-200 text-[#05092E]"
                   }`}
               >
                 <step.icon className="w-4 h-4" />
@@ -1280,11 +1280,11 @@ export function ImagePromptWizard() {
       {/* Main Content */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-gray-900">
-            <Sparkles className="w-5 h-5 text-blue-500" />
+          <CardTitle className="flex items-center gap-2 text-[#05092E]">
+            <Sparkles className="w-5 h-5 text-[#F4274B]" />
             {steps[currentStep - 1]?.title}
           </CardTitle>
-          <CardDescription className="text-gray-600">{steps[currentStep - 1]?.description}</CardDescription>
+          <CardDescription className="text-[#05092E]">{steps[currentStep - 1]?.description}</CardDescription>
         </CardHeader>
         <CardContent>{renderStepContent()}</CardContent>
       </Card>
@@ -1324,13 +1324,13 @@ export function ImagePromptWizard() {
           {/* Generated Prompt Section */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <Label className="text-gray-700 font-medium text-lg">Generated Prompt</Label>
+              <Label className="text-[#05092E] font-medium text-lg">Generated Prompt</Label>
               <div className="flex gap-2">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => navigator.clipboard.writeText(editablePrompt)}
-                  className="hover:bg-[#FBFBEB] hover:border-[#F3415E]"
+                  className="hover:bg-[#FBFBEB] hover:border-[#F4274A]"
                 >
                   <Copy className="w-4 h-4 mr-2" />
                   Copy to Clipboard
@@ -1349,7 +1349,7 @@ PROMPT:
 ${editablePrompt}
 
 PARAMETERS:
-- Aspect Ratio: ${formData.aspectRatio || 'Default'}
+- Output size: ${formData.aspectRatio || 'Default'}
 - Quality: ${formData.quality || 'Default'}
 - Weight: ${formData.weight || 'Default'}
 - Seed: ${formData.seed || 'Random'}
@@ -1376,7 +1376,7 @@ METADATA:
                     document.body.removeChild(link)
                     URL.revokeObjectURL(url)
                   }}
-                  className="hover:bg-[#FBFBEB] hover:border-[#F3415E]"
+                  className="hover:bg-[#FBFBEB] hover:border-[#F4274A]"
                 >
                   <Download className="w-4 h-4 mr-2" />
                   Export TXT
@@ -1405,7 +1405,7 @@ METADATA:
                         composition: formData.composition,
                         camera: formData.cameraEffects || [],
                         generatedAt: new Date().toISOString(),
-                        source: "Image Prompt Wizard"
+                        source: "Image Prompt step-by-step guide"
                       }
                     }
 
@@ -1421,7 +1421,7 @@ METADATA:
                     document.body.removeChild(link)
                     URL.revokeObjectURL(url)
                   }}
-                  className="hover:bg-[#FBFBEB] hover:border-[#F3415E]"
+                  className="hover:bg-[#FBFBEB] hover:border-[#F4274A]"
                 >
                   <Download className="w-4 h-4 mr-2" />
                   Export JSON
@@ -1441,12 +1441,12 @@ METADATA:
           {/* Negative Prompt Section */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <Label className="text-gray-700 font-medium text-lg">Negative Prompt</Label>
+              <Label className="text-[#05092E] font-medium text-lg">Negative Prompt</Label>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => navigator.clipboard.writeText(editableNegativePrompt)}
-                className="hover:bg-[#FBFBEB] hover:border-[#F3415E]"
+                className="hover:bg-[#FBFBEB] hover:border-[#F4274A]"
               >
                 <Copy className="w-4 h-4 mr-2" />
                 Copy to Clipboard
@@ -1476,7 +1476,7 @@ METADATA:
             <Button
               variant="outline"
               onClick={() => setIsModalOpen(false)}
-              className="hover:bg-[#FBFBEB] hover:border-[#F3415E]"
+              className="hover:bg-[#FBFBEB] hover:border-[#F4274A]"
             >
               Close
             </Button>
@@ -1516,8 +1516,8 @@ METADATA:
                   />
                 </div>
                 <div>
-                  <h3 className="font-medium text-gray-900">{composition.label}</h3>
-                  <p className="text-sm text-gray-600">{composition.description}</p>
+                  <h3 className="font-medium text-[#05092E]">{composition.label}</h3>
+                  <p className="text-sm text-[#05092E]">{composition.description}</p>
                 </div>
               </div>
             ))}
@@ -1533,7 +1533,7 @@ METADATA:
         className="max-w-4xl"
       >
         <div className="space-y-4 max-h-[75vh] overflow-y-auto pr-1">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-[#05092E]">
             Different lighting techniques can dramatically change the mood and atmosphere of your image. Choose the
             lighting style that best matches your desired emotional tone.
           </p>
@@ -1574,10 +1574,10 @@ METADATA:
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <h3 className="text-lg font-medium text-[#05092E] mb-2">
               You have unsaved changes
             </h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-[#05092E]">
               Navigating away will lose all your progress. Are you sure you want to continue?
             </p>
           </div>

@@ -216,8 +216,8 @@ Fog machines add haze, cutting beams of light through the crowd)
                         {/* Enhancement Explanation */}
                         <div className="mt-6 text-center max-w-2xl">
                             <p className="text-white text-sm">
-                                <span className="font-semibold">Tip:</span> Use <span className="font-mono px-1 rounded bg-white/10 text-[#F3415E]">( )</span> to group concepts and ideas for clarity and emphasis.<br />
-                                Use <span className="font-mono px-1 rounded bg-white/10 text-[#F3415E]">--</span> to separate technical details or parameters (e.g. <span className="font-mono">--aspect ratio: 16:9</span>).
+                                <span className="font-semibold">Tip:</span> Use <span className="font-mono px-1 rounded bg-white/10 text-[#F4274A]">( )</span> to group concepts and ideas for clarity and emphasis.<br />
+                                Use <span className="font-mono px-1 rounded bg-white/10 text-[#F4274A]">--</span> to separate technical details or parameters (e.g. <span className="font-mono">--aspect ratio: 16:9</span>).
                             </p>
                             <p className="text-white text-xs mt-2 opacity-80">
                                 This structure helps AI better understand your intent and improves the quality of generated images.
@@ -227,7 +227,7 @@ Fog machines add haze, cutting beams of light through the crowd)
                 </CardContent>
             </Card>
 
-            <Card className="bg-[#F3415E]">
+            <Card className="bg-[#F4274A]">
                 <CardHeader>
                     <CardTitle className="text-white">Tips for Effective Prompts</CardTitle>
                 </CardHeader>
@@ -241,7 +241,7 @@ Fog machines add haze, cutting beams of light through the crowd)
                 </CardContent>
             </Card>
 
-            <Card className="flex flex-col md:flex-row items-stretch bg-white border-[#F3415E] overflow-hidden pr-5">
+            <Card className="flex flex-col md:flex-row items-stretch bg-white border-[#F4274A] overflow-hidden pr-5">
                 {/* Text Section */}
                 <div className="flex-1 p-6 flex flex-col justify-center">
                     <CardTitle className="text-xl font-bold mb-2 text-[#05092E]">Putting it all together</CardTitle>

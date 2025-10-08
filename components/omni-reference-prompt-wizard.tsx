@@ -112,18 +112,36 @@ function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { ico
 function Step1BackgroundPlanning() {
     return (
         <div className="space-y-6">
-            <div className="bg-[#F3415E] p-4 rounded-lg">
+            <div className="bg-[#F4274A] p-4 rounded-lg">
                 <div className="flex items-center mb-2">
                     <BookOpen className="w-5 h-5 text-white mr-2" />
                     <h3 className="font-medium text-white">Omni Reference Guide: Background & Props</h3>
                 </div>
                 <p className="text-sm text-white mb-2">
-                    Before proceeding with the wizard, you need to prepare your background references
-                    This step will guide you through what you need to gather for the next steps.
+                    Before proceeding with the step-by-step guide, make sure you have selected Nano Banana as your AI brain in OpenArt AI.
+                    Then you will need to prepare your background references.<br></br>
+                    This step-by-step guide will help you through each part of the process.
                 </p>
             </div>
 
             <div className="space-y-6">
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center">
+                            <ImageIcon className="w-5 h-5 text-white mr-2" />
+                            Pre-Step 0: Choose Nano Banana in OpenArt AI
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                        <p className="text-gray-700">
+                            <strong>What to do:</strong> If you have not already, go to OpenArt AI and select Nano Banana as your AI brain from the dropdown menu.
+                        </p>
+                        <div className="p-4 rounded-lg">
+                            <h4 className="font-medium text-white mb-2">Screenshot:</h4>
+                            <Image src="/nano-banana-reference.png" alt="Omni Reference Screenshot" width={300} height={400} />
+                        </div>
+                    </CardContent>
+                </Card>
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center">
@@ -134,7 +152,17 @@ function Step1BackgroundPlanning() {
                     <CardContent className="space-y-3">
                         <p className="text-gray-700">
                             <strong>What to do:</strong> Choose a background and add it to the omni reference window in openart.ai. Nano Banana supports up to 4 backgrounds-- the more you use the better. Consider different angles.
+                            <br></br>
+                            <br></br>
+                            <span className="font-semibold">Your images should be:</span>
                         </p>
+                        <ul className="list-disc pl-5">
+                            <li>Well illuminated</li>
+                            <li>Not including any people</li>
+                            <li>Clear and sharp</li>
+                            <li>Taken from different angles</li>
+                            <li>The same image format — for example all horizontal photos (landscape)</li>
+                        </ul>
                         <div className="p-4 rounded-lg">
                             <h4 className="font-medium text-white mb-2">Screenshot:</h4>
                             <Image src="/omni-reference-screenshot.png" alt="Omni Reference Screenshot" width={300} height={400} />
@@ -169,7 +197,7 @@ function Step1BackgroundPlanning() {
                         <div>
                             <h4 className="font-medium text-white mb-2">Ready to Continue?</h4>
                             <p className="text-sm text-white">
-                                Once you have your background and props planned out, click /Next Step/ to start entering them into the wizard.
+                                Once you have your background and props planned out, click /Next Step/ to start entering them into the step-by-step guide.
                                 You will be able to input your background and props in the next step.
                             </p>
                         </div>
@@ -183,7 +211,7 @@ function Step1BackgroundPlanning() {
 function Step2MainSubject({ formData, setFormData }: StepProps) {
     return (
         <div className="space-y-6">
-            <div className="bg-[#F3415E] p-4 rounded-lg">
+            <div className="bg-[#F4274A] p-4 rounded-lg">
                 <div className="flex items-center mb-2">
                     <BookOpen className="w-5 h-5 text-white mr-2" />
                     <h3 className="font-medium text-white">Omni Reference Guide: Main Subject</h3>
@@ -262,7 +290,7 @@ function Step3SubjectDetails({ formData, setFormData, propInput, setPropInput }:
 
     return (
         <div className="space-y-6">
-            <div className="bg-[#F3415E] p-4 rounded-lg">
+            <div className="bg-[#F4274A] p-4 rounded-lg">
                 <div className="flex items-center mb-2">
                     <BookOpen className="w-5 h-5 text-white mr-2" />
                     <h3 className="font-medium text-white">Omni Reference Guide: Subject Details</h3>
@@ -359,13 +387,13 @@ function Step3SubjectDetails({ formData, setFormData, propInput, setPropInput }:
 function Step4TechnicalSettings() {
     return (
         <div className="space-y-6">
-            <div className="bg-[#F3415E] p-4 rounded-lg">
+            <div className="bg-[#F4274A] p-4 rounded-lg">
                 <div className="flex items-center mb-2">
                     <BookOpen className="w-5 h-5 text-white mr-2" />
                     <h3 className="font-medium text-white">Omni Reference Guide: Technical Settings</h3>
                 </div>
                 <p className="text-sm text-white mb-2">
-                    Configure your aspect ratio and batch size directly in OpenArt AI.
+                    Configure your Output size and batch size directly in OpenArt AI.
                 </p>
             </div>
 
@@ -374,12 +402,12 @@ function Step4TechnicalSettings() {
                     <CardHeader>
                         <CardTitle className="flex items-center">
                             <MessageSquare className="w-5 h-5 text-white mr-2" />
-                            Step 1: Set Aspect Ratio in OpenArt AI
+                            Step 1: Set Output size in OpenArt AI
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
                         <p className="text-gray-700">
-                            <strong>What to do:</strong> In OpenArt AI, select your desired aspect ratio from the size dropdown menu.
+                            <strong>What to do:</strong> In OpenArt AI, select your desired Output size from the size dropdown menu.
                         </p>
                         <div className="bg-[#05092E] p-4 rounded-lg">
                             <h4 className="font-medium text-white mb-2">Recommended Options:</h4>
@@ -432,7 +460,7 @@ function Step4TechnicalSettings() {
                 ]}
                 helpImageSrc="/omni-reference-screenshot-3.png"
                 helpTitle="OpenArt AI Settings"
-                helpText="In OpenArt AI, you'll find the aspect ratio and batch size settings in the generation panel. Set these according to your needs before generating your image."
+                helpText="In OpenArt AI, you'll find the Output size and batch size settings in the generation panel. Set these according to your needs before generating your image."
             />
         </div>
     )
@@ -538,7 +566,7 @@ export function OmniReferencePromptWizard() {
         {
             id: 4,
             title: "Technical Settings",
-            description: "Choose aspect ratio and batch size for generation.",
+            description: "Choose Output size and batch size for generation.",
             icon: MessageSquare,
         },
         {
@@ -602,7 +630,7 @@ export function OmniReferencePromptWizard() {
             case 5:
                 return (
                     <div className="space-y-6">
-                        <div className="bg-[#F3415E] p-4 rounded-lg">
+                        <div className="bg-[#F4274A] p-4 rounded-lg">
                             <div className="flex items-center mb-2">
                                 <BookOpen className="w-5 h-5 text-white mr-2" />
                                 <h3 className="font-medium text-white">Omni Reference Guide: Chat to Edit</h3>
@@ -640,7 +668,7 @@ export function OmniReferencePromptWizard() {
                                 </h3>
                                 <div className="space-y-3">
                                     <p className="text-gray-700">
-                                        <strong>What to do:</strong> In OpenArt AI, go to the Chat to Edit section and select your desired image from the history.
+                                        <strong>What to do:</strong> In OpenArt AI, go to the <a target="_blank" className="underline text-blue-500 hover:scale-105" href="https://openart.ai/image/chat">Chat to Edit</a> section and select your desired image from the history.
                                     </p>
                                     <div className="bg-[#05092E] p-4 rounded-lg">
                                         <h4 className="font-medium text-white mb-2">Chat to Edit Process:</h4>
@@ -699,7 +727,7 @@ export function OmniReferencePromptWizard() {
 
                 return (
                     <div className="space-y-6">
-                        <div className="bg-[#F3415E] p-4 rounded-lg">
+                        <div className="bg-[#F4274A] p-4 rounded-lg">
                             <div className="flex items-center mb-2">
                                 <BookOpen className="w-5 h-5 text-white mr-2" />
                                 <h3 className="font-medium text-white">Omni Reference Guide: Final Details & Upscaling</h3>
@@ -780,7 +808,7 @@ export function OmniReferencePromptWizard() {
                                     </Tooltip>
                                 </TooltipProvider>
                             </div>
-                            <div className="p-4 bg-[#F3415E] rounded-lg border whitespace-pre-line">
+                            <div className="p-4 bg-[#F4274A] rounded-lg border whitespace-pre-line">
                                 <p className="text-white font-semibold">
                                     {generatedPrompt || "Complete the previous steps to generate your prompt"}
                                 </p>
@@ -830,16 +858,16 @@ export function OmniReferencePromptWizard() {
                         key={step.id}
                         onClick={() => setCurrentStep(step.id)}
                         className={`p-4 rounded-lg border transition-all duration-200 hover:shadow-md hover:scale-[1.02] cursor-pointer ${currentStep === step.id
-                            ? "border-[#F3415E] bg-[#FBFBEB]"
+                            ? "border-[#F4274A] bg-[#FBFBEB]"
                             : currentStep > step.id
-                                ? "border-[#05092E] bg-[#FBFBEB] hover:bg-[#F3415E]/10"
+                                ? "border-[#05092E] bg-[#FBFBEB] hover:bg-[#F4274A]/10"
                                 : "border-[#05092E]  hover:bg-[#FBFBEB]"
                             }`}
                     >
                         <div className="flex items-center gap-3 mb-2">
                             <div
                                 className={`w-8 h-8 rounded-lg flex items-center justify-center ${currentStep === step.id
-                                    ? "bg-[#F3415E] text-white"
+                                    ? "bg-[#F4274A] text-white"
                                     : currentStep > step.id
                                         ? "bg-[#05092E] text-white"
                                         : "bg-[#FBFBEB] text-[#05092E]"
@@ -853,6 +881,15 @@ export function OmniReferencePromptWizard() {
                     </div>
                 ))}
             </div>
+
+            {currentStep === 1 && (
+                <div className="mb-8 p-6 bg-[#FBFBEB] border-l-4 border-[#F4274A]">
+                    <h2 className="mb-3 text-lg">Welcome to the venue image prompt flow</h2>
+                    <p className="mb-6">
+                        The following flow will help you create a prompt for generating inspiring images set in one of your real-life venues! Using AI, we will blend themes of an upcoming event with a venue you already know, giving your client a small preview of what their future event could look like.
+                    </p>
+                </div>
+            )}
 
             {/* Main Content */}
             <Card>
@@ -917,7 +954,7 @@ export function OmniReferencePromptWizard() {
                                     size="sm"
                                     onClick={() => {
                                         const textContent = `Omni Reference AI Generation Prompt
-Generated by BotanicCanvas Omni Reference Wizard
+Generated by BotanicCanvas Omni Reference step-by-step guide
 Date: ${new Date().toLocaleDateString()}
 Time: ${new Date().toLocaleTimeString()}
 
@@ -925,7 +962,7 @@ PROMPT:
 ${editablePrompt}
 
 SETTINGS:
-- Aspect Ratio: ${formData.aspectRatio || 'Default'}
+- Output size: ${formData.aspectRatio || 'Default'}
 
 METADATA:
 - Main Subject: ${formData.mainSubject || 'N/A'}
@@ -942,7 +979,7 @@ METADATA:
                                         document.body.removeChild(link)
                                         URL.revokeObjectURL(url)
                                     }}
-                                    className="hover:bg-[#F3415E] hover:border-blue-300 hover:text-white"
+                                    className="hover:bg-[#F4274A] hover:border-blue-300 hover:text-white"
                                 >
                                     <Download className="w-4 h-4 mr-2" />
                                     Export TXT
@@ -953,7 +990,7 @@ METADATA:
                                     onClick={() => {
                                         const jsonData = {
                                             metadata: {
-                                                generatedBy: "BotanicCanvas Omni Reference Wizard",
+                                                generatedBy: "BotanicCanvas Omni Reference step-by-step guide",
                                                 date: new Date().toLocaleDateString(),
                                                 time: new Date().toLocaleTimeString(),
                                                 version: "1.0"

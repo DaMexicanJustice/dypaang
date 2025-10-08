@@ -1,10 +1,24 @@
-import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Poppins } from "next/font/google"
+import localFont from "next/font/local"
 import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
-const poppins = Poppins({ subsets: ["latin"], weight: ["700", "800", "900"], variable: "--font-heading" })
+// Import your local MangoGrotesque font files
+const mangoGrotesque = localFont({
+  src: [
+    {
+      path: "../public/fonts/MangoGrotesque-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/MangoGrotesque-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-mango-grotesque", // CSS variable name
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   title: "BotanicCanvas - Portal",
@@ -17,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
-      <body className="font-sans">{children}</body>
+    <html lang="en" className={mangoGrotesque.variable}>
+      <body className="bg-[#F7F5E9]">{children}</body>
     </html>
   )
 }

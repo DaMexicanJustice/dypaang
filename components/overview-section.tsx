@@ -47,13 +47,12 @@ export function OverviewSection({ onNavigate }: OverviewSectionProps) {
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-white mb-4">
           <Sparkles className="w-4 h-4" />
           <div className="flex items-center gap-2">
-            <Image alt="Neobotanik" src="/neobotanik.png" width={200} height={200} />
-            <Image alt="Dypång" src="/dypaang.png" width={200} height={200} />
+            <Image alt="Dypång" src="/dypaang.png" width={300} height={300} />
           </div>
         </div>
         <h1 className="text-4xl font-bold text-[#36151E]">
           Craft Optimal Prompts for
-          <span className="block text-[#F32D4F]">Generative AI Models</span>
+          <span className="block">Generative AI Models</span>
         </h1>
         <p className="text-lg text-[#36151E] max-w-2xl mx-auto">
           Transform your vision into vivid prompts—unlock AI-powered visuals that inspire, captivate, and <span className="font-bold">sell</span> the experience.

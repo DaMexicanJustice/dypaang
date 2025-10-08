@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { XCircle, Wind, Zap, CheckCircle } from "lucide-react"
+import { Wind, Zap, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 
@@ -21,7 +21,7 @@ export function IntentSection({ activeTab, setActiveSection }: IntentSectionProp
           </div>
           <h1 className="text-3xl font-bold text-gray-900">Introduction to Nano Banana</h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Nano Banana is a large language model capable of generating text-to-images as well as multi-step editing.
+            This chapter introduces Nano Banana, a fast, scene-consistent image editor built for multi-step and chat-to-edit workflows. Used for text-to-image prompting and it delivers seamless, layered edits in one go—combining precision, speed, and realism for an efficient creative process.
           </p>
         </div>
 
@@ -70,7 +70,7 @@ export function IntentSection({ activeTab, setActiveSection }: IntentSectionProp
               </CardContent>
             </Card>
           </div>
-          <Card className="h-auto self-start">
+          {/* <Card className="h-auto self-start">
             <CardHeader>
               <XCircle className="w-8 h-8 text-red-500 mb-2" />
               <CardTitle className="text-gray-900">Cons</CardTitle>
@@ -93,7 +93,7 @@ export function IntentSection({ activeTab, setActiveSection }: IntentSectionProp
                 </ul>
               </CardDescription>
             </CardContent>
-          </Card>
+          </Card> */}
         </div>
 
         <Card className="">
@@ -106,29 +106,29 @@ export function IntentSection({ activeTab, setActiveSection }: IntentSectionProp
               For now it performs satisfactory for photorealism and “real” location and people. In other words it’s not ideal for fantasy art or the surreal.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              <Badge variant="secondary" className="justify-center py-2 bg-[#F3415E]  text-white">
+              <Badge variant="secondary" className="justify-center py-2 bg-[#F4274A]  text-white">
                 Multi-Step Editing
               </Badge>
-              <Badge variant="secondary" className="justify-center py-2 bg-[#F3415E]  text-white">
+              <Badge variant="secondary" className="justify-center py-2 bg-[#F4274A]  text-white">
                 Intent-driven
               </Badge>
-              <Badge variant="secondary" className="justify-center py-2 bg-[#F3415E]  text-white">
+              <Badge variant="secondary" className="justify-center py-2 bg-[#F4274A]  text-white">
                 Chat-to-edit
               </Badge>
-              <Badge variant="secondary" className="justify-center py-2 bg-[#F3415E]  text-white">
+              <Badge variant="secondary" className="justify-center py-2 bg-[#F4274A]  text-white">
                 Scene Consistency
               </Badge>
-              <Badge variant="secondary" className="justify-center py-2 bg-[#F3415E]  text-white">
+              <Badge variant="secondary" className="justify-center py-2 bg-[#F4274A]  text-white">
                 10-15s Generation Speed
               </Badge>
-              <Badge variant="secondary" className="justify-center py-2 bg-[#F3415E]  text-white">
+              <Badge variant="secondary" className="justify-center py-2 bg-[#F4274A]  text-white">
                 Omni-reference
               </Badge>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-green-0 border-[#F3415E]-75">
+        <Card className="bg-green-0 border-[#F4274A]-75">
           <CardHeader>
             <CardTitle>Final remarks</CardTitle>
           </CardHeader>
@@ -156,7 +156,8 @@ export function IntentSection({ activeTab, setActiveSection }: IntentSectionProp
         </div>
         <h1 className="text-3xl font-bold text-gray-900">Chat-To-Edit Example</h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          The OpenArt.AI chat-to-edit feature supports Nano Banana as its model-- providing multi-step editing capabilities.
+          The OpenArt.AI <a target="_blank" className="underline text-blue-500 hover:scale-105" href="https://openart.ai/image/chat">Chat to Edit</a> feature supports Nano Banana as its model-- providing multi-step editing capabilities.
+          The following is an example of how you can use it to iteratively edit an image based on your intent. It flows like a conversation between you and the AI.
         </p>
         <p className="font-semibold">Chosen an image from history 🕜:</p>
 
@@ -171,7 +172,7 @@ export function IntentSection({ activeTab, setActiveSection }: IntentSectionProp
       <Card className="bg-white border-gray-200">
         <CardHeader>
           <div className="flex items-center gap-3">
-            <div className="w-3 h-3 rounded-full bg-[#F3415E] " />
+            <div className="w-3 h-3 rounded-full bg-[#F4274A] " />
             <CardTitle className="text-lg text-gray-900">Chat-To-Edit intent-driven conversation</CardTitle>
           </div>
         </CardHeader>
@@ -180,13 +181,13 @@ export function IntentSection({ activeTab, setActiveSection }: IntentSectionProp
           <div className="flex gap-3 justify-end">
             <div className="flex-1"></div>
             <div className="flex-1 flex justify-end">
-              <div className="bg-[#F3415E]  p-4 rounded-2xl rounded-tr-sm max-w-[80%]">
+              <div className="bg-[#F4274A]  p-4 rounded-2xl rounded-tr-sm max-w-[80%]">
                 <p className="text-white">
                   Add furniture and seating area for a summer festival with people socializing caught in a candid moment.
                 </p>
               </div>
             </div>
-            <div className="w-8 h-8 bg-[#F3415E]  rounded-full flex items-center justify-center flex-shrink-0 p-5">
+            <div className="w-8 h-8 bg-[#F4274A]  rounded-full flex items-center justify-center flex-shrink-0 p-5">
               <span className="text-white text-sm font-bold">You</span>
             </div>
           </div>
@@ -210,13 +211,13 @@ export function IntentSection({ activeTab, setActiveSection }: IntentSectionProp
           <div className="flex gap-3 justify-end">
             <div className="flex-1"></div>
             <div className="flex-1 flex justify-end">
-              <div className="bg-[#F3415E]  p-4 rounded-2xl rounded-tr-sm max-w-[80%]">
+              <div className="bg-[#F4274A]  p-4 rounded-2xl rounded-tr-sm max-w-[80%]">
                 <p className="text-white">
                   Change the lighting to golden-hour
                 </p>
               </div>
             </div>
-            <div className="w-8 h-8 bg-[#F3415E]  rounded-full flex items-center justify-center flex-shrink-0 p-5">
+            <div className="w-8 h-8 bg-[#F4274A]  rounded-full flex items-center justify-center flex-shrink-0 p-5">
               <span className="text-white text-sm font-bold">You</span>
             </div>
           </div>
@@ -241,13 +242,13 @@ export function IntentSection({ activeTab, setActiveSection }: IntentSectionProp
           <div className="flex gap-3 justify-end">
             <div className="flex-1"></div>
             <div className="flex-1 flex justify-end">
-              <div className="bg-[#F3415E]  p-4 rounded-2xl rounded-tr-sm max-w-[80%]">
+              <div className="bg-[#F4274A]  p-4 rounded-2xl rounded-tr-sm max-w-[80%]">
                 <p className="text-white">
                   Upscale the image and make the people look more like they are in their 40s
                 </p>
               </div>
             </div>
-            <div className="w-8 h-8 bg-[#F3415E]  rounded-full flex items-center justify-center flex-shrink-0 p-5">
+            <div className="w-8 h-8 bg-[#F4274A]  rounded-full flex items-center justify-center flex-shrink-0 p-5">
               <span className="text-white text-sm font-bold">You</span>
             </div>
           </div>
