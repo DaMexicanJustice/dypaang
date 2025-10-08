@@ -9,8 +9,7 @@ export function CustomFooter() {
                 style={{ backgroundColor: "#05092E" }}
                 aria-hidden="true"
             />
-            <div className="relative z-10 flex justify-center items-center h-full px-4 py-6"
-                style={{ width: "calc(100svw - 16rem)", marginLeft: "16rem" }}>
+            <div className="relative z-10 flex justify-center items-center h-full px-4 py-6 ml-64 w-[calc(100%-16rem)]">
                 <p className="text-xs text-muted-foreground mr-2">
                     Created By
                 </p>

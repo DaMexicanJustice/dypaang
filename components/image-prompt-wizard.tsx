@@ -1330,7 +1330,7 @@ export function ImagePromptWizard() {
                   variant="outline"
                   size="sm"
                   onClick={() => navigator.clipboard.writeText(editablePrompt)}
-                  className="hover:bg-[#FBFBEB] hover:border-[#F4274A]"
+                  className="hover:bg-[#F4274A] hover:text-white"
                 >
                   <Copy className="w-4 h-4 mr-2" />
                   Copy to Clipboard
@@ -1376,7 +1376,7 @@ METADATA:
                     document.body.removeChild(link)
                     URL.revokeObjectURL(url)
                   }}
-                  className="hover:bg-[#FBFBEB] hover:border-[#F4274A]"
+                  className="hover:bg-[#F4274A] hover:text-white"
                 >
                   <Download className="w-4 h-4 mr-2" />
                   Export TXT
@@ -1421,7 +1421,7 @@ METADATA:
                     document.body.removeChild(link)
                     URL.revokeObjectURL(url)
                   }}
-                  className="hover:bg-[#FBFBEB] hover:border-[#F4274A]"
+                  className="hover:bg-[#F4274A] hover:text-white"
                 >
                   <Download className="w-4 h-4 mr-2" />
                   Export JSON
@@ -1446,7 +1446,7 @@ METADATA:
                 variant="outline"
                 size="sm"
                 onClick={() => navigator.clipboard.writeText(editableNegativePrompt)}
-                className="hover:bg-[#FBFBEB] hover:border-[#F4274A]"
+                className="hover:bg-[#F4274A] hover:text-white"
               >
                 <Copy className="w-4 h-4 mr-2" />
                 Copy to Clipboard
@@ -1476,7 +1476,7 @@ METADATA:
             <Button
               variant="outline"
               onClick={() => setIsModalOpen(false)}
-              className="hover:bg-[#FBFBEB] hover:border-[#F4274A]"
+              className="hover:bg-[#F4274A] hover:text-white"
             >
               Close
             </Button>
