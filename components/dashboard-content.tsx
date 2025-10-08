@@ -43,9 +43,9 @@ export function DashboardContent({ activeSection, onNavigate }: DashboardContent
 
   return (
     <div className="flex-1 flex flex-col">
-      <header className="flex h-16 shrink-0 items-center gap-4 border-b border-gray-200 bg-[#4A5859] px-6">
+      <header className="flex h-16 shrink-0 items-center gap-4 border-b border-gray-200 bg-[#05092E] px-6">
         <div className="flex-1">
-          <h2 className="text-xl font-semibold text-[#FBFBEB]">{getSectionTitle(activeSection)}</h2>
+          <h2 className="text-xl font-black text-[#FBFBEB]">{getSectionTitle(activeSection)}</h2>
         </div>
       </header>
       <div className="flex-1 overflow-auto">{renderContent()}</div>
@@ -55,15 +55,13 @@ export function DashboardContent({ activeSection, onNavigate }: DashboardContent
 
 function getSectionTitle(section: string): string {
   const titles: Record<string, string> = {
-    "generate-image-prompt": "Generate Image Prompt",
-    "generate-omni-reference-prompt": "Generate Omni Reference Prompt",
+    "generate-image-prompt": "Generate Moodboard Image Prompt",
+    "omni-reference-prompt-wizard": "Generate Venue Image Prompt",
     "generate-video-prompt": "Generate Video Prompt",
-    "what-is-intent": "Understanding Intent",
-    "chat-to-edit-examples": "Chat-To-Edit Examples",
-    "prompt-images": "Image Prompting Tutorial",
-    "prompt-videos": "Video Prompting Tutorial",
-    "use-intent": "Using Intent Tutorial",
-    "prompt-engineering": "Prompt Engineering Guide",
+    "what-is-intent": "Intro: Nano Banana AI Brain",
+    "chat-to-edit-examples": "Chat-To-Edit Feature",
+    "prompt-principles-section": "Key Prompting Principles",
+    "prompt-vs-intent-section": "Prompt engineering vs. Intent-Driven",
   }
   return titles[section] || "Dashboard Overview"
 }

@@ -72,7 +72,7 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
   ]
 
   return (
-    <div className="w-64 bg-[#05092E] border-r border-gray-200 flex flex-col">
+    <div className="w-64 bg-[#05092E] flex flex-col">
       {/* Header */}
       <div className="p-6">
         <div className="flex items-center gap-3 transition-transform duration-200">

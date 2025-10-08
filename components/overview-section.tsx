@@ -50,7 +50,7 @@ export function OverviewSection({ onNavigate }: OverviewSectionProps) {
             <Image alt="Dypång" src="/dypaang.png" width={300} height={300} />
           </div>
         </div>
-        <h1 className="text-4xl font-bold text-[#36151E]">
+        <h1 className="text-4xl font-bold uppercase text-[#36151E]">
           Craft Optimal Prompts for
           <span className="block">Generative AI Models</span>
         </h1>
