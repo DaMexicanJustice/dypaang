@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { ImageIcon, Video, Wrench, ChevronDown, Sparkles, Home, BookA } from "lucide-react"
+import { ImageIcon, Wrench, ChevronDown, Sparkles, Home, BookA } from "lucide-react"
 
 interface AppSidebarProps {
   activeSection: string
