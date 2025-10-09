@@ -111,7 +111,7 @@ function TipCard({ icon, title, tips, helpImageSrc, helpTitle, helpText }: { ico
 }
 
 // Step Components
-function Step1BackgroundPlanning() {
+function Step1BackgroundPlanning({ setIsVenueExamplesOpen }: { setIsVenueExamplesOpen: (open: boolean) => void }) {
     return (
         <div className="space-y-6">
             <div className="bg-[#F4274A] p-4 rounded-lg">
@@ -165,6 +165,17 @@ function Step1BackgroundPlanning() {
                             <li>Taken from different angles</li>
                             <li>The same image format — for example all horizontal photos (landscape)</li>
                         </ul>
+                        <div className="mt-4">
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setIsVenueExamplesOpen(true)}
+                                className="hover:bg-[#F4274A] hover:text-white"
+                            >
+                                <ImageIcon className="w-4 h-4 mr-2" />
+                                View Examples
+                            </Button>
+                        </div>
                         <div className="p-4 rounded-lg">
                             <h4 className="font-medium text-white mb-2">Screenshot:</h4>
                             <Image src="/omni-reference-screenshot.png" alt="Omni Reference Screenshot" width={300} height={400} />
@@ -395,7 +406,7 @@ function Step4TechnicalSettings() {
                     <h3 className="font-medium text-white">Omni Reference Guide: Technical Settings</h3>
                 </div>
                 <p className="text-sm text-white mb-2">
-                    Configure your Output size and batch size directly in OpenArt AI.
+                    Configure your Output size and number of images directly in OpenArt AI.
                 </p>
             </div>
 
@@ -427,7 +438,7 @@ function Step4TechnicalSettings() {
                     <CardHeader>
                         <CardTitle className="flex items-center">
                             <Hash className="w-5 h-5 text-white mr-2" />
-                            Step 2: Set Batch Size in OpenArt AI
+                            Step 2: Set number of images to generate in OpenArt AI
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-3">
@@ -435,7 +446,7 @@ function Step4TechnicalSettings() {
                             <strong>What to do:</strong> Choose how many images to generate at once in OpenArt AI.
                         </p>
                         <div className="bg-[#05092E] p-4 rounded-lg">
-                            <h4 className="font-medium text-white mb-2">Batch Size Options:</h4>
+                            <h4 className="font-medium text-white mb-2">Number of images to generate</h4>
                             <ul className="text-sm text-white space-y-1">
                                 <li>• 1 image - Good starting point for evaluating your text to image prompt</li>
                                 <li>• 2 images - Good starting point for testing</li>
@@ -462,99 +473,7 @@ function Step4TechnicalSettings() {
                 ]}
                 helpImageSrc="/omni-reference-screenshot-3.png"
                 helpTitle="OpenArt AI Settings"
-                helpText="In OpenArt AI, you'll find the Output size and batch size settings in the generation panel. Set these according to your needs before generating your image."
-            />
-        </div>
-    )
-}
-
-function Step5ChatEditChoice({ formData, setFormData }: StepProps) {
-    return (
-        <div className="space-y-6">
-            <div className="bg-[#F4274A] p-4 rounded-lg">
-                <div className="flex items-center mb-2">
-                    <BookOpen className="w-5 h-5 text-white mr-2" />
-                    <h3 className="font-medium text-white">Omni Reference Guide: Chat to Edit (Optional)</h3>
-                </div>
-                <p className="text-sm text-white mb-2">
-                    Choose whether you want to include a Chat to Edit step in your workflow.
-                    This allows you to refine your generated image after initial creation.
-                </p>
-            </div>
-
-            <div className="space-y-6">
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="flex items-center">
-                            <MessageSquare className="w-5 h-5 text-white mr-2" />
-                            Include Chat to Edit Step?
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                        <div className="space-y-3">
-                            <div className="flex items-center space-x-3">
-                                <input
-                                    type="radio"
-                                    id="includeChatEdit"
-                                    name="chatEditChoice"
-                                    checked={formData.includeChatEdit}
-                                    onChange={() => setFormData({ ...formData, includeChatEdit: true })}
-                                    className="w-4 h-4 text-[#F4274A] border-gray-300 focus:ring-[#F4274A]"
-                                />
-                                <Label htmlFor="includeChatEdit" className="text-gray-700 cursor-pointer">
-                                    <span className="font-medium">Yes, include Chat to Edit step</span>
-                                    <p className="text-sm text-gray-600 mt-1">
-                                        I want to refine my image after generation using OpenArt AI&apos;s chat interface
-                                    </p>
-                                </Label>
-                            </div>
-
-                            <div className="flex items-center space-x-3">
-                                <input
-                                    type="radio"
-                                    id="skipChatEdit"
-                                    name="chatEditChoice"
-                                    checked={!formData.includeChatEdit}
-                                    onChange={() => setFormData({ ...formData, includeChatEdit: false })}
-                                    className="w-4 h-4 text-[#F4274A] border-gray-300 focus:ring-[#F4274A]"
-                                />
-                                <Label htmlFor="skipChatEdit" className="text-gray-700 cursor-pointer">
-                                    <span className="font-medium">No, skip Chat to Edit step</span>
-                                    <p className="text-sm text-gray-600 mt-1">
-                                        I&apos;ll generate my image and be satisfied with the initial result
-                                    </p>
-                                </Label>
-                            </div>
-                        </div>
-
-                        {/* {formData.includeChatEdit && (
-                            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                                <h4 className="font-medium text-blue-900 mb-2">Chat to Edit Workflow:</h4>
-                                <ul className="text-sm text-blue-800 space-y-1">
-                                    <li>• Generate your initial image with the omni reference prompt</li>
-                                    <li>• Review the results and identify areas for improvement</li>
-                                    <li>• Use OpenArt AI&apos;s Chat to Edit feature to refine the image</li>
-                                    <li>• Describe specific changes you want to make</li>
-                                    <li>• Generate the improved version</li>
-                                </ul>
-                            </div>
-                        )} */}
-                    </CardContent>
-                </Card>
-            </div>
-
-            <TipCard
-                icon={<MessageSquare className="w-4 h-4" />}
-                title="Chat to Edit Decision Tips"
-                tips={[
-                    "Choose Yes if you want to iterate and improve your generated image",
-                    "Choose No if you are confident your prompt will generate exactly what you need",
-                    "Chat to Edit is great for adding lighting effects, adjusting composition, or fine-tuning details",
-                    "You can always use Chat to Edit later even if you skip this step now",
-                ]}
-                helpImageSrc="/chat-to-edit-ex-1.jpg"
-                helpTitle="Making the Right Choice"
-                helpText="Chat to Edit is powerful for refinement but adds complexity. Choose based on whether you expect to need adjustments to your initial generation."
+                helpText="In OpenArt AI, you'll find the Output size and number of images to generate settings in the generation panel. Set these according to your needs before generating your image."
             />
         </div>
     )
@@ -568,6 +487,7 @@ export function OmniReferencePromptWizard() {
     const [pendingNavigation, setPendingNavigation] = useState<(() => void) | null>(null)
     const [editablePrompt, setEditablePrompt] = useState("")
     const [propInput, setPropInput] = useState("")
+    const [isVenueExamplesOpen, setIsVenueExamplesOpen] = useState(false)
 
     // Reset wizard when component mounts
     useEffect(() => {
@@ -635,7 +555,7 @@ export function OmniReferencePromptWizard() {
         setPendingNavigation(null)
     }
 
-    const totalSteps = formData.includeChatEdit ? 7 : 6
+    const totalSteps = 5;
     const progress = (currentStep / totalSteps) * 100
 
     const steps = [
@@ -660,30 +580,16 @@ export function OmniReferencePromptWizard() {
         {
             id: 4,
             title: "Technical Settings",
-            description: "Choose Output size and batch size for generation.",
+            description: "Choose Output size and number of images to generate for generation.",
             icon: MessageSquare,
         },
         {
             id: 5,
-            title: "Chat to Edit Choice",
-            description: "Choose whether to include Chat to Edit step (optional).",
-            icon: MessageSquare,
+            title: "Final Details",
+            description: "Add final details and upscale the result.",
+            icon: Sparkles,
         },
     ]
-
-    const chatEditStep = {
-        id: 6,
-        title: "Chat to Edit",
-        description: "Describe desired changes to your good result.",
-        icon: Sparkles,
-    }
-
-    const finalDetailsStep = {
-        id: 7,
-        title: "Final Details",
-        description: "Add final details and upscale the result.",
-        icon: Sparkles,
-    }
 
     const nextStep = () => {
         if (currentStep < totalSteps) {
@@ -722,7 +628,7 @@ export function OmniReferencePromptWizard() {
     const renderStepContent = () => {
         switch (currentStep) {
             case 1:
-                return <Step1BackgroundPlanning />
+                return <Step1BackgroundPlanning setIsVenueExamplesOpen={setIsVenueExamplesOpen} />
             case 2:
                 return <Step2MainSubject formData={formData} setFormData={setFormData} propInput={propInput} setPropInput={setPropInput} />
             case 3:
@@ -730,216 +636,6 @@ export function OmniReferencePromptWizard() {
             case 4:
                 return <Step4TechnicalSettings />
             case 5:
-                return <Step5ChatEditChoice formData={formData} setFormData={setFormData} propInput={propInput} setPropInput={setPropInput} />
-            case 6:
-                // This is the Chat to Edit step (only shown if user chose to include it)
-                if (formData.includeChatEdit) {
-                    return (
-                        <div className="space-y-6">
-                            <div className="bg-[#F4274A] p-4 rounded-lg">
-                                <div className="flex items-center mb-2">
-                                    <BookOpen className="w-5 h-5 text-white mr-2" />
-                                    <h3 className="font-medium text-white">Omni Reference Guide: Chat to Edit</h3>
-                                </div>
-                                <p className="text-sm text-white mb-2">
-                                    Use OpenArt AI Chat to Edit feature to refine your generated image.
-                                </p>
-                            </div>
-
-                            <div className="space-y-6">
-                                <div className="p-6 rounded-lg border border-gray-200">
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                                        <Sparkles className="w-5 h-5 text-white mr-2" />
-                                        Step 1: Generate Your Initial Image
-                                    </h3>
-                                    <div className="space-y-3">
-                                        <p className="text-gray-700">
-                                            <strong>What to do:</strong> Use your omni reference prompt to generate your initial image in OpenArt AI.
-                                        </p>
-                                        <div className="bg-[#05092E]  p-4 rounded-lg">
-                                            <h4 className="font-medium text-white mb-2">After Generation:</h4>
-                                            <ul className="text-sm text-white space-y-1">
-                                                <li>• Review the generated image(s)</li>
-                                                <li>• Identify what you would like to change or improve</li>
-                                                <li>• Note specific details you want to modify</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className=" p-6 rounded-lg border border-gray-200">
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                                        <MessageSquare className="w-5 h-5 text-white mr-2" />
-                                        Step 2: Access Chat to Edit
-                                    </h3>
-                                    <div className="space-y-3">
-                                        <p className="text-gray-700">
-                                            <strong>What to do:</strong> In OpenArt AI, go to the <a target="_blank" className="underline text-blue-500 hover:scale-105" href="https://openart.ai/image/chat">Chat to Edit</a> section and select your desired image from the history.
-                                        </p>
-                                        <div className="bg-[#05092E] p-4 rounded-lg">
-                                            <h4 className="font-medium text-white mb-2">Chat to Edit Process:</h4>
-                                            <ul className="text-sm text-white space-y-1">
-                                                <li>• Navigate to the Chat to Edit tab in OpenArt AI</li>
-                                                <li>• Browse your generation history</li>
-                                                <li>• Select the image you want to edit</li>
-                                                <li>• Use the chat interface to describe your desired changes</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className=" p-6 rounded-lg border border-gray-200">
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                                        <Edit3 className="w-5 h-5 text-white mr-2" />
-                                        Step 3: Describe Your Changes
-                                    </h3>
-                                    <div className="space-y-3">
-                                        <p className="text-gray-700">
-                                            <strong>What to do:</strong> In the chat interface, describe the specific changes you want to make to your image.
-                                        </p>
-                                        <div className="bg-[#05092E]  p-4 rounded-lg">
-                                            <h4 className="font-medium text-white mb-2">Example Edit Requests:</h4>
-                                            <ul className="text-sm text-white space-y-1">
-                                                <li>• Add golden hour lighting</li>
-                                                <li>• Add string lights</li>
-                                            </ul>
-                                        </div>
-                                        <p className="text-sm text-gray-600">
-                                            <strong>Tip:</strong> Be specific and focus on one or two key changes at a time for best results.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <TipCard
-                                icon={<Sparkles className="w-4 h-4" />}
-                                title="Chat to Edit Tips"
-                                tips={[
-                                    "Generate your initial image first using your omni reference prompt",
-                                    "Browse your generation history to find the image to edit",
-                                    "Be specific about what you want to change",
-                                    "Mention lighting changes (golden hour, dramatic shadows)",
-                                    "Focus on one or two key changes at a time",
-                                ]}
-                                helpImageSrc="/chat-to-edit-ex-1.jpg"
-                                helpTitle="Chat to Edit Process"
-                                helpText="After generating your image, use OpenArt AI's Chat to Edit feature to refine it. Select your image from history and describe the changes you want in the chat interface."
-                            />
-                        </div>
-                    )
-
-                } else {
-                    // Final Details step (when chat edit is skipped)
-                    const generatedPrompt = generatePrompt()
-                    return (
-                        <div className="space-y-6">
-                            <div className="bg-[#F4274A] p-4 rounded-lg">
-                                <div className="flex items-center mb-2">
-                                    <BookOpen className="w-5 h-5 text-white mr-2" />
-                                    <h3 className="font-medium text-white">Omni Reference Guide: Final Details & Upscaling</h3>
-                                </div>
-                                <p className="text-sm text-white mb-2">
-                                    Add any final details and prepare to upscale your result to 2x for better resolution.
-                                    Review your complete prompt before generating.
-                                </p>
-                            </div>
-
-                            <div className="space-y-6">
-                                <div className=" p-6 rounded-lg border border-gray-200">
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                                        <Sparkles className="w-5 h-5 text-white mr-2" />
-                                        Step 1: Generate and Review Your Result
-                                    </h3>
-                                    <div className="space-y-3">
-                                        <p className="text-gray-700">
-                                            <strong>What to do:</strong> Use your omni reference prompt to generate your image in OpenArt AI and review the results.
-                                        </p>
-                                        <div className="bg-[#05092E] p-4 rounded-lg">
-                                            <h4 className="font-medium text-white mb-2">Review Checklist:</h4>
-                                            <ul className="text-sm text-white space-y-1">
-                                                <li>• Composition looks balanced and appealing</li>
-                                                <li>• All props are positioned correctly</li>
-                                                <li>• Lighting and atmosphere match your vision</li>
-                                                <li>• Overall quality meets your expectations</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className=" p-6 rounded-lg border border-gray-200">
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                                        <Layers className="w-5 h-5 text-white mr-2" />
-                                        Step 2: Upscale to 2x Resolution
-                                    </h3>
-                                    <div className="space-y-3">
-                                        <p className="text-gray-700">
-                                            <strong>What to do:</strong> Once satisfied with your result, upscale it to 2x for better resolution and detail.
-                                        </p>
-                                        <div className="bg-[#05092E] p-4 rounded-lg">
-                                            <h4 className="font-medium text-white mb-2">Upscaling Process:</h4>
-                                            <ul className="text-sm text-white space-y-1">
-                                                <li>• Select your best generated image</li>
-                                                <li>• Click the upscale option in OpenArt AI</li>
-                                                <li>• Choose 2x upscaling for optimal quality</li>
-                                                <li>• Wait for the higher resolution version</li>
-                                            </ul>
-                                        </div>
-                                        <p className="text-sm text-gray-600">
-                                            <strong>Tip:</strong> 2x upscaling will double both width and height, giving you much better resolution for printing or detailed viewing.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                            <div className="space-y-3">
-                                <div className="flex items-center justify-between">
-                                    <Label className="text-gray-700 font-medium">Generated Prompt Preview</Label>
-                                    <TooltipProvider>
-                                        <Tooltip>
-                                            <TooltipTrigger asChild>
-                                                <div className="flex items-center text-sm text-white">
-                                                    <Layers className="w-4 h-4 mr-1" />
-                                                    <span>Omni Reference Prompt</span>
-                                                    <HelpCircle className="w-4 h-4 ml-1" />
-                                                </div>
-                                            </TooltipTrigger>
-                                            <TooltipContent className="max-w-sm">
-                                                <p>
-                                                    Your complete omni reference prompt ready for generation.
-                                                    Review all elements before proceeding.
-                                                </p>
-                                            </TooltipContent>
-                                        </Tooltip>
-                                    </TooltipProvider>
-                                </div>
-                                <div className="p-4 bg-[#F4274A] rounded-lg border whitespace-pre-line">
-                                    <p className="text-white font-semibold">
-                                        {generatedPrompt || "Complete the previous steps to generate your prompt"}
-                                    </p>
-                                </div>
-                            </div>
-
-
-
-
-
-                            <TipCard
-                                icon={<Sparkles className="w-4 h-4" />}
-                                title="Final Tips"
-                                tips={[
-                                    "Remember AI is an iterative process, so you may need to tweak your prompt to get the desired result.",
-                                    "Sometimes sticking to your prompt and regenerating to get the desired result is better than tweaking the prompt.",
-                                ]}
-                                helpImageSrc="/chat-to-edit-ex-2.jpg"
-                                helpTitle="Ready for Generation & Upscaling"
-                                helpText="Your omni reference prompt is complete! Use this with your image references in OpenArt AI to generate your scene. Once satisfied with the result, upscale to 2x for optimal resolution and detail."
-                            />
-                        </div>
-                    )
-                }
-            case 7:
                 // Final Details step (when chat edit is included)
                 const generatedPromptFinal = generatePrompt()
                 return (
@@ -1030,6 +726,101 @@ export function OmniReferencePromptWizard() {
                             </div>
                         </div>
 
+                        {/* Chat to Edit Instructions - Only shown if user chose to include chat edit */}
+                        {formData.includeChatEdit && (
+                            <div className="space-y-6">
+                                <div className="bg-[#F4274A] p-4 rounded-lg">
+                                    <div className="flex items-center mb-2">
+                                        <MessageSquare className="w-5 h-5 text-white mr-2" />
+                                        <h3 className="font-medium text-white">Chat to Edit Instructions</h3>
+                                    </div>
+                                    <p className="text-sm text-white mb-4">
+                                        Now go to Openart.ai and generate your image! If you have any adjustments after seeing your picture, use chat-to-edit to fine-tune the final details!
+                                    </p>
+                                </div>
+
+                                <div className="space-y-6">
+                                    <div className="p-6 rounded-lg border border-gray-200">
+                                        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                                            <Sparkles className="w-5 h-5 text-white mr-2" />
+                                            Step 1: Generate Your Initial Image
+                                        </h3>
+                                        <div className="space-y-3">
+                                            <p className="text-gray-700">
+                                                <strong>What to do:</strong> Use your omni reference prompt to generate your initial image in OpenArt AI.
+                                            </p>
+                                            <div className="bg-[#05092E] p-4 rounded-lg">
+                                                <h4 className="font-medium text-white mb-2">After Generation:</h4>
+                                                <ul className="text-sm text-white space-y-1">
+                                                    <li>• Review the generated image(s)</li>
+                                                    <li>• Identify what you would like to change or improve</li>
+                                                    <li>• Note specific details you want to modify</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="p-6 rounded-lg border border-gray-200">
+                                        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                                            <MessageSquare className="w-5 h-5 text-white mr-2" />
+                                            Step 2: Access Chat to Edit
+                                        </h3>
+                                        <div className="space-y-3">
+                                            <p className="text-gray-700">
+                                                <strong>What to do:</strong> In OpenArt AI, go to the <a target="_blank" className="underline text-blue-500 hover:scale-105" href="https://openart.ai/image/chat">Chat to Edit</a> section and select your desired image from the history.
+                                            </p>
+                                            <div className="bg-[#05092E] p-4 rounded-lg">
+                                                <h4 className="font-medium text-white mb-2">Chat to Edit Process:</h4>
+                                                <ul className="text-sm text-white space-y-1">
+                                                    <li>• Navigate to the Chat to Edit tab in OpenArt AI</li>
+                                                    <li>• Browse your generation history</li>
+                                                    <li>• Select the image you want to edit</li>
+                                                    <li>• Use the chat interface to describe your desired changes</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="p-6 rounded-lg border border-gray-200">
+                                        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                                            <Edit3 className="w-5 h-5 text-white mr-2" />
+                                            Step 3: Describe Your Changes
+                                        </h3>
+                                        <div className="space-y-3">
+                                            <p className="text-gray-700">
+                                                <strong>What to do:</strong> In the chat interface, describe the specific changes you want to make to your image.
+                                            </p>
+                                            <div className="bg-[#05092E] p-4 rounded-lg">
+                                                <h4 className="font-medium text-white mb-2">Example Edit Requests:</h4>
+                                                <ul className="text-sm text-white space-y-1">
+                                                    <li>• Add golden hour lighting</li>
+                                                    <li>• Add string lights</li>
+                                                </ul>
+                                            </div>
+                                            <p className="text-sm text-gray-600">
+                                                <strong>Tip:</strong> Be specific and focus on one or two key changes at a time for best results.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <TipCard
+                                    icon={<Sparkles className="w-4 h-4" />}
+                                    title="Chat to Edit Tips"
+                                    tips={[
+                                        "Generate your initial image first using your omni reference prompt",
+                                        "Browse your generation history to find the image to edit",
+                                        "Be specific about what you want to change",
+                                        "Mention lighting changes (golden hour, dramatic shadows)",
+                                        "Focus on one or two key changes at a time",
+                                    ]}
+                                    helpImageSrc="/chat-to-edit-ex-1.jpg"
+                                    helpTitle="Chat to Edit Process"
+                                    helpText="After generating your image, use OpenArt AI's Chat to Edit feature to refine it. Select your image from history and describe the changes you want in the chat interface."
+                                />
+                            </div>
+                        )}
+
                         <TipCard
                             icon={<Sparkles className="w-4 h-4" />}
                             title="Final Tips"
@@ -1064,7 +855,7 @@ export function OmniReferencePromptWizard() {
 
             {/* Steps Navigation */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-                {[...steps, ...(formData.includeChatEdit ? [chatEditStep, finalDetailsStep] : [{ ...finalDetailsStep, id: 6 }])].map((step) => (
+                {steps.map((step) => (
                     <div
                         key={step.id}
                         onClick={() => {
@@ -1111,9 +902,9 @@ export function OmniReferencePromptWizard() {
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-gray-900">
                         <Sparkles className="w-5 h-5 text-white" />
-                        {[...steps, ...(formData.includeChatEdit ? [chatEditStep, finalDetailsStep] : [{ ...finalDetailsStep, id: 6 }])][currentStep - 1]?.title}
+                        {steps[currentStep - 1]?.title}
                     </CardTitle>
-                    <CardDescription className="text-gray-600">{[...steps, ...(formData.includeChatEdit ? [chatEditStep, finalDetailsStep] : [{ ...finalDetailsStep, id: 6 }])][currentStep - 1]?.description}</CardDescription>
+                    <CardDescription className="text-gray-600">{steps[currentStep - 1].description}</CardDescription>
                 </CardHeader>
                 <CardContent>{renderStepContent()}</CardContent>
             </Card>
@@ -1247,8 +1038,30 @@ METADATA:
                             className="min-h-[200px] text-sm font-mono"
                         />
                     </div>
-
-
+                    <div className="p-6 rounded-lg border border-gray-200">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                            <MessageSquare className="w-5 h-5 text-white mr-2" />
+                            Optional step: Chat‑to‑Edit Your Image
+                        </h3>
+                        <div className="space-y-3">
+                            <p className="text-gray-700">
+                                If you have any adjustments after seeing your picture, use <a className="text-blue-500 hover:cursor-pointer hover:underline" target="_blank" href="https://openart.ai/image/chat">Chat‑to‑Edit</a> to fine-tune the final details!
+                            </p>
+                            <div className="bg-[#05092E] p-4 rounded-lg">
+                                <h4 className="font-medium text-white mb-2">Editing Process:</h4>
+                                <ul className="list-disc list-inside text-sm text-white space-y-1">
+                                    <li>In OpenArt.AI Click the <a className="text-blue-500 hover:cursor-pointer hover:underline" target="_blank" href="https://openart.ai/image/chat">Chat‑to‑Edit</a> option</li>
+                                    <li>Choose either upload image or select from history if its already on openart!</li>
+                                    <li>Type a clear instruction (e.g., “Change to golden hour lighting”)</li>
+                                    <li>Review the updated version and repeat if needed</li>
+                                </ul>
+                            </div>
+                            <p className="text-sm text-gray-600">
+                                <strong>Tip:</strong> Be specific in your instructions — the clearer your
+                                request, the closer the edit will match your vision.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </Modal>
 
@@ -1289,6 +1102,78 @@ METADATA:
                         >
                             Continue & Lose Progress
                         </Button>
+                    </div>
+                </div>
+            </Modal>
+
+            {/* Venue Examples Modal */}
+            <Modal
+                isOpen={isVenueExamplesOpen}
+                onClose={() => setIsVenueExamplesOpen(false)}
+                title="Venue Background Examples"
+                className="max-w-4xl bg-[#FBFBEB]"
+            >
+                <div className="space-y-6">
+                    <div className="text-center">
+                        <p className="text-gray-700 mb-4">
+                            These are examples of venue images that work well as background references for omni reference.
+                            Notice how they are well-illuminated, clear, and taken from different angles.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="space-y-3">
+                            <h4 className="font-medium text-gray-900 text-center">Venue Example 1</h4>
+                            <Image
+                                src="/venue-1.jpg"
+                                alt="Venue example 1"
+                                width={400}
+                                height={300}
+                                className="w-full h-auto rounded-lg border shadow-md"
+                            />
+                            <p className="text-sm text-gray-600 text-center">
+                                Wide angle view showing the full venue space
+                            </p>
+                        </div>
+
+                        <div className="space-y-3">
+                            <h4 className="font-medium text-gray-900 text-center">Venue Example 2</h4>
+                            <Image
+                                src="/venue-2.jpg"
+                                alt="Venue example 2"
+                                width={400}
+                                height={300}
+                                className="w-full h-auto rounded-lg border shadow-md"
+                            />
+                            <p className="text-sm text-gray-600 text-center">
+                                Different angle highlighting architectural details
+                            </p>
+                        </div>
+
+                        <div className="space-y-3">
+                            <h4 className="font-medium text-gray-900 text-center">Venue Example 3</h4>
+                            <Image
+                                src="/venue-3.jpg"
+                                alt="Venue example 3"
+                                width={400}
+                                height={300}
+                                className="w-full h-auto rounded-lg border shadow-md"
+                            />
+                            <p className="text-sm text-gray-600 text-center">
+                                Close-up view showing texture and lighting
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="bg-[#05092E] p-4 rounded-lg">
+                        <h4 className="font-medium text-white mb-2">Key Characteristics to Notice:</h4>
+                        <ul className="text-sm text-white space-y-1">
+                            <li>• All images are well-illuminated with good lighting</li>
+                            <li>• No people are visible in any of the shots</li>
+                            <li>• Images are clear and sharp with good detail</li>
+                            <li>• Each image shows a different angle of the venue</li>
+                            <li>• All images maintain consistent horizontal orientation</li>
+                        </ul>
                     </div>
                 </div>
             </Modal>
