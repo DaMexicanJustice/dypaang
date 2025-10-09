@@ -110,6 +110,7 @@ export function ImagePromptWizard() {
   const [formData, setFormData] = useState(INITIAL_FORM_DATA)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isCompositionExamplesOpen, setIsCompositionExamplesOpen] = useState(false)
+  const [isCameraExamplesOpen, setIsCameraExamplesOpen] = useState(false)
   const [isLightingExamplesOpen, setIsLightingExamplesOpen] = useState(false)
   const [isNavigationWarningOpen, setIsNavigationWarningOpen] = useState(false)
   const [pendingNavigation, setPendingNavigation] = useState<(() => void) | null>(null)
@@ -823,23 +824,33 @@ export function ImagePromptWizard() {
             </div>
 
             <div className="space-y-3">
-              <Label className="text-[#05092E] font-medium flex items-center">
-                Camera Effects & Lenses
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
-                    </TooltipTrigger>
-                    <TooltipContent className="max-w-sm">
-                      <p>
-                        Select up to 5 camera-related effects or lens choices to refine the photographic
-                        look, such as flash, vignettes, long exposure, or lens types.
-                      </p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-                <span className="text-xs text-[#05092E] ml-2">({(formData.cameraEffects || []).length}/5)</span>
-              </Label>
+              <div className="flex flex-row">
+                <Label className="text-[#05092E] font-medium flex items-center">
+                  Camera Effects & Lenses
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <HelpCircle className="w-4 h-4 text-[#05092E] ml-2 inline" />
+                      </TooltipTrigger>
+                      <TooltipContent className="max-w-sm">
+                        <p>
+                          Select up to 5 camera-related effects or lens choices to refine the photographic
+                          look, such as flash, vignettes, long exposure, or lens types.
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  <span className="text-xs text-[#05092E] ml-2">({(formData.cameraEffects || []).length}/5)</span>
+                </Label>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="h-7 px-2 text-xs ml-2"
+                  onClick={() => setIsCameraExamplesOpen(true)}
+                >
+                  Examples
+                </Button>
+              </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                 {[
                   "Candid photography",
@@ -1557,6 +1568,24 @@ METADATA:
               />
             </div>
           </div>
+        </div>
+      </Modal>
+
+      {/* Camera Effects Examples Modal */}
+      <Modal
+        isOpen={isCameraExamplesOpen}
+        onClose={() => setIsCameraExamplesOpen(false)}
+        title="Camera Effect Examples"
+        className="max-w-3xl"
+      >
+        <div className="space-y-6">
+          <Image
+            src="/camera-effects.png"
+            alt="Camera Examples"
+            width={600}
+            height={400}
+            className="w-full h-auto"
+          />
         </div>
       </Modal>
 
