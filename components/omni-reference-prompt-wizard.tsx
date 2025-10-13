@@ -33,7 +33,6 @@ import {
 } from "lucide-react"
 
 interface IntentSectionProps {
-    activeTab: string
     setActiveSection: (section: string) => void
 }
 
