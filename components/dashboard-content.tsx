@@ -19,7 +19,11 @@ export function DashboardContent({ activeSection, onNavigate }: DashboardContent
       case "generate-image-prompt":
         return <ImagePromptWizard />
       case "omni-reference-prompt-wizard":
-        return <OmniReferencePromptWizard />
+        return <OmniReferencePromptWizard
+          setActiveSection={(section: string) => {
+            if (onNavigate) onNavigate(section)
+          }}
+        />
       case "generate-video-prompt":
         return <VideoPromptWizard onNavigate={onNavigate} />
       case "what-is-intent":

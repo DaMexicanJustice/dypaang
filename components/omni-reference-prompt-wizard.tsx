@@ -32,6 +32,11 @@ import {
     Edit3,
 } from "lucide-react"
 
+interface IntentSectionProps {
+    activeTab: string
+    setActiveSection: (section: string) => void
+}
+
 // Types
 interface FormData {
     mainSubject: string
@@ -479,7 +484,7 @@ function Step4TechnicalSettings() {
     )
 }
 
-export function OmniReferencePromptWizard() {
+export function OmniReferencePromptWizard({ setActiveSection }: IntentSectionProps) {
     const [currentStep, setCurrentStep] = useState(1)
     const [formData, setFormData] = useState(INITIAL_FORM_DATA)
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -1056,10 +1061,22 @@ METADATA:
                                     <li>Review the updated version and repeat if needed</li>
                                 </ul>
                             </div>
-                            <p className="text-sm text-gray-600">
-                                <strong>Tip:</strong> Be specific in your instructions — the clearer your
-                                request, the closer the edit will match your vision.
-                            </p>
+                            <div className="flex flex-row gap-1 justify-center items-center">
+                                <p className="text-sm text-gray-600">
+                                    <strong>Tip:</strong> Want to know more about chat-to-edit?
+                                </p>
+                                <button
+                                    className="p-0 text-blue-500 hover:cursor-pointer hover:underline"
+                                    onClick={() => {
+                                        const confirmed = window.confirm("Are you sure you want to navigate to the toolbox?");
+                                        if (confirmed) {
+                                            setActiveSection("chat-to-edit-examples");
+                                        }
+                                    }}
+                                >
+                                    go to the toolbox.
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
