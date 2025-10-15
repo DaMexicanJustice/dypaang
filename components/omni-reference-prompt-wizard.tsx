@@ -121,7 +121,7 @@ function Step1BackgroundPlanning({ setIsVenueExamplesOpen }: { setIsVenueExample
             <div className="bg-[#F4274A] p-4 rounded-lg">
                 <div className="flex items-center mb-2">
                     <BookOpen className="w-5 h-5 text-white mr-2" />
-                    <h3 className="font-medium text-white">Omni Reference Guide: Background & Props</h3>
+                    <h3 className="font-medium text-white">Omni Reference Guide: Background</h3>
                 </div>
                 <p className="text-sm text-white mb-2">
                     Before proceeding with the step-by-step guide, make sure you have selected Nano Banana as your AI brain in OpenArt AI.
@@ -214,8 +214,7 @@ function Step1BackgroundPlanning({ setIsVenueExamplesOpen }: { setIsVenueExample
                         <div>
                             <h4 className="font-medium text-white mb-2">Ready to Continue?</h4>
                             <p className="text-sm text-white">
-                                Once you have your background and props planned out, click /Next Step/ to start entering them into the step-by-step guide.
-                                You will be able to input your background and props in the next step.
+                                Once you have your backgrounds planned out, click /Next Step/ to start entering them into the step-by-step guide.
                             </p>
                         </div>
                     </div>
@@ -234,8 +233,8 @@ function Step2MainSubject({ formData, setFormData }: StepProps) {
                     <h3 className="font-medium text-white">Omni Reference Guide: Main Subject</h3>
                 </div>
                 <p className="text-sm text-white mb-2">
-                    Describe your main subject (the background/venue).
-                    This will be the background all props are added to.
+                    Describe the main focus of your image — for example, a seating area, a stage, or a plaza.
+                    This refers to what we would typically say the picture is of.
                 </p>
             </div>
 
@@ -258,7 +257,7 @@ function Step2MainSubject({ formData, setFormData }: StepProps) {
                 </Label>
                 <Textarea
                     id="mainSubject"
-                    placeholder="E.g Open area outside a warehouse building with a seating area and food trucks off to the side"
+                    placeholder="E.g Open area outside a warehouse building with a seating area"
                     value={formData.mainSubject}
                     onChange={(e) => setFormData({ ...formData, mainSubject: e.target.value })}
                     className="min-h-[100px]"
@@ -296,7 +295,7 @@ function Step3SubjectDetails({ formData, setFormData, propInput, setPropInput }:
     }
 
     const addProp = (prop: string) => {
-        if (prop.trim() && !formData.props.includes(prop.trim()) && formData.props.length < 3) {
+        if (prop.trim() && !formData.props.includes(prop.trim()) && formData.props.length < 5) {
             setFormData({ ...formData, props: [...formData.props, prop.trim()] })
         }
     }
@@ -313,14 +312,14 @@ function Step3SubjectDetails({ formData, setFormData, propInput, setPropInput }:
                     <h3 className="font-medium text-white">Omni Reference Guide: Subject Details</h3>
                 </div>
                 <p className="text-sm text-white mb-2">
-                    Add props and details. For example: several potted plants, pallet furniture, etc.
-                    Each prop will be automatically wrapped in parentheses.
+                    Add objects and details. For example: several potted plants, pallet furniture, etc.
+                    Each object will be automatically wrapped in parentheses.
                 </p>
             </div>
 
             <div className="space-y-3">
                 <Label htmlFor="propInput" className="text-gray-700 font-medium flex items-center">
-                    Add Props
+                    Add objects
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger asChild>
@@ -338,23 +337,23 @@ function Step3SubjectDetails({ formData, setFormData, propInput, setPropInput }:
                 <div className="flex gap-2">
                     <Input
                         id="propInput"
-                        placeholder={formData.props.length >= 3 ? "Maximum 3 props reached" : "e.g., several potted plants"}
+                        placeholder={formData.props.length >= 5 ? "Maximum 5 objects reached" : "e.g., several potted plants on a pallet furniture table in the foreground"}
                         value={propInput}
                         onChange={(e) => setPropInput(e.target.value)}
                         onKeyPress={handleKeyPress}
                         className="flex-1"
-                        disabled={formData.props.length >= 3}
+                        disabled={formData.props.length >= 5}
                     />
                     <Button
                         type="button"
                         onClick={handleAddProp}
-                        disabled={!propInput.trim() || formData.props.length >= 3}
+                        disabled={!propInput.trim() || formData.props.length >= 5}
                         size="sm"
                     >
                         <Plus className="w-4 h-4" />
                     </Button>
                 </div>
-                {formData.props.length < 3 && (
+                {formData.props.length < 5 && (
                     <p className="text-xs text-gray-500 mt-1 ml-1">
                         Press <span className="font-semibold">Enter</span> or click <span className="font-semibold">+</span> to add a prop.
                     </p>
@@ -363,7 +362,7 @@ function Step3SubjectDetails({ formData, setFormData, propInput, setPropInput }:
 
             {formData.props.length > 0 && (
                 <div className="space-y-3">
-                    <Label className="text-gray-700 font-medium">Added Props</Label>
+                    <Label className="text-gray-700 font-medium">Added objects</Label>
                     <div className="flex flex-wrap gap-2">
                         {formData.props.map((prop, index) => (
                             <Badge key={index} variant="default" className="flex items-center gap-1 p-2">
@@ -387,11 +386,10 @@ function Step3SubjectDetails({ formData, setFormData, propInput, setPropInput }:
                 icon={<Sliders className="w-4 h-4" />}
                 title="Subject Details Tips"
                 tips={[
-                    "Add props one by one for better organization",
                     "Be specific about quantity and placement",
                     "Keep descriptions clear and concise",
                     "Focus on the most important visual elements",
-                    "Props will be automatically formatted with parentheses",
+                    "objects will be automatically formatted with parentheses",
                 ]}
                 helpImageSrc="/example-2.jpg"
                 helpTitle="Example Subject Details"
@@ -565,8 +563,8 @@ export function OmniReferencePromptWizard({ setActiveSection }: IntentSectionPro
     const steps = [
         {
             id: 1,
-            title: "Background & Props Planning",
-            description: "Plan your background and props before entering them.",
+            title: "Background Planning",
+            description: "Plan your background(s) before entering them.",
             icon: ImageIcon,
         },
         {
@@ -578,7 +576,7 @@ export function OmniReferencePromptWizard({ setActiveSection }: IntentSectionPro
         {
             id: 3,
             title: "Subject Details",
-            description: "Describe other objects. These are your props.",
+            description: "Describe other objects. These are your objects.",
             icon: Sliders,
         },
         {
@@ -669,7 +667,7 @@ export function OmniReferencePromptWizard({ setActiveSection }: IntentSectionPro
                                         <h4 className="font-medium text-white mb-2">Review Checklist:</h4>
                                         <ul className="text-sm text-white space-y-1">
                                             <li>• Composition looks balanced and appealing</li>
-                                            <li>• All props are positioned correctly</li>
+                                            <li>• All objects are positioned correctly</li>
                                             <li>• Lighting and atmosphere match your vision</li>
                                             <li>• Overall quality meets your expectations</li>
                                         </ul>
@@ -1039,33 +1037,33 @@ METADATA:
                             value={editablePrompt}
                             onChange={(e) => setEditablePrompt(e.target.value)}
                             placeholder="Your generated omni reference prompt will appear here..."
-                            className="min-h-[200px] text-sm font-mono"
+                            className="min-h-[200px] text-sm font-mono border-gray-300 focus:border-[#F4274A] focus:ring-[#F4274A] bg-[#FBFBEB]"
                         />
                     </div>
-                    <div className="p-6 rounded-lg border border-gray-200">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                    <div className="p-6 rounded-lg bg-[#05092E]">
+                        <h3 className="text-xl font-semibold text-white mb-4 flex items-center">
                             <MessageSquare className="w-5 h-5 text-white mr-2" />
-                            Optional step: Chat‑to‑Edit Your Image
+                            Do you have any adjustments to your image?
                         </h3>
                         <div className="space-y-3">
-                            <p className="text-gray-700">
-                                If you have any adjustments after seeing your picture, use <a className="text-blue-500 hover:cursor-pointer hover:underline" target="_blank" href="https://openart.ai/image/chat">Chat‑to‑Edit</a> to fine-tune the final details!
+                            <p className="text-white">
+                                If you have any adjustments after seeing your picture, use <a className="text-blue-300 hover:cursor-pointer hover:underline" target="_blank" href="https://openart.ai/image/chat">Chat‑to‑Edit</a> to fine-tune the final details!
                             </p>
-                            <div className="bg-[#05092E] p-4 rounded-lg">
+                            <div className="p-4 rounded-lg">
                                 <h4 className="font-medium text-white mb-2">Editing Process:</h4>
                                 <ul className="list-disc list-inside text-sm text-white space-y-1">
-                                    <li>In OpenArt.AI Click the <a className="text-blue-500 hover:cursor-pointer hover:underline" target="_blank" href="https://openart.ai/image/chat">Chat‑to‑Edit</a> option</li>
+                                    <li>In OpenArt.AI Click the <a className="text-blue-300 hover:cursor-pointer hover:underline" target="_blank" href="https://openart.ai/image/chat">Chat‑to‑Edit</a> option</li>
                                     <li>Choose either upload image or select from history if its already on openart!</li>
                                     <li>Type a clear instruction (e.g., “Change to golden hour lighting”)</li>
                                     <li>Review the updated version and repeat if needed</li>
                                 </ul>
                             </div>
                             <div className="flex flex-row gap-1 justify-center items-center">
-                                <p className="text-sm text-gray-600">
+                                <p className="text-sm text-white">
                                     <strong>Tip:</strong> Want to know more about chat-to-edit?
                                 </p>
                                 <button
-                                    className="p-0 text-blue-500 hover:cursor-pointer hover:underline"
+                                    className="p-0 text-blue-300 hover:cursor-pointer hover:underline text-sm"
                                     onClick={() => {
                                         const confirmed = window.confirm("Are you sure you want to navigate to the toolbox?");
                                         if (confirmed) {
