@@ -56,6 +56,7 @@ export function AppSidebar({ activeSection, setActiveSection }: AppSidebarProps)
       submenu: [
         { id: "prompt-principles-section", title: "Key Prompting Principles", href: "#" },
         { id: "prompt-vs-intent-section", title: "Prompt Engineering Vs. Intent-Driven", href: "#" },
+        { id: "new-link", title: "New Link", href: "#" },
       ],
     },
     /* {
