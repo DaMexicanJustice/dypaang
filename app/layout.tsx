@@ -31,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={mangoGrotesque.variable}>
+    <html lang="en" className={mangoGrotesque.variable} suppressHydrationWarning={true}>
       <body className="bg-[#F7F5E9]">{children}</body>
     </html>
   )
