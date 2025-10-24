@@ -309,10 +309,10 @@ function Step3SubjectDetails({ formData, setFormData, propInput, setPropInput }:
             <div className="bg-[#F4274A] p-4 rounded-lg">
                 <div className="flex items-center mb-2">
                     <BookOpen className="w-5 h-5 text-white mr-2" />
-                    <h3 className="font-medium text-white">Omni Reference Guide: Subject Details</h3>
+                    <h3 className="font-medium text-white">Omni Reference Guide: Objects</h3>
                 </div>
                 <p className="text-sm text-white mb-2">
-                    Add objects and details. For example: several potted plants, pallet furniture, etc.
+                    Define objects that surround your main subject. For example: several potted plants, pallet furniture, etc.
                     Each object will be automatically wrapped in parentheses.
                 </p>
             </div>
@@ -327,8 +327,8 @@ function Step3SubjectDetails({ formData, setFormData, propInput, setPropInput }:
                             </TooltipTrigger>
                             <TooltipContent className="max-w-sm">
                                 <p>
-                                    Enter a prop description and click + or press Enter to add it.
-                                    Each prop will be wrapped in parentheses automatically.
+                                    Enter an object description and click + or press Enter to add it.
+                                    Each object will be wrapped in parentheses automatically.
                                 </p>
                             </TooltipContent>
                         </Tooltip>
@@ -384,7 +384,7 @@ function Step3SubjectDetails({ formData, setFormData, propInput, setPropInput }:
 
             <TipCard
                 icon={<Sliders className="w-4 h-4" />}
-                title="Subject Details Tips"
+                title="Objects Tips"
                 tips={[
                     "Be specific about quantity and placement",
                     "Keep descriptions clear and concise",
@@ -392,7 +392,7 @@ function Step3SubjectDetails({ formData, setFormData, propInput, setPropInput }:
                     "objects will be automatically formatted with parentheses",
                 ]}
                 helpImageSrc="/example-2.jpg"
-                helpTitle="Example Subject Details"
+                helpTitle="Example Objects"
                 helpText="(several potted plants) (vintage pallet furniture) (cozy seating arrangements)"
             />
         </div>
@@ -575,8 +575,8 @@ export function OmniReferencePromptWizard({ setActiveSection }: IntentSectionPro
         },
         {
             id: 3,
-            title: "Subject Details",
-            description: "Describe other objects. These are your objects.",
+            title: "Objects",
+            description: "Define objects that surround your main subject.",
             icon: Sliders,
         },
         {
